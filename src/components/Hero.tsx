@@ -72,8 +72,11 @@ const Hero = () => {
             <Button
               size="lg"
               className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-6 text-lg rounded-full transition-all duration-300 hover:scale-105"
+              asChild
             >
-              Reserve Agora
+              <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">
+                Reserve Agora
+              </a>
             </Button>
             <Button
               size="lg"

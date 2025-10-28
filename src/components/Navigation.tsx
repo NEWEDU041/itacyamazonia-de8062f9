@@ -62,8 +62,11 @@ const Navigation = () => {
           <Button 
             variant="default"
             className="hidden sm:flex bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6"
+            asChild
           >
-            Reserve Agora
+            <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">
+              Reserve Agora
+            </a>
           </Button>
 
           {/* Mobile Menu Button */}
@@ -103,8 +106,11 @@ const Navigation = () => {
                 <Button 
                   variant="default"
                   className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold w-full mt-4"
+                  asChild
                 >
-                  Reserve Agora
+                  <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">
+                    Reserve Agora
+                  </a>
                 </Button>
               </div>
             </SheetContent>
