@@ -11,7 +11,7 @@ const Navigation = () => {
     { label: "Home", path: "/" },
     { label: "Pacotes", path: "#pacotes" },
     { label: "Acomodações", path: "/acomodacoes" },
-    { label: "Gastronomia", path: "#gastronomia" },
+    { label: "Gastronomia", path: "/acomodacoes#gastronomia" },
     { label: "O Que Levar", path: "#o-que-levar" },
     { label: "Relatórios", path: "#relatorios" },
     { label: "Contato", path: "#contato" }
