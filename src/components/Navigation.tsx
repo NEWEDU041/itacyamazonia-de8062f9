@@ -12,7 +12,7 @@ const Navigation = () => {
     { label: "Pacotes", path: "/pacotes" },
     { label: "Acomodações", path: "/acomodacoes" },
     { label: "Gastronomia", path: "/gastronomia" },
-    { label: "O Que Levar", path: "#o-que-levar" },
+    { label: "O Que Levar", path: "/o-que-levar" },
     { label: "Relatórios", path: "#relatorios" },
     { label: "Contato", path: "#contato" }
   ];
