@@ -38,7 +38,7 @@ const Navigation = () => {
           {/* Desktop Navigation Menu */}
           <div className="hidden lg:flex items-center gap-8">
             {menuItems.map((item) => (
-              item.path.startsWith("#") ? (
+              item.path.includes("#") ? (
                 <a
                   key={item.label}
                   href={item.path}
@@ -83,7 +83,7 @@ const Navigation = () => {
             <SheetContent side="right" className="w-[280px] bg-primary border-primary/20">
               <div className="flex flex-col gap-6 mt-8">
                 {menuItems.map((item) => (
-                  item.path.startsWith("#") ? (
+                  item.path.includes("#") ? (
                     <a
                       key={item.label}
                       href={item.path}
