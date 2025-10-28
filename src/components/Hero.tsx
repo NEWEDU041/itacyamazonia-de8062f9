@@ -1,0 +1,109 @@
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight, Play } from "lucide-react";
+import heroImage from "@/assets/hero-amazon.jpg";
+
+const Hero = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = 4;
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  return (
+    <section className="relative h-screen w-full overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0">
+        <img
+          src={heroImage}
+          alt="Amazon Resort"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+      </div>
+
+      {/* Navigation Arrows */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-8 top-1/2 -translate-y-1/2 z-10 text-white/80 hover:text-white transition-colors"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft size={48} />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-8 top-1/2 -translate-y-1/2 z-10 text-white/80 hover:text-white transition-colors"
+        aria-label="Next slide"
+      >
+        <ChevronRight size={48} />
+      </button>
+
+      {/* Hero Content */}
+      <div className="relative h-full flex items-center justify-center text-center px-6">
+        <div className="max-w-5xl mx-auto space-y-8 animate-fade-in">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight">
+            Experiência Exclusiva de
+            <br />
+            <span className="text-accent">Pesca na Amazônia</span>
+          </h1>
+          
+          <p className="text-xl md:text-2xl text-white/90 font-light max-w-3xl mx-auto">
+            Viva o luxo e a natureza em harmonia no coração da Amazônia.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <Button
+              size="lg"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-6 text-lg rounded-full transition-all duration-300 hover:scale-105"
+            >
+              Reserve Agora
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-6 text-lg rounded-full transition-all duration-300 hover:scale-105 bg-transparent"
+            >
+              <Play className="mr-2" size={20} />
+              Conheça o Roteiro
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Carousel Indicators */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+        {Array.from({ length: totalSlides }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              currentSlide === index
+                ? "bg-accent w-8"
+                : "bg-white/50 hover:bg-white/75"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
