@@ -9,7 +9,7 @@ const Navigation = () => {
   
   const menuItems = [
     { label: "Home", path: "/" },
-    { label: "Pacotes", path: "#pacotes" },
+    { label: "Pacotes", path: "/pacotes" },
     { label: "Acomodações", path: "/acomodacoes" },
     { label: "Gastronomia", path: "/gastronomia" },
     { label: "O Que Levar", path: "#o-que-levar" },
