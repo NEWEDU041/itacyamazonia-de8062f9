@@ -7,6 +7,7 @@ import acomodacao1 from "@/assets/acomodacoes-1.jpg";
 import acomodacao2 from "@/assets/acomodacoes-2.jpg";
 import acomodacao3 from "@/assets/acomodacoes-3.jpg";
 import acomodacao4 from "@/assets/acomodacoes-4.jpg";
+import cabanaInterior from "@/assets/cabana-interior.png";
 
 const Acomodacoes = () => {
   const comodidades = [
@@ -119,6 +120,19 @@ const Acomodacoes = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Interior da Cabana */}
+      <section className="py-12 bg-secondary">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-5xl mx-auto">
+            <img 
+              src={cabanaInterior} 
+              alt="Interior da cabana com cama e mini escritório" 
+              className="w-full rounded-lg shadow-lg object-cover"
+            />
           </div>
         </div>
       </section>
