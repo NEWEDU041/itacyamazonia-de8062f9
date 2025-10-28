@@ -79,9 +79,12 @@ const Hero = () => {
               size="lg"
               variant="outline"
               className="border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-6 text-lg rounded-full transition-all duration-300 hover:scale-105 bg-transparent"
+              asChild
             >
-              <Play className="mr-2" size={20} />
-              Conheça o Roteiro
+              <a href="https://www.youtube.com/watch?v=axfosMumI0c" target="_blank" rel="noopener noreferrer">
+                <Play className="mr-2" size={20} />
+                Conheça o Roteiro
+              </a>
             </Button>
           </div>
         </div>
