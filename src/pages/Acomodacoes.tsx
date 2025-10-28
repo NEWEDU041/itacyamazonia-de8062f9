@@ -48,7 +48,6 @@ const Acomodacoes = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <img src={acomodacao1} alt="Vista aérea das cabanas flutuantes" className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg" />
-            <img src={acomodacao2} alt="Mesa de jantar na praia" className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg" />
           </div>
         </div>
       </section>
