@@ -73,11 +73,11 @@ const Acomodacoes = () => {
       {/* Jantar na Praia */}
       <section className="py-12 bg-secondary">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <img 
               src={jantarPraia} 
               alt="Mesa de jantar montada na praia com vista para as cabanas flutuantes" 
-              className="w-full rounded-lg shadow-lg object-cover"
+              className="w-full h-[500px] md:h-[600px] rounded-lg shadow-lg object-cover"
             />
           </div>
         </div>
