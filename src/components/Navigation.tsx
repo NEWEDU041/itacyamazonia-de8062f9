@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Menu, Globe } from "lucide-react";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [language, setLanguage] = useState("PT");
   
   const menuItems = [
     { label: "Home", path: "/" },
@@ -14,6 +16,12 @@ const Navigation = () => {
     { label: "Gastronomia", path: "/gastronomia" },
     { label: "O Que Levar", path: "/o-que-levar" },
     { label: "Contato", path: "#contato" }
+  ];
+
+  const languages = [
+    { code: "PT", label: "Português", flag: "🇧🇷" },
+    { code: "EN", label: "English", flag: "🇺🇸" },
+    { code: "ES", label: "Español", flag: "🇪🇸" }
   ];
 
   const handleMenuClick = () => {
@@ -57,16 +65,44 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Desktop CTA Button */}
-          <Button 
-            variant="default"
-            className="hidden sm:flex bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6"
-            asChild
-          >
-            <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">
-              Reserve Agora
-            </a>
-          </Button>
+          {/* Language Selector */}
+          <div className="hidden sm:flex items-center gap-3">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="bg-accent/20 hover:bg-accent/30 border-accent text-accent-foreground font-semibold gap-2 animate-pulse hover:animate-none transition-all"
+                >
+                  <Globe className="h-4 w-4" />
+                  {language}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="bg-primary border-primary/20">
+                {languages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className="text-primary-foreground hover:bg-accent/20 cursor-pointer"
+                  >
+                    <span className="mr-2">{lang.flag}</span>
+                    {lang.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Desktop CTA Button */}
+            <Button 
+              variant="default"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6"
+              asChild
+            >
+              <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">
+                Reserve Agora
+              </a>
+            </Button>
+          </div>
 
           {/* Mobile Menu Button */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -102,6 +138,26 @@ const Navigation = () => {
                     </Link>
                   )
                 ))}
+                
+                {/* Mobile Language Selector */}
+                <div className="pt-4 border-t border-primary/20">
+                  <p className="text-primary-foreground/70 text-sm mb-2">Idioma / Language</p>
+                  <div className="flex flex-col gap-2">
+                    {languages.map((lang) => (
+                      <Button
+                        key={lang.code}
+                        variant={language === lang.code ? "default" : "ghost"}
+                        size="sm"
+                        onClick={() => setLanguage(lang.code)}
+                        className={language === lang.code ? "bg-accent hover:bg-accent/90" : "text-primary-foreground hover:bg-accent/20"}
+                      >
+                        <span className="mr-2">{lang.flag}</span>
+                        {lang.label}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+
                 <Button 
                   variant="default"
                   className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold w-full mt-4"
