@@ -8,6 +8,7 @@ import acomodacao2 from "@/assets/acomodacoes-2.jpg";
 import acomodacao3 from "@/assets/acomodacoes-3.jpg";
 import acomodacao4 from "@/assets/acomodacoes-4.jpg";
 import cabanaInterior from "@/assets/cabana-interior.png";
+import salaJantar from "@/assets/sala-jantar.png";
 
 const Acomodacoes = () => {
   const comodidades = [
@@ -97,8 +98,21 @@ const Acomodacoes = () => {
         </div>
       </section>
 
+      {/* Sala de Jantar */}
+      <section className="py-12 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-5xl mx-auto">
+            <img 
+              src={salaJantar} 
+              alt="Sala de jantar das cabanas" 
+              className="w-full rounded-lg shadow-lg object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Comodidades */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground text-center mb-12">
             Comodidades das Cabanas
