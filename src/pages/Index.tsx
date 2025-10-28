@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
 import TremDoRio from "@/components/TremDoRio";
+import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
   return (
@@ -10,6 +11,7 @@ const Index = () => {
       <Hero />
       <Features />
       <TremDoRio />
+      <ContactSection />
     </div>
   );
 };
