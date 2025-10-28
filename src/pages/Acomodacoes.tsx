@@ -9,6 +9,7 @@ import acomodacao3 from "@/assets/acomodacoes-3.jpg";
 import acomodacao4 from "@/assets/acomodacoes-4.jpg";
 import cabanaInterior from "@/assets/cabana-interior.png";
 import salaJantar from "@/assets/sala-jantar.png";
+import jantarPraia from "@/assets/jantar-praia.png";
 
 const Acomodacoes = () => {
   const comodidades = [
@@ -65,6 +66,19 @@ const Acomodacoes = () => {
             <p className="text-base sm:text-lg leading-relaxed">
               As cabanas movimentam-se, às vezes diariamente, para trechos de rios não pescados e pernoitam nas praias de areia branca escolhidas a dedo pelo nosso gerente de operação que está presente em cada um dos acampamentos.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Jantar na Praia */}
+      <section className="py-12 bg-secondary">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-5xl mx-auto">
+            <img 
+              src={jantarPraia} 
+              alt="Mesa de jantar montada na praia com vista para as cabanas flutuantes" 
+              className="w-full rounded-lg shadow-lg object-cover"
+            />
           </div>
         </div>
       </section>
