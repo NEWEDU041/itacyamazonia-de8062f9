@@ -1,6 +1,8 @@
 import tremImage from "@/assets/trem-do-rio.png";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const TremDoRio = () => {
+  const { t } = useTranslation();
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-6">
@@ -14,19 +16,14 @@ const TremDoRio = () => {
           </div>
           <div className="order-1 lg:order-2 space-y-6">
             <h2 className="text-4xl font-serif font-bold text-foreground">
-              TREM DO RIO
+              {t.tremDoRio.title}
             </h2>
             <div className="space-y-4 text-muted-foreground">
-              <p className="font-semibold text-foreground">Nossa estrutura é composta de:</p>
+              <p className="font-semibold text-foreground">{t.tremDoRio.subtitle}</p>
               <ul className="space-y-2">
-                <li>01 Rebocador;</li>
-                <li>01 Casa de máquinas e 02 geradores de energia;</li>
-                <li>02 Alojamentos para equipe de colaboradores;</li>
-                <li>01 Cozinha;</li>
-                <li>01 Sala de jantar;</li>
-                <li>04 Cabanas para hospedar 08 clientes por grupo;</li>
-                <li>06 Barcos de pesca, sendo 02 reservas;</li>
-                <li>01 Barco de apoio.</li>
+                {t.tremDoRio.items.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>

@@ -3,6 +3,7 @@ import ContactSection from "@/components/ContactSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Utensils, Fish, Coffee, Leaf } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 import gastronomia1 from "@/assets/gastronomia-1.jpg";
 import gastronomia2 from "@/assets/gastronomia-2.jpg";
 import gastronomia3 from "@/assets/gastronomia-3.jpg";
@@ -11,61 +12,12 @@ import gastronomia5 from "@/assets/gastronomia-5.jpg";
 import gastronomia6 from "@/assets/gastronomia-6.jpg";
 
 const Gastronomia = () => {
-  const pratos = [
-    { 
-      image: gastronomia1, 
-      name: "Churrasco com cortes nobres",
-      description: "Carnes selecionadas preparadas ao ponto perfeito"
-    },
-    { 
-      image: gastronomia2, 
-      name: "Açaí e pirarucu frito",
-      description: "Combinação autêntica amazônica"
-    },
-    { 
-      image: gastronomia3, 
-      name: "Drinks variados",
-      description: "Drinks autorais com frutas da região"
-    },
-    { 
-      image: gastronomia4, 
-      name: "Sashimi Rústico",
-      description: "Peixes frescos da Amazônia"
-    },
-    { 
-      image: gastronomia5, 
-      name: "Dadinhos de Tapioca",
-      description: "Entrada crocante e irresistível"
-    },
-    { 
-      image: gastronomia6, 
-      name: "Costela de Tambaqui e cama de Farinha do Uarini",
-      description: "O melhor da culinária regional"
-    }
-  ];
+  const { t } = useTranslation();
 
-  const destaques = [
-    {
-      icon: Fish,
-      title: "Peixes Frescos",
-      description: "Pescados diariamente nos rios amazônicos"
-    },
-    {
-      icon: Leaf,
-      title: "Ingredientes Regionais",
-      description: "Cará-roxo, Castanha, Jambú, Açaí e Cupuaçu"
-    },
-    {
-      icon: Utensils,
-      title: "Chefs Especializados",
-      description: "Pratos elaborados com toque regional"
-    },
-    {
-      icon: Coffee,
-      title: "Refeições Inclusas",
-      description: "Café da manhã, almoço, jantar e lanches"
-    }
-  ];
+  const pratosImages = [gastronomia1, gastronomia2, gastronomia3, gastronomia4, gastronomia5, gastronomia6];
+
+  const destaquesIcons = [Fish, Leaf, Utensils, Coffee];
+  const destaquesKeys = ["freshFish", "regionalIngredients", "specializedChefs", "mealsIncluded"] as const;
 
   return (
     <div className="min-h-screen">
@@ -75,13 +27,13 @@ const Gastronomia = () => {
       <section className="relative pt-24 pb-20 bg-gradient-to-br from-primary via-primary/95 to-primary/90 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <Badge className="bg-accent text-accent-foreground text-sm px-4 py-2 mx-auto block w-fit mb-6 animate-fade-in">
-            Sabores da Amazônia
+            {t.gastronomy.hero.badge}
           </Badge>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-primary-foreground text-center mb-6 animate-fade-in">
-            Gastronomia Amazônica
+            {t.gastronomy.hero.title}
           </h1>
           <p className="text-lg sm:text-xl text-primary-foreground/90 text-center max-w-3xl mx-auto animate-fade-in">
-            Desfrute da culinária amazônica com ingredientes exclusivos da floresta
+            {t.gastronomy.hero.subtitle}
           </p>
         </div>
         {/* Decorative wave */}
@@ -96,10 +48,10 @@ const Gastronomia = () => {
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground text-center mb-6">
-            Uma Experiência Gastronômica Única
+            {t.gastronomy.experience.title}
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground text-center max-w-4xl mx-auto leading-relaxed">
-            A Amazônia sem dúvidas é o paraíso para qualquer chef de cozinha. Para construir um prato, as possibilidades são enormes, pois há infinitas combinações de ingredientes encontrados apenas na floresta amazônica como Cará-roxo, Castanha do Brasil, Jambú, Açaí e Cupuaçu. Além dos peixes como Jaraqui, Pirarucu e Tambaqui. Em nossas operações de pesca, servimos pratos muito bem elaborados, sem perder o toque regional.
+            {t.gastronomy.experience.description}
           </p>
         </div>
       </section>
@@ -108,8 +60,9 @@ const Gastronomia = () => {
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {destaques.map((destaque, index) => {
-              const Icon = destaque.icon;
+            {destaquesKeys.map((key, index) => {
+              const Icon = destaquesIcons[index];
+              const destaque = t.gastronomy.highlights[key];
               return (
                 <Card key={index} className="border-accent/20 hover-scale">
                   <CardContent className="pt-6 text-center">
@@ -134,25 +87,25 @@ const Gastronomia = () => {
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground text-center mb-4">
-            Nossos Pratos
+            {t.gastronomy.dishes.title}
           </h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            Cada prato é preparado com dedicação e os melhores ingredientes regionais
+            {t.gastronomy.dishes.subtitle}
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-            {pratos.map((prato, index) => (
+            {t.gastronomy.dishes.items.map((prato, index) => (
               <Card key={index} className="overflow-hidden hover-scale group border-accent/20">
                 <div className="relative aspect-square overflow-hidden">
                   <img 
-                    src={prato.image} 
+                    src={pratosImages[index]} 
                     alt={prato.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="absolute bottom-0 left-0 right-0 p-6">
                       <Badge className="bg-accent text-accent-foreground mb-3 text-xs">
-                        Especialidade
+                        {t.gastronomy.dishes.badge}
                       </Badge>
                       <h4 className="text-xl font-serif font-bold text-white mb-2">
                         {prato.name}
@@ -173,10 +126,10 @@ const Gastronomia = () => {
       <section className="py-16 bg-gradient-to-r from-primary to-primary/90">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-primary-foreground mb-6">
-            Pronto para Saborear a Amazônia?
+            {t.gastronomy.cta.title}
           </h2>
           <p className="text-lg text-primary-foreground/90 max-w-2xl mx-auto mb-8">
-            Reserve sua aventura gastronômica e experimente o melhor da culinária amazônica em nossas expedições de pesca.
+            {t.gastronomy.cta.description}
           </p>
         </div>
       </section>

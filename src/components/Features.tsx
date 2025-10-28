@@ -1,26 +1,25 @@
 import { Fish, Home, Utensils, Compass } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Features = () => {
+  const { t } = useTranslation();
+  
   const features = [
     {
       icon: Fish,
-      title: "Pesca Esportiva",
-      description: "Experimente a pesca dos maiores tucunarés e outras espécies amazônicas"
+      titleKey: "sportFishing" as const,
     },
     {
       icon: Home,
-      title: "Acomodações Luxuosas",
-      description: "Bangalôs confortáveis com vista privilegiada para o rio"
+      titleKey: "luxuryAccommodations" as const,
     },
     {
       icon: Utensils,
-      title: "Gastronomia Regional",
-      description: "Sabores autênticos da Amazônia preparados por chefs especializados"
+      titleKey: "regionalCuisine" as const,
     },
     {
       icon: Compass,
-      title: "Expedições Guiadas",
-      description: "Explore a floresta com guias experientes e certificados"
+      titleKey: "guidedExpeditions" as const,
     }
   ];
 
@@ -39,10 +38,10 @@ const Features = () => {
                   <Icon className="w-8 h-8 text-accent" />
                 </div>
                 <h3 className="text-xl font-serif font-bold text-foreground">
-                  {feature.title}
+                  {t.features[feature.titleKey].title}
                 </h3>
                 <p className="text-muted-foreground">
-                  {feature.description}
+                  {t.features[feature.titleKey].description}
                 </p>
               </div>
             );

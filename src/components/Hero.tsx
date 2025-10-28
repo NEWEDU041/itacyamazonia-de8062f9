@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 import heroImage from "@/assets/hero-amazon.jpg";
 import heroAereoCabanas from "@/assets/hero-aereo-cabanas.png";
 import heroPraiaCabanas from "@/assets/hero-praia-cabanas.png";
@@ -8,6 +9,7 @@ import heroRioCurva from "@/assets/hero-rio-curva.png";
 import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
 
 const Hero = () => {
+  const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
   
   const slides = [
@@ -80,13 +82,13 @@ const Hero = () => {
       <div className="relative h-full flex items-center justify-center text-center px-6">
         <div className="max-w-5xl mx-auto space-y-8 animate-fade-in">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight">
-            Experiência Exclusiva de
+            {t.hero.title}
             <br />
-            <span className="text-accent">Pesca na Amazônia</span>
+            <span className="text-accent">{t.hero.titleAccent}</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-white/90 font-light max-w-3xl mx-auto">
-            Viva o luxo e a natureza em harmonia no coração da Amazônia.
+            {t.hero.subtitle}
           </p>
 
           {/* CTA Buttons */}
@@ -97,7 +99,7 @@ const Hero = () => {
               asChild
             >
               <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">
-                Reserve Agora
+                {t.hero.bookNow}
               </a>
             </Button>
             <Button
@@ -108,7 +110,7 @@ const Hero = () => {
             >
               <a href="https://www.youtube.com/watch?v=axfosMumI0c" target="_blank" rel="noopener noreferrer">
                 <Play className="mr-2" size={20} />
-                Conheça o Roteiro
+                {t.hero.knowRoute}
               </a>
             </Button>
           </div>

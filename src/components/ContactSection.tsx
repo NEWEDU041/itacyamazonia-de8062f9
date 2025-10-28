@@ -1,12 +1,14 @@
 import { Mail, Phone, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const ContactSection = () => {
+  const { t } = useTranslation();
   return (
     <section className="py-16 bg-secondary">
       <div className="container mx-auto px-4 sm:px-6">
         <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground text-center mb-12">
-          Entre em Contato
+          {t.contact.title}
         </h2>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-8 max-w-4xl mx-auto">
           <a 
@@ -51,7 +53,7 @@ const ContactSection = () => {
             asChild
           >
             <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">
-              Reserve Agora
+              {t.contact.bookNow}
             </a>
           </Button>
         </div>

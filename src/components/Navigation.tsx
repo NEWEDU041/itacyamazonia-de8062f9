@@ -4,24 +4,25 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, Globe } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [language, setLanguage] = useState("PT");
+  const { t, language, setLanguage } = useTranslation();
   
   const menuItems = [
-    { label: "Home", path: "/" },
-    { label: "Pacotes", path: "/pacotes" },
-    { label: "Acomodações", path: "/acomodacoes" },
-    { label: "Gastronomia", path: "/gastronomia" },
-    { label: "O Que Levar", path: "/o-que-levar" },
-    { label: "Contato", path: "#contato" }
+    { labelKey: "home", path: "/" },
+    { labelKey: "packages", path: "/pacotes" },
+    { labelKey: "accommodations", path: "/acomodacoes" },
+    { labelKey: "gastronomy", path: "/gastronomia" },
+    { labelKey: "whatToBring", path: "/o-que-levar" },
+    { labelKey: "contact", path: "#contato" }
   ];
 
   const languages = [
-    { code: "PT", label: "Português", flag: "🇧🇷" },
-    { code: "EN", label: "English", flag: "🇺🇸" },
-    { code: "ES", label: "Español", flag: "🇪🇸" }
+    { code: "pt", label: "Português", flag: "🇧🇷" },
+    { code: "en", label: "English", flag: "🇺🇸" },
+    { code: "es", label: "Español", flag: "🇪🇸" }
   ];
 
   const handleMenuClick = () => {
@@ -45,21 +46,21 @@ const Navigation = () => {
           {/* Desktop Navigation Menu */}
           <div className="hidden lg:flex items-center gap-8">
             {menuItems.map((item) => (
-              item.path.includes("#") ? (
+              item.path.startsWith("#") ? (
                 <a
-                  key={item.label}
+                  key={item.path}
                   href={item.path}
-                  className="text-primary-foreground hover:text-accent transition-colors duration-300 text-sm font-medium"
+                  className="text-primary-foreground hover:text-accent transition-colors font-medium"
                 >
-                  {item.label}
+                  {t.navigation[item.labelKey as keyof typeof t.navigation]}
                 </a>
               ) : (
                 <Link
-                  key={item.label}
+                  key={item.path}
                   to={item.path}
-                  className="text-primary-foreground hover:text-accent transition-colors duration-300 text-sm font-medium"
+                  className="text-primary-foreground hover:text-accent transition-colors font-medium"
                 >
-                  {item.label}
+                  {t.navigation[item.labelKey as keyof typeof t.navigation]}
                 </Link>
               )
             ))}
@@ -75,14 +76,14 @@ const Navigation = () => {
                   className="bg-accent/20 hover:bg-accent/30 border-accent text-accent-foreground font-semibold gap-2 animate-pulse hover:animate-none transition-all"
                 >
                   <Globe className="h-4 w-4" />
-                  {language}
+                  {language.toUpperCase()}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="bg-primary border-primary/20">
                 {languages.map((lang) => (
                   <DropdownMenuItem
                     key={lang.code}
-                    onClick={() => setLanguage(lang.code)}
+                    onClick={() => setLanguage(lang.code as "pt" | "en" | "es")}
                     className="text-primary-foreground hover:bg-accent/20 cursor-pointer"
                   >
                     <span className="mr-2">{lang.flag}</span>
@@ -99,7 +100,7 @@ const Navigation = () => {
               asChild
             >
               <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">
-                Reserve Agora
+                {t.navigation.bookNow}
               </a>
             </Button>
           </div>
@@ -118,23 +119,23 @@ const Navigation = () => {
             <SheetContent side="right" className="w-[280px] bg-primary border-primary/20">
               <div className="flex flex-col gap-6 mt-8">
                 {menuItems.map((item) => (
-                  item.path.includes("#") ? (
+                  item.path.startsWith("#") ? (
                     <a
-                      key={item.label}
+                      key={item.path}
                       href={item.path}
                       onClick={handleMenuClick}
-                      className="text-primary-foreground hover:text-accent transition-colors duration-300 text-lg font-medium"
+                      className="text-primary-foreground hover:text-accent transition-colors font-medium text-lg"
                     >
-                      {item.label}
+                      {t.navigation[item.labelKey as keyof typeof t.navigation]}
                     </a>
                   ) : (
                     <Link
-                      key={item.label}
+                      key={item.path}
                       to={item.path}
                       onClick={handleMenuClick}
-                      className="text-primary-foreground hover:text-accent transition-colors duration-300 text-lg font-medium"
+                      className="text-primary-foreground hover:text-accent transition-colors font-medium text-lg"
                     >
-                      {item.label}
+                      {t.navigation[item.labelKey as keyof typeof t.navigation]}
                     </Link>
                   )
                 ))}
@@ -148,7 +149,7 @@ const Navigation = () => {
                         key={lang.code}
                         variant={language === lang.code ? "default" : "ghost"}
                         size="sm"
-                        onClick={() => setLanguage(lang.code)}
+                        onClick={() => setLanguage(lang.code as "pt" | "en" | "es")}
                         className={language === lang.code ? "bg-accent hover:bg-accent/90" : "text-primary-foreground hover:bg-accent/20"}
                       >
                         <span className="mr-2">{lang.flag}</span>
@@ -164,7 +165,7 @@ const Navigation = () => {
                   asChild
                 >
                   <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">
-                    Reserve Agora
+                    {t.navigation.bookNow}
                   </a>
                 </Button>
               </div>

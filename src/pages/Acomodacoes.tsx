@@ -2,31 +2,23 @@ import Navigation from "@/components/Navigation";
 import ContactSection from "@/components/ContactSection";
 import { Home, Wind, Briefcase, Anchor, Navigation as NavigationIcon, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { useTranslation } from "@/hooks/useTranslation";
 import acomodacao1 from "@/assets/acomodacoes-1.jpg";
-import acomodacao2 from "@/assets/acomodacoes-2.jpg";
-import acomodacao3 from "@/assets/acomodacoes-3.jpg";
-import acomodacao4 from "@/assets/acomodacoes-4.jpg";
 import cabanaInterior from "@/assets/cabana-interior.png";
 import salaJantar from "@/assets/sala-jantar.png";
 import jantarPraia from "@/assets/jantar-praia.png";
 
 const Acomodacoes = () => {
+  const { t } = useTranslation();
+
   const comodidades = [
-    { icon: Home, title: "Banheiro Privativo", description: "Cada cabana possui banheiro completo e privativo para seu conforto" },
-    { icon: Wind, title: "Ar-Condicionado", description: "Climatização perfeita para relaxar após um dia de pesca" },
-    { icon: Briefcase, title: "Mini Escritório", description: "Espaço dedicado para planejamento das pescarias e organização" },
-    { icon: Anchor, title: "Acesso Direto ao Rio", description: "Sacada com escada privativa para acesso direto às águas amazônicas" }
+    { icon: Home, key: "privateBathroom" as const },
+    { icon: Wind, key: "airConditioning" as const },
+    { icon: Briefcase, key: "miniOffice" as const },
+    { icon: Anchor, key: "riverAccess" as const }
   ];
 
-  const vantagens = [
-    { icon: NavigationIcon, text: "Mobilidade para buscar melhores níveis de água" },
-    { icon: MapPin, text: "Acesso a áreas não sobre-pescadas" },
-    { icon: Anchor, text: "Pernoite em praias de areia branca selecionadas" },
-    { icon: NavigationIcon, text: "Navegação até cabeceiras de pequenos afluentes" },
-    { icon: MapPin, text: "Longe do tumulto de outras operações de pesca" }
-  ];
-
+  const vantagensIcons = [NavigationIcon, MapPin, Anchor, NavigationIcon, MapPin];
 
   return (
     <div className="min-h-screen">
@@ -36,10 +28,10 @@ const Acomodacoes = () => {
       <section className="relative pt-24 pb-16 bg-primary">
         <div className="container mx-auto px-4 sm:px-6">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-primary-foreground text-center mb-6">
-            Acomodações Exclusivas
+            {t.accommodations.hero.title}
           </h1>
           <p className="text-lg sm:text-xl text-primary-foreground/90 text-center max-w-3xl mx-auto">
-            Viva uma experiência única em nossas cabanas flutuantes, projetadas para oferecer máximo conforto em harmonia com a natureza amazônica.
+            {t.accommodations.hero.subtitle}
           </p>
         </div>
       </section>
@@ -57,14 +49,14 @@ const Acomodacoes = () => {
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground text-center mb-8">
-            Cabanas Flutuantes
+            {t.accommodations.floatingCabins.title}
           </h2>
           <div className="max-w-4xl mx-auto space-y-6 text-muted-foreground">
             <p className="text-base sm:text-lg leading-relaxed">
-              Nossas cabanas flutuantes são amplas e confortáveis, equipadas com banheiro privativo, ar-condicionado, caixa térmica, luzes de leitura, mini escritório e sacada com escada de acesso ao rio. Leves e com excelente flutuabilidade, nossa estrutura adentra até as cabeceiras de pequenos afluentes com lagoas cheias de peixes, longe do tumulto de outras operações de pesca que necessitam canais profundos.
+              {t.accommodations.floatingCabins.description1}
             </p>
             <p className="text-base sm:text-lg leading-relaxed">
-              As cabanas movimentam-se, às vezes diariamente, para trechos de rios não pescados e pernoitam nas praias de areia branca escolhidas a dedo pelo nosso gerente de operação que está presente em cada um dos acampamentos.
+              {t.accommodations.floatingCabins.description2}
             </p>
           </div>
         </div>
@@ -87,11 +79,11 @@ const Acomodacoes = () => {
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground text-center mb-12">
-            Vantagens Exclusivas
+            {t.accommodations.advantages.title}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {vantagens.map((vantagem, index) => {
-              const Icon = vantagem.icon;
+            {t.accommodations.advantages.items.map((vantagem, index) => {
+              const Icon = vantagensIcons[index];
               return (
                 <Card key={index} className="border-accent/20">
                   <CardContent className="pt-6">
@@ -99,7 +91,7 @@ const Acomodacoes = () => {
                       <div className="flex-shrink-0 w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
                         <Icon className="w-6 h-6 text-accent" />
                       </div>
-                      <p className="text-foreground text-sm sm:text-base">{vantagem.text}</p>
+                      <p className="text-foreground text-sm sm:text-base">{vantagem}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -126,21 +118,22 @@ const Acomodacoes = () => {
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground text-center mb-12">
-            Comodidades das Cabanas
+            {t.accommodations.amenities.title}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {comodidades.map((item, index) => {
               const Icon = item.icon;
+              const amenity = t.accommodations.amenities[item.key];
               return (
                 <div key={index} className="text-center space-y-4">
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mx-auto">
                     <Icon className="w-8 h-8 text-accent" />
                   </div>
                   <h3 className="text-lg sm:text-xl font-serif font-bold text-foreground">
-                    {item.title}
+                    {amenity.title}
                   </h3>
                   <p className="text-sm sm:text-base text-muted-foreground">
-                    {item.description}
+                    {amenity.description}
                   </p>
                 </div>
               );
@@ -166,10 +159,10 @@ const Acomodacoes = () => {
       <section className="py-16 bg-primary">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-primary-foreground text-center mb-8">
-            Por que Escolher Cabanas Flutuantes?
+            {t.accommodations.whyChoose.title}
           </h2>
           <p className="text-base sm:text-lg text-primary-foreground/90 text-center max-w-4xl mx-auto leading-relaxed">
-            Pousadas terrestres não têm mobilidade para buscar melhores níveis de água e suas áreas tornam-se rapidamente sobre-pescadas em um raio de duas a três horas de navegação rio acima e rio abaixo. Nossa mobilidade garante sempre os melhores pontos de pesca.
+            {t.accommodations.whyChoose.description}
           </p>
         </div>
       </section>
