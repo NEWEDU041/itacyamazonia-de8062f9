@@ -2,17 +2,30 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import heroImage from "@/assets/hero-amazon.jpg";
+import heroAereoCabanas from "@/assets/hero-aereo-cabanas.png";
+import heroPraiaCabanas from "@/assets/hero-praia-cabanas.png";
+import heroRioCurva from "@/assets/hero-rio-curva.png";
+import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 4;
+  
+  const slides = [
+    { image: heroImage, alt: "Amazon Resort" },
+    { image: heroAereoCabanas, alt: "Vista aérea das cabanas flutuantes" },
+    { image: heroPraiaCabanas, alt: "Cabanas na praia ao entardecer" },
+    { image: heroRioCurva, alt: "Cabanas em curva do rio" },
+    { image: heroCabanasFlutuantes, alt: "Estrutura das cabanas flutuantes" }
+  ];
+  
+  const totalSlides = slides.length;
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % totalSlides);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [totalSlides]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -28,13 +41,22 @@ const Hero = () => {
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background Image with Overlay */}
+      {/* Background Images with Overlay */}
       <div className="absolute inset-0">
-        <img
-          src={heroImage}
-          alt="Amazon Resort"
-          className="w-full h-full object-cover"
-        />
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              currentSlide === index ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <img
+              src={slide.image}
+              alt={slide.alt}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
       </div>
 
