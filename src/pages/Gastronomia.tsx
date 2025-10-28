@@ -10,12 +10,12 @@ import gastronomia6 from "@/assets/gastronomia-6.jpg";
 
 const Gastronomia = () => {
   const pratos = [
-    { image: gastronomia1, name: "Tambaqui Grelhado" },
-    { image: gastronomia2, name: "Molho de Açaí com Camarões" },
-    { image: gastronomia3, name: "Tacacá Amazônico" },
-    { image: gastronomia4, name: "Camarões ao Vinho Branco" },
-    { image: gastronomia5, name: "Queijo Coalho Empanado" },
-    { image: gastronomia6, name: "Peixe na Crosta Dourada" }
+    { image: gastronomia1, name: "Churrasco com cortes nobres" },
+    { image: gastronomia2, name: "Açaí e pirarucu frito" },
+    { image: gastronomia3, name: "Drinks variados" },
+    { image: gastronomia4, name: "Sashimi Rústico" },
+    { image: gastronomia5, name: "Dadinhos de Tapioca" },
+    { image: gastronomia6, name: "Costela de Tambaqui e cama de Farinha do Uarini" }
   ];
 
   return (
