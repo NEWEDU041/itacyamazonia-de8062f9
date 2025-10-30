@@ -43,15 +43,15 @@ const Features = () => {
             return (
               <div
                 key={index}
-                className="text-center space-y-4 p-6 rounded-lg hover:bg-white/50 transition-all duration-300 hover:scale-105"
+                className="text-center space-y-4 p-8 rounded-xl bg-card/60 backdrop-blur-sm border border-accent/20 hover:bg-card/80 hover:border-accent/40 hover:shadow-lg transition-all duration-300 hover:scale-105"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/20 shadow-md">
                   <Icon className="w-8 h-8 text-accent" />
                 </div>
-                <h3 className="text-xl font-serif font-bold text-foreground">
+                <h3 className="text-xl font-serif font-bold text-primary">
                   {t.features[feature.titleKey].title}
                 </h3>
-                <p className="text-muted-foreground">
+                <p className="text-foreground/80">
                   {t.features[feature.titleKey].description}
                 </p>
               </div>
