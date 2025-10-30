@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Check, Plane, Calendar, Users } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import pacotesHeroBg from "@/assets/pacotes-hero-bg.jpg";
 
 const Pacotes = () => {
   const { t } = useTranslation();
@@ -27,8 +28,18 @@ const Pacotes = () => {
     <div className="min-h-screen">
       <Navigation />
       
-      <section className="relative pt-24 pb-16 bg-gradient-to-br from-primary via-primary/95 to-primary/90">
-        <div className="container mx-auto px-4 sm:px-6">
+      <section className="relative pt-24 pb-16 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={pacotesHeroBg} 
+            alt="Pacotes background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary/75 to-primary/70"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="text-center space-y-6">
             <Badge className="bg-accent text-accent-foreground text-sm px-4 py-2">{t.packages.hero.badge}</Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-primary-foreground">{t.packages.hero.title}</h1>
