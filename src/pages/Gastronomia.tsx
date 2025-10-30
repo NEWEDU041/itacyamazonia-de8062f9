@@ -11,6 +11,7 @@ import gastronomia4 from "@/assets/gastronomia-4.jpg";
 import gastronomia5 from "@/assets/gastronomia-5.jpg";
 import gastronomia6 from "@/assets/gastronomia-6.jpg";
 import gastronomiaHeroBg from "@/assets/gastronomia-hero-bg.jpg";
+import destaquesGastronomiaBg from "@/assets/destaques-gastronomia-bg.jpg";
 
 const Gastronomia = () => {
   const { t } = useTranslation();
@@ -68,8 +69,18 @@ const Gastronomia = () => {
       </section>
 
       {/* Destaques Grid */}
-      <section className="py-16 bg-secondary">
-        <div className="container mx-auto px-4 sm:px-6">
+      <section className="relative py-16 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={destaquesGastronomiaBg} 
+            alt="Destaques gastronomia background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-secondary/90"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {destaquesKeys.map((key, index) => {
               const Icon = destaquesIcons[index];
