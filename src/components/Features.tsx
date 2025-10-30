@@ -1,5 +1,6 @@
 import { Fish, Home, Utensils, Compass } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import featuresBg from "@/assets/features-bg.jpg";
 
 const Features = () => {
   const { t } = useTranslation();
@@ -24,8 +25,18 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-24 bg-secondary">
-      <div className="container mx-auto px-6">
+    <section className="relative py-24 overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src={featuresBg} 
+          alt="Features background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-secondary/90"></div>
+      </div>
+      
+      <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => {
             const Icon = feature.icon;
