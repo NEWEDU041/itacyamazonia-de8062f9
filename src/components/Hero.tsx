@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import heroImage from "@/assets/hero-amazon.jpg";
+import heroCabanasNoite from "@/assets/hero-cabanas-noite.jpg";
+import heroAereoRio from "@/assets/hero-aereo-rio.jpg";
+import heroPaisagem from "@/assets/hero-paisagem.jpg";
 import heroAereoCabanas from "@/assets/hero-aereo-cabanas.png";
 import heroPraiaCabanas from "@/assets/hero-praia-cabanas.png";
 import heroRioCurva from "@/assets/hero-rio-curva.png";
@@ -14,6 +17,9 @@ const Hero = () => {
   
   const slides = [
     { image: heroImage, alt: "Amazon Resort" },
+    { image: heroCabanasNoite, alt: "Cabanas iluminadas à noite" },
+    { image: heroAereoRio, alt: "Vista aérea do rio" },
+    { image: heroPaisagem, alt: "Paisagem amazônica" },
     { image: heroAereoCabanas, alt: "Vista aérea das cabanas flutuantes" },
     { image: heroPraiaCabanas, alt: "Cabanas na praia ao entardecer" },
     { image: heroRioCurva, alt: "Cabanas em curva do rio" },
