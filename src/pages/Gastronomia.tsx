@@ -10,6 +10,7 @@ import gastronomia3 from "@/assets/gastronomia-3.jpg";
 import gastronomia4 from "@/assets/gastronomia-4.jpg";
 import gastronomia5 from "@/assets/gastronomia-5.jpg";
 import gastronomia6 from "@/assets/gastronomia-6.jpg";
+import gastronomiaHeroBg from "@/assets/gastronomia-hero-bg.jpg";
 
 const Gastronomia = () => {
   const { t } = useTranslation();
@@ -24,7 +25,17 @@ const Gastronomia = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative pt-24 pb-20 bg-gradient-to-br from-primary via-primary/95 to-primary/90 overflow-hidden">
+      <section className="relative pt-24 pb-20 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={gastronomiaHeroBg} 
+            alt="Gastronomia background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary/75 to-primary/70"></div>
+        </div>
+        
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <Badge className="bg-accent text-accent-foreground text-sm px-4 py-2 mx-auto block w-fit mb-6 animate-fade-in">
             {t.gastronomy.hero.badge}
