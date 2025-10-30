@@ -7,6 +7,7 @@ import acomodacao1 from "@/assets/acomodacoes-1.jpg";
 import cabanaInterior from "@/assets/cabana-interior.png";
 import salaJantar from "@/assets/sala-jantar.png";
 import jantarPraia from "@/assets/jantar-praia.png";
+import acomodacoesHeroBg from "@/assets/acomodacoes-hero-bg.jpg";
 
 const Acomodacoes = () => {
   const { t } = useTranslation();
@@ -25,8 +26,18 @@ const Acomodacoes = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 bg-primary">
-        <div className="container mx-auto px-4 sm:px-6">
+      <section className="relative pt-24 pb-16 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={acomodacoesHeroBg} 
+            alt="Acomodações background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary/75 to-primary/70"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-primary-foreground text-center mb-6">
             {t.accommodations.hero.title}
           </h1>
