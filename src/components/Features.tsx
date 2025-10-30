@@ -33,7 +33,7 @@ const Features = () => {
           alt="Features background"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-secondary/90"></div>
+        <div className="absolute inset-0 bg-secondary/50"></div>
       </div>
       
       <div className="container mx-auto px-6 relative z-10">
