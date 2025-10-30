@@ -8,8 +8,6 @@ import heroAereoRio from "@/assets/hero-aereo-rio.jpg";
 import heroPaisagem from "@/assets/hero-paisagem.jpg";
 import heroAereoCabanas from "@/assets/hero-aereo-cabanas.png";
 import heroPraiaCabanas from "@/assets/hero-praia-cabanas.png";
-import heroRioCurva from "@/assets/hero-rio-curva.png";
-import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -21,9 +19,7 @@ const Hero = () => {
     { image: heroAereoRio, alt: "Vista aérea do rio" },
     { image: heroPaisagem, alt: "Paisagem amazônica" },
     { image: heroAereoCabanas, alt: "Vista aérea das cabanas flutuantes" },
-    { image: heroPraiaCabanas, alt: "Cabanas na praia ao entardecer" },
-    { image: heroRioCurva, alt: "Cabanas em curva do rio" },
-    { image: heroCabanasFlutuantes, alt: "Estrutura das cabanas flutuantes" }
+    { image: heroPraiaCabanas, alt: "Cabanas na praia ao entardecer" }
   ];
   
   const totalSlides = slides.length;
