@@ -15,6 +15,7 @@ const Navigation = () => {
     { labelKey: "packages", path: "/pacotes" },
     { labelKey: "accommodations", path: "/acomodacoes" },
     { labelKey: "gastronomy", path: "/gastronomia" },
+    { labelKey: "photos", path: "/fotos" },
     { labelKey: "whatToBring", path: "/o-que-levar" },
     { labelKey: "contact", path: "#contato" }
   ];

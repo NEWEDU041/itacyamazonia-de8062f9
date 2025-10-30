@@ -5,6 +5,7 @@ export const translations = {
       packages: "Pacotes",
       accommodations: "Acomodações",
       gastronomy: "Gastronomia",
+      photos: "Fotos",
       whatToBring: "O Que Levar",
       contact: "Contato",
       bookNow: "Reserve Agora",
@@ -277,6 +278,20 @@ export const translations = {
         },
       },
     },
+    photos: {
+      hero: {
+        badge: "Galeria",
+        title: "Momentos Inesquecíveis",
+        subtitle: "Explore nossa galeria de fotos e conheça as belezas naturais e conforto que te esperam na Amazônia",
+      },
+      categories: {
+        all: "Todas",
+        accommodations: "Acomodações",
+        gastronomy: "Gastronomia",
+        structure: "Estrutura",
+        landscapes: "Paisagens",
+      },
+    },
   },
   en: {
     navigation: {
@@ -284,6 +299,7 @@ export const translations = {
       packages: "Packages",
       accommodations: "Accommodations",
       gastronomy: "Gastronomy",
+      photos: "Photos",
       whatToBring: "What to Bring",
       contact: "Contact",
       bookNow: "Book Now",
@@ -556,6 +572,20 @@ export const translations = {
         },
       },
     },
+    photos: {
+      hero: {
+        badge: "Gallery",
+        title: "Unforgettable Moments",
+        subtitle: "Explore our photo gallery and discover the natural beauty and comfort waiting for you in the Amazon",
+      },
+      categories: {
+        all: "All",
+        accommodations: "Accommodations",
+        gastronomy: "Gastronomy",
+        structure: "Structure",
+        landscapes: "Landscapes",
+      },
+    },
   },
   es: {
     navigation: {
@@ -563,6 +593,7 @@ export const translations = {
       packages: "Paquetes",
       accommodations: "Alojamientos",
       gastronomy: "Gastronomía",
+      photos: "Fotos",
       whatToBring: "Qué Llevar",
       contact: "Contacto",
       bookNow: "Reservar Ahora",
@@ -833,6 +864,20 @@ export const translations = {
           title: "Registra Momentos",
           description: "No olvides tarjetas de memoria extra",
         },
+      },
+    },
+    photos: {
+      hero: {
+        badge: "Galería",
+        title: "Momentos Inolvidables",
+        subtitle: "Explora nuestra galería de fotos y descubre las bellezas naturales y el confort que te esperan en el Amazonas",
+      },
+      categories: {
+        all: "Todas",
+        accommodations: "Alojamientos",
+        gastronomy: "Gastronomía",
+        structure: "Estructura",
+        landscapes: "Paisajes",
       },
     },
   },
