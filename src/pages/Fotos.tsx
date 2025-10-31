@@ -92,6 +92,20 @@ const Fotos = () => {
     category: "gastronomy",
     alt: "Sala de jantar"
   },
+  // Pesca
+  {
+    src: heroAereoRio,
+    category: "fishing",
+    alt: "Rio para pesca"
+  }, {
+    src: heroRioCurva,
+    category: "fishing",
+    alt: "Área de pesca"
+  }, {
+    src: heroPaisagem,
+    category: "fishing",
+    alt: "Paisagem para pesca"
+  },
   // Estrutura
   {
     src: tremDoRio,
@@ -138,6 +152,9 @@ const Fotos = () => {
   }, {
     key: "gastronomy",
     label: t.photos.categories.gastronomy
+  }, {
+    key: "fishing",
+    label: t.photos.categories.fishing
   }, {
     key: "structure",
     label: t.photos.categories.structure
