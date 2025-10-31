@@ -292,8 +292,22 @@ const Fotos = () => {
             {filteredPhotos.map((photo, index) => <div key={index} className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] animate-fade-in bg-card" style={{
             animationDelay: `${index * 0.05}s`
           }}>
-                <div className="aspect-[4/3] overflow-hidden">
-                  
+              <div className="aspect-[4/3] overflow-hidden">
+                  <img 
+                    src={photo.src} 
+                    alt={photo.alt}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                
+                {/* Overlay with info */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <Badge className="mb-2 bg-accent/90 text-accent-foreground">
+                      {categories.find(c => c.key === photo.category)?.label}
+                    </Badge>
+                    <p className="text-white text-sm font-medium">{photo.alt}</p>
+                  </div>
                 </div>
                 
               </div>)}
