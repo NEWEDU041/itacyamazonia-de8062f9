@@ -36,6 +36,16 @@ import pesca7 from "@/assets/pesca-7.jpg";
 import pesca8 from "@/assets/pesca-8.jpg";
 import pesca9 from "@/assets/pesca-9.jpg";
 import pesca10 from "@/assets/pesca-10.jpg";
+import pesca11 from "@/assets/pesca-11.jpg";
+import pesca12 from "@/assets/pesca-12.jpg";
+import pesca13 from "@/assets/pesca-13.jpg";
+import pesca14 from "@/assets/pesca-14.jpg";
+import pesca15 from "@/assets/pesca-15.jpg";
+import pesca16 from "@/assets/pesca-16.jpg";
+import pesca17 from "@/assets/pesca-17.jpg";
+import pesca18 from "@/assets/pesca-18.jpg";
+import pesca19 from "@/assets/pesca-19.jpg";
+import pesca20 from "@/assets/pesca-20.jpg";
 const Fotos = () => {
   const {
     t
@@ -143,6 +153,46 @@ const Fotos = () => {
     src: pesca10,
     category: "fishing",
     alt: "Pesca 10"
+  }, {
+    src: pesca11,
+    category: "fishing",
+    alt: "Pesca 11"
+  }, {
+    src: pesca12,
+    category: "fishing",
+    alt: "Pesca 12"
+  }, {
+    src: pesca13,
+    category: "fishing",
+    alt: "Pesca 13"
+  }, {
+    src: pesca14,
+    category: "fishing",
+    alt: "Pesca 14"
+  }, {
+    src: pesca15,
+    category: "fishing",
+    alt: "Pesca 15"
+  }, {
+    src: pesca16,
+    category: "fishing",
+    alt: "Pesca 16"
+  }, {
+    src: pesca17,
+    category: "fishing",
+    alt: "Pesca 17"
+  }, {
+    src: pesca18,
+    category: "fishing",
+    alt: "Pesca 18"
+  }, {
+    src: pesca19,
+    category: "fishing",
+    alt: "Pesca 19"
+  }, {
+    src: pesca20,
+    category: "fishing",
+    alt: "Pesca 20"
   },
   // Estrutura
   {
