@@ -26,65 +26,133 @@ import heroPaisagem from "@/assets/hero-paisagem.jpg";
 import heroPraiaCabanas from "@/assets/hero-praia-cabanas.png";
 import heroRioCurva from "@/assets/hero-rio-curva.png";
 import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
-
 const Fotos = () => {
-  const { t } = useTranslation();
+  const {
+    t
+  } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("all");
-
   const photos = [
-    // Acomodações
-    { src: cabanaInterior, category: "accommodations", alt: "Interior da cabana" },
-    { src: acomodacoes1, category: "accommodations", alt: "Acomodação 1" },
-    { src: acomodacoes2, category: "accommodations", alt: "Acomodação 2" },
-    { src: acomodacoes3, category: "accommodations", alt: "Acomodação 3" },
-    { src: acomodacoes4, category: "accommodations", alt: "Acomodação 4" },
-    { src: heroCabanasFlutuantes, category: "accommodations", alt: "Cabanas flutuantes" },
-    
-    // Gastronomia
-    { src: gastronomia1, category: "gastronomy", alt: "Gastronomia 1" },
-    { src: gastronomia2, category: "gastronomy", alt: "Gastronomia 2" },
-    { src: gastronomia3, category: "gastronomy", alt: "Gastronomia 3" },
-    { src: gastronomia4, category: "gastronomy", alt: "Gastronomia 4" },
-    { src: gastronomia5, category: "gastronomy", alt: "Gastronomia 5" },
-    { src: gastronomia6, category: "gastronomy", alt: "Gastronomia 6" },
-    { src: jantarPraia, category: "gastronomy", alt: "Jantar na praia" },
-    { src: salaJantar, category: "gastronomy", alt: "Sala de jantar" },
-    
-    // Estrutura
-    { src: tremDoRio, category: "structure", alt: "Trem do Rio" },
-    
-    // Paisagens
-    { src: heroAereo, category: "landscapes", alt: "Vista aérea das cabanas" },
-    { src: heroAereoRio, category: "landscapes", alt: "Vista aérea do rio" },
-    { src: heroAmazon, category: "landscapes", alt: "Amazônia" },
-    { src: heroCabanasNoite, category: "landscapes", alt: "Cabanas à noite" },
-    { src: heroPaisagem, category: "landscapes", alt: "Paisagem amazônica" },
-    { src: heroPraiaCabanas, category: "landscapes", alt: "Praia com cabanas" },
-    { src: heroRioCurva, category: "landscapes", alt: "Curva do rio" },
-  ];
-
-  const filteredPhotos = selectedCategory === "all" 
-    ? photos 
-    : photos.filter(photo => photo.category === selectedCategory);
-
-  const categories = [
-    { key: "all", label: t.photos.categories.all },
-    { key: "accommodations", label: t.photos.categories.accommodations },
-    { key: "gastronomy", label: t.photos.categories.gastronomy },
-    { key: "structure", label: t.photos.categories.structure },
-    { key: "landscapes", label: t.photos.categories.landscapes },
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  // Acomodações
+  {
+    src: cabanaInterior,
+    category: "accommodations",
+    alt: "Interior da cabana"
+  }, {
+    src: acomodacoes1,
+    category: "accommodations",
+    alt: "Acomodação 1"
+  }, {
+    src: acomodacoes2,
+    category: "accommodations",
+    alt: "Acomodação 2"
+  }, {
+    src: acomodacoes3,
+    category: "accommodations",
+    alt: "Acomodação 3"
+  }, {
+    src: acomodacoes4,
+    category: "accommodations",
+    alt: "Acomodação 4"
+  }, {
+    src: heroCabanasFlutuantes,
+    category: "accommodations",
+    alt: "Cabanas flutuantes"
+  },
+  // Gastronomia
+  {
+    src: gastronomia1,
+    category: "gastronomy",
+    alt: "Gastronomia 1"
+  }, {
+    src: gastronomia2,
+    category: "gastronomy",
+    alt: "Gastronomia 2"
+  }, {
+    src: gastronomia3,
+    category: "gastronomy",
+    alt: "Gastronomia 3"
+  }, {
+    src: gastronomia4,
+    category: "gastronomy",
+    alt: "Gastronomia 4"
+  }, {
+    src: gastronomia5,
+    category: "gastronomy",
+    alt: "Gastronomia 5"
+  }, {
+    src: gastronomia6,
+    category: "gastronomy",
+    alt: "Gastronomia 6"
+  }, {
+    src: jantarPraia,
+    category: "gastronomy",
+    alt: "Jantar na praia"
+  }, {
+    src: salaJantar,
+    category: "gastronomy",
+    alt: "Sala de jantar"
+  },
+  // Estrutura
+  {
+    src: tremDoRio,
+    category: "structure",
+    alt: "Trem do Rio"
+  },
+  // Paisagens
+  {
+    src: heroAereo,
+    category: "landscapes",
+    alt: "Vista aérea das cabanas"
+  }, {
+    src: heroAereoRio,
+    category: "landscapes",
+    alt: "Vista aérea do rio"
+  }, {
+    src: heroAmazon,
+    category: "landscapes",
+    alt: "Amazônia"
+  }, {
+    src: heroCabanasNoite,
+    category: "landscapes",
+    alt: "Cabanas à noite"
+  }, {
+    src: heroPaisagem,
+    category: "landscapes",
+    alt: "Paisagem amazônica"
+  }, {
+    src: heroPraiaCabanas,
+    category: "landscapes",
+    alt: "Praia com cabanas"
+  }, {
+    src: heroRioCurva,
+    category: "landscapes",
+    alt: "Curva do rio"
+  }];
+  const filteredPhotos = selectedCategory === "all" ? photos : photos.filter(photo => photo.category === selectedCategory);
+  const categories = [{
+    key: "all",
+    label: t.photos.categories.all
+  }, {
+    key: "accommodations",
+    label: t.photos.categories.accommodations
+  }, {
+    key: "gastronomy",
+    label: t.photos.categories.gastronomy
+  }, {
+    key: "structure",
+    label: t.photos.categories.structure
+  }, {
+    key: "landscapes",
+    label: t.photos.categories.landscapes
+  }];
+  return <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroAmazon})` }}
-        >
+        <div className="absolute inset-0 bg-cover bg-center" style={{
+        backgroundImage: `url(${heroAmazon})`
+      }}>
           <div className="absolute inset-0 bg-gradient-to-b from-secondary/80 via-secondary/60 to-secondary/90" />
         </div>
         
@@ -105,19 +173,9 @@ const Fotos = () => {
       <section className="py-8 bg-secondary/30 sticky top-[72px] z-40 backdrop-blur-sm border-b border-accent/20">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap gap-3 justify-center">
-            {categories.map((category) => (
-              <button
-                key={category.key}
-                onClick={() => setSelectedCategory(category.key)}
-                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-                  selectedCategory === category.key
-                    ? "bg-accent text-accent-foreground shadow-lg scale-105"
-                    : "bg-card/60 text-foreground hover:bg-card/80 hover:scale-105"
-                }`}
-              >
+            {categories.map(category => <button key={category.key} onClick={() => setSelectedCategory(category.key)} className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${selectedCategory === category.key ? "bg-accent text-accent-foreground shadow-lg scale-105" : "bg-card/60 text-foreground hover:bg-card/80 hover:scale-105"}`}>
                 {category.label}
-              </button>
-            ))}
+              </button>)}
           </div>
         </div>
       </section>
@@ -126,41 +184,23 @@ const Fotos = () => {
       <section className="py-16 bg-gradient-to-b from-background to-secondary/20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPhotos.map((photo, index) => (
-              <div
-                key={index}
-                className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] animate-fade-in bg-card"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
+            {filteredPhotos.map((photo, index) => <div key={index} className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] animate-fade-in bg-card" style={{
+            animationDelay: `${index * 0.05}s`
+          }}>
                 <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+                  <img src={photo.src} alt={photo.alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                  <div className="p-6 w-full">
-                    <Badge className="bg-accent/90 text-accent-foreground">
-                      {t.photos.categories[photo.category as keyof typeof t.photos.categories]}
-                    </Badge>
-                  </div>
-                </div>
-              </div>
-            ))}
+                
+              </div>)}
           </div>
 
-          {filteredPhotos.length === 0 && (
-            <div className="text-center py-16">
+          {filteredPhotos.length === 0 && <div className="text-center py-16">
               <p className="text-muted-foreground text-lg">
                 Nenhuma foto encontrada nesta categoria.
               </p>
-            </div>
-          )}
+            </div>}
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Fotos;
