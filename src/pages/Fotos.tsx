@@ -26,6 +26,16 @@ import heroPaisagem from "@/assets/hero-paisagem.jpg";
 import heroPraiaCabanas from "@/assets/hero-praia-cabanas.png";
 import heroRioCurva from "@/assets/hero-rio-curva.png";
 import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
+import pesca1 from "@/assets/pesca-1.jpg";
+import pesca2 from "@/assets/pesca-2.jpg";
+import pesca3 from "@/assets/pesca-3.jpg";
+import pesca4 from "@/assets/pesca-4.jpg";
+import pesca5 from "@/assets/pesca-5.jpg";
+import pesca6 from "@/assets/pesca-6.jpg";
+import pesca7 from "@/assets/pesca-7.jpg";
+import pesca8 from "@/assets/pesca-8.jpg";
+import pesca9 from "@/assets/pesca-9.jpg";
+import pesca10 from "@/assets/pesca-10.jpg";
 const Fotos = () => {
   const {
     t
@@ -94,17 +104,45 @@ const Fotos = () => {
   },
   // Pesca
   {
-    src: heroAereoRio,
+    src: pesca1,
     category: "fishing",
-    alt: "Rio para pesca"
+    alt: "Pesca 1"
   }, {
-    src: heroRioCurva,
+    src: pesca2,
     category: "fishing",
-    alt: "Área de pesca"
+    alt: "Pesca 2"
   }, {
-    src: heroPaisagem,
+    src: pesca3,
     category: "fishing",
-    alt: "Paisagem para pesca"
+    alt: "Pesca 3"
+  }, {
+    src: pesca4,
+    category: "fishing",
+    alt: "Pesca 4"
+  }, {
+    src: pesca5,
+    category: "fishing",
+    alt: "Pesca 5"
+  }, {
+    src: pesca6,
+    category: "fishing",
+    alt: "Pesca 6"
+  }, {
+    src: pesca7,
+    category: "fishing",
+    alt: "Pesca 7"
+  }, {
+    src: pesca8,
+    category: "fishing",
+    alt: "Pesca 8"
+  }, {
+    src: pesca9,
+    category: "fishing",
+    alt: "Pesca 9"
+  }, {
+    src: pesca10,
+    category: "fishing",
+    alt: "Pesca 10"
   },
   // Estrutura
   {
