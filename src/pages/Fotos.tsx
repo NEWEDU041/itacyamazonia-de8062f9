@@ -293,7 +293,7 @@ const Fotos = () => {
             animationDelay: `${index * 0.05}s`
           }}>
                 <div className="aspect-[4/3] overflow-hidden">
-                  <img src={photo.src} alt={photo.alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  
                 </div>
                 
               </div>)}
