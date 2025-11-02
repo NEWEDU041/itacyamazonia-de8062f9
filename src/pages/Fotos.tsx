@@ -4,7 +4,6 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { Badge } from "@/components/ui/badge";
 
 // Importando as imagens existentes
-import cabanaInterior from "@/assets/cabana-interior.png";
 import acomodacoes1 from "@/assets/acomodacoes-1.jpg";
 import acomodacoes2 from "@/assets/acomodacoes-2.jpg";
 import acomodacoes3 from "@/assets/acomodacoes-3.jpg";
@@ -54,10 +53,6 @@ const Fotos = () => {
   const photos = [
   // Acomodações
   {
-    src: cabanaInterior,
-    category: "accommodations",
-    alt: "Interior da cabana"
-  }, {
     src: acomodacoes1,
     category: "accommodations",
     alt: "Acomodação 1"
