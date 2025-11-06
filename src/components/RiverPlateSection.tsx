@@ -1,4 +1,5 @@
 import dryZoneMap from "@/assets/dry-zone-map.png";
+import riverPlateVideo from "@/assets/river-plate-video.mp4";
 import { MapPin, Fish, Users, Shield, Award, Waves } from "lucide-react";
 
 const RiverPlateSection = () => {
@@ -48,10 +49,18 @@ const RiverPlateSection = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-start mb-16">
-          <div className="order-2 lg:order-1">
+          <div className="order-2 lg:order-1 space-y-6">
             <img 
               src={dryZoneMap} 
               alt="Mapa de Zonas Secas da Amazônia" 
+              className="w-full rounded-2xl shadow-2xl"
+            />
+            <video 
+              src={riverPlateVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
               className="w-full rounded-2xl shadow-2xl"
             />
           </div>
