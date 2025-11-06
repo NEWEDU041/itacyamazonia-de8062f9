@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import heroVideo from "@/assets/hero-video.mp4";
 import heroImage from "@/assets/hero-amazon.jpg";
 import heroCabanasNoite from "@/assets/hero-cabanas-noite.jpg";
 import heroAereoRio from "@/assets/hero-aereo-rio.jpg";
@@ -14,6 +15,7 @@ const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   
   const slides = [
+    { video: heroVideo, alt: "Vídeo do resort" },
     { image: heroImage, alt: "Amazon Resort" },
     { image: heroCabanasNoite, alt: "Cabanas iluminadas à noite" },
     { image: heroAereoRio, alt: "Vista aérea do rio" },
@@ -54,11 +56,22 @@ const Hero = () => {
               currentSlide === index ? "opacity-100" : "opacity-0"
             }`}
           >
-            <img
-              src={slide.image}
-              alt={slide.alt}
-              className="w-full h-full object-cover"
-            />
+            {slide.video ? (
+              <video
+                src={slide.video}
+                className="w-full h-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+            ) : (
+              <img
+                src={slide.image}
+                alt={slide.alt}
+                className="w-full h-full object-cover"
+              />
+            )}
           </div>
         ))}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
