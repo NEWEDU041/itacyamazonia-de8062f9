@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -13,6 +13,7 @@ import heroPraiaCabanas from "@/assets/hero-praia-cabanas.png";
 const Hero = () => {
   const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
   
   const slides = [
     { video: heroVideo, alt: "Vídeo do resort" },
@@ -32,6 +33,14 @@ const Hero = () => {
     }, 5000);
     return () => clearInterval(timer);
   }, [totalSlides]);
+
+  useEffect(() => {
+    if (currentSlide === 0 && videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay prevented, user interaction needed
+      });
+    }
+  }, [currentSlide]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -58,12 +67,14 @@ const Hero = () => {
           >
             {slide.video ? (
               <video
+                ref={videoRef}
                 src={slide.video}
                 className="w-full h-full object-cover"
                 autoPlay
                 muted
                 loop
                 playsInline
+                preload="auto"
               />
             ) : (
               <img
