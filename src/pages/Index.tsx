@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import RiverPlateSection from "@/components/RiverPlateSection";
 import Features from "@/components/Features";
 import TremDoRio from "@/components/TremDoRio";
 import ContactSection from "@/components/ContactSection";
@@ -9,6 +10,7 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation />
       <Hero />
+      <RiverPlateSection />
       <Features />
       <TremDoRio />
       <ContactSection />
