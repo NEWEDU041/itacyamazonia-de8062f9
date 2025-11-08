@@ -1,108 +1,29 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
-import heroVideo from "@/assets/hero-video.mp4";
-import heroImage from "@/assets/hero-amazon.jpg";
-import heroCabanasNoite from "@/assets/hero-cabanas-noite.jpg";
-import heroAereoRio from "@/assets/hero-aereo-rio.jpg";
-import heroPaisagem from "@/assets/hero-paisagem.jpg";
-import heroAereoCabanas from "@/assets/hero-aereo-cabanas.png";
-import heroPraiaCabanas from "@/assets/hero-praia-cabanas.png";
+import heroMainVideo from "@/assets/hero-main-video.mp4";
 
 const Hero = () => {
   const { t } = useTranslation();
-  const [currentSlide, setCurrentSlide] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
-  
-  const slides = [
-    { video: heroVideo, alt: "Vídeo do resort" },
-    { image: heroImage, alt: "Amazon Resort" },
-    { image: heroCabanasNoite, alt: "Cabanas iluminadas à noite" },
-    { image: heroAereoRio, alt: "Vista aérea do rio" },
-    { image: heroPaisagem, alt: "Paisagem amazônica" },
-    { image: heroAereoCabanas, alt: "Vista aérea das cabanas flutuantes" },
-    { image: heroPraiaCabanas, alt: "Cabanas na praia ao entardecer" }
-  ];
-  
-  const totalSlides = slides.length;
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % totalSlides);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [totalSlides]);
-
-  useEffect(() => {
-    if (currentSlide === 0 && videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Autoplay prevented, user interaction needed
-      });
-    }
-  }, [currentSlide]);
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background Images with Overlay */}
+      {/* Background Video with Overlay */}
       <div className="absolute inset-0">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              currentSlide === index ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            {slide.video ? (
-              <video
-                ref={videoRef}
-                src={slide.video}
-                className="w-full h-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-              />
-            ) : (
-              <img
-                src={slide.image}
-                alt={slide.alt}
-                className="w-full h-full object-cover"
-              />
-            )}
-          </div>
-        ))}
+        <video
+          ref={videoRef}
+          src={heroMainVideo}
+          className="w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
       </div>
-
-      {/* Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-8 top-1/2 -translate-y-1/2 z-10 text-white/80 hover:text-white transition-colors"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft size={48} />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-8 top-1/2 -translate-y-1/2 z-10 text-white/80 hover:text-white transition-colors"
-        aria-label="Next slide"
-      >
-        <ChevronRight size={48} />
-      </button>
 
       {/* Hero Content */}
       <div className="relative h-full flex items-center justify-center text-center px-6">
@@ -141,22 +62,6 @@ const Hero = () => {
             </Button>
           </div>
         </div>
-      </div>
-
-      {/* Carousel Indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
-        {Array.from({ length: totalSlides }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              currentSlide === index
-                ? "bg-accent w-8"
-                : "bg-white/50 hover:bg-white/75"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
       </div>
     </section>
   );
