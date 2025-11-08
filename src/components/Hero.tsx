@@ -15,26 +15,31 @@ const Hero = () => {
         <video
           ref={videoRef}
           src={heroMainVideo}
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-center md:object-center"
+          style={{ 
+            minWidth: '100%',
+            minHeight: '100%'
+          }}
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster=""
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-black/85" />
       </div>
 
       {/* Hero Content */}
-      <div className="relative h-full flex items-center justify-center text-center px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto space-y-6 md:space-y-8 animate-fade-in">
-          <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight">
+      <div className="relative h-full flex items-center justify-center text-center px-4 sm:px-6 py-20 md:py-0">
+        <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 md:space-y-8 animate-fade-in">
+          <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-[1.2] sm:leading-tight drop-shadow-2xl">
             {t.hero.title}
             <br />
             <span className="text-accent">{t.hero.titleAccent}</span>
           </h1>
           
-          <p className="text-base sm:text-xl md:text-2xl text-white/90 font-light max-w-3xl mx-auto px-2">
+          <p className="text-sm sm:text-lg md:text-2xl text-white font-light max-w-3xl mx-auto px-2 drop-shadow-lg">
             {t.hero.subtitle}
           </p>
 
