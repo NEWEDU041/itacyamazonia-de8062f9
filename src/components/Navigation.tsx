@@ -12,6 +12,7 @@ const Navigation = () => {
   
   const menuItems = [
     { labelKey: "home", path: "/" },
+    { labelKey: "presentation", path: "/apresentacao" },
     { labelKey: "packages", path: "/pacotes" },
     { labelKey: "accommodations", path: "/acomodacoes" },
     { labelKey: "gastronomy", path: "/gastronomia" },

@@ -2,6 +2,7 @@ export const translations = {
   pt: {
     navigation: {
       home: "Home",
+      presentation: "Apresentação",
       packages: "Pacotes",
       accommodations: "Acomodações",
       gastronomy: "Gastronomia",
@@ -297,6 +298,7 @@ export const translations = {
   en: {
     navigation: {
       home: "Home",
+      presentation: "Presentation",
       packages: "Packages",
       accommodations: "Accommodations",
       gastronomy: "Gastronomy",
@@ -592,6 +594,7 @@ export const translations = {
   es: {
     navigation: {
       home: "Inicio",
+      presentation: "Presentación",
       packages: "Paquetes",
       accommodations: "Alojamientos",
       gastronomy: "Gastronomía",
