@@ -15,6 +15,7 @@ import presentationCabanas from "@/assets/presentation-cabanas.jpg";
 import presentationRestaurante from "@/assets/presentation-restaurante.jpg";
 import presentationBarcos from "@/assets/presentation-barcos.jpg";
 import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
+import tucunarePesca from "@/assets/tucunare-pesca.png";
 
 const Apresentacao = () => {
   useEffect(() => {
@@ -239,45 +240,50 @@ const Apresentacao = () => {
       </section>
 
       {/* Section 5: Uma Luta Como Nenhuma Outra */}
-      <section className="relative py-24 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${presentationTucunare})` }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/50"></div>
-        </div>
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Content Column */}
+            <div className="animate-fade-in order-2 lg:order-1">
+              <Badge className="mb-6 bg-accent/90 text-accent-foreground">O Peixe Mais Agressivo do Mundo</Badge>
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+                UMA LUTA COMO NENHUMA OUTRA
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                Considerado o peixe esportivo mais agressivo do mundo, o feroz <span className="text-accent font-semibold">Tucunaré</span> oferece uma experiência de pesca ininterrupta e de parar o coração.
+              </p>
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-3xl animate-fade-in">
-            <Badge className="mb-6 bg-accent/90 text-accent-foreground">O Peixe Mais Agressivo do Mundo</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              UMA LUTA COMO NENHUMA OUTRA
-            </h2>
-            <p className="text-xl text-white/90 mb-8 leading-relaxed">
-              Considerado o peixe esportivo mais agressivo do mundo, o feroz <span className="text-accent font-semibold">Tucunaré</span> oferece uma experiência de pesca ininterrupta e de parar o coração.
-            </p>
+              <div className="space-y-6">
+                <Card className="p-5 bg-card border-accent/20">
+                  <h3 className="text-xl font-bold text-accent mb-2">O Guerreiro das Águas Amazônicas</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Esses poderosos lutadores batem como um trem de carga e são os peixes de água doce que lutam mais duramente em todo o mundo.
+                  </p>
+                </Card>
 
-            <div className="space-y-6 bg-black/40 backdrop-blur-sm p-8 rounded-2xl">
-              <div>
-                <h3 className="text-2xl font-bold text-accent mb-3">O Guerreiro das Águas Amazônicas</h3>
-                <p className="text-white/90 leading-relaxed">
-                  Esses poderosos lutadores batem como um trem de carga e são os peixes de água doce que lutam mais duramente em todo o mundo.
-                </p>
+                <Card className="p-5 bg-card border-accent/20">
+                  <h3 className="text-xl font-bold text-accent mb-2">Recordes</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    A maioria dos nossos convidados conquistaram o maior tucunaré de suas vidas. Troféus pesando <span className="text-accent font-semibold">mais de 20 libras</span> e inclusive alguns recordes mundiais.
+                  </p>
+                </Card>
+
+                <Card className="p-5 bg-card border-accent/20">
+                  <h3 className="text-xl font-bold text-accent mb-2">Outras Espécies</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Além do tucunaré, você poderá capturar pirararas, piraíbas, traíras, matrinxãs, apaiaris e aruanãs.
+                  </p>
+                </Card>
               </div>
+            </div>
 
-              <div>
-                <h3 className="text-2xl font-bold text-accent mb-3">Recordes</h3>
-                <p className="text-white/90 leading-relaxed">
-                  A maioria dos nossos convidados conquistaram o maior tucunaré de suas vidas. Troféus pesando <span className="text-accent font-semibold">mais de 20 libras</span> e inclusive alguns recordes mundiais.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-2xl font-bold text-accent mb-3">Outras Espécies</h3>
-                <p className="text-white/90 leading-relaxed">
-                  Além do tucunaré, você poderá capturar pirararas, piraíbas, traíras, matrinxãs, apaiaris e aruanãs.
-                </p>
-              </div>
+            {/* Image Column */}
+            <div className="animate-fade-in order-1 lg:order-2">
+              <img 
+                src={tucunarePesca} 
+                alt="Pescadores com tucunaré gigante" 
+                className="w-full h-auto rounded-2xl shadow-2xl object-cover"
+              />
             </div>
           </div>
         </div>
