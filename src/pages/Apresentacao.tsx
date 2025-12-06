@@ -14,6 +14,7 @@ import presentationTucunare from "@/assets/presentation-tucunare.jpg";
 import presentationCabanas from "@/assets/presentation-cabanas.jpg";
 import presentationRestaurante from "@/assets/presentation-restaurante.jpg";
 import presentationBarcos from "@/assets/presentation-barcos.jpg";
+import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
 
 const Apresentacao = () => {
   useEffect(() => {
@@ -173,49 +174,66 @@ const Apresentacao = () => {
       </section>
 
       {/* Section 4: Nossos Diferenciais */}
-      <section className="relative py-24 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${presentationDiferenciais})` }}
-        >
-          <div className="absolute inset-0 bg-black/75"></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-16 animate-fade-in">
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground text-center mb-16 animate-fade-in">
             NOSSOS DIFERENCIAIS
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-8 bg-card/95 backdrop-blur-sm border-accent/20 hover:border-accent transition-colors animate-fade-in">
-              <div className="text-accent text-4xl font-bold mb-4">01</div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">
-                Direitos Exclusivos de Pesca
-              </h3>
-              <p className="text-muted-foreground">
-                <span className="text-accent font-semibold">11 rios exclusivos</span> em unidades de conservação e terras indígenas onde não há pressão de pesca por ninguém além de nossos privilegiados hóspedes.
-              </p>
-            </Card>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Cards Column */}
+            <div className="space-y-6 animate-fade-in">
+              <Card className="p-6 bg-card border-accent/20 hover:border-accent transition-colors">
+                <div className="flex gap-4">
+                  <div className="text-accent text-3xl font-bold">01</div>
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">
+                      Direitos Exclusivos de Pesca
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      <span className="text-accent font-semibold">11 rios exclusivos</span> em unidades de conservação e terras indígenas onde não há pressão de pesca por ninguém além de nossos privilegiados hóspedes.
+                    </p>
+                  </div>
+                </div>
+              </Card>
 
-            <Card className="p-8 bg-card/95 backdrop-blur-sm border-accent/20 hover:border-accent transition-colors animate-fade-in">
-              <div className="text-accent text-4xl font-bold mb-4">02</div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">
-                Área Massiva para Explorar
-              </h3>
-              <p className="text-muted-foreground">
-                Nossas zonas estão espalhadas por <span className="text-accent font-semibold">1.000 x 600 milhas</span>, com 11 sistemas fluviais privados fluindo através de 16 milhões de acres.
-              </p>
-            </Card>
+              <Card className="p-6 bg-card border-accent/20 hover:border-accent transition-colors">
+                <div className="flex gap-4">
+                  <div className="text-accent text-3xl font-bold">02</div>
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">
+                      Área Massiva para Explorar
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      Nossas zonas estão espalhadas por <span className="text-accent font-semibold">1.000 x 600 milhas</span>, com 11 sistemas fluviais privados fluindo através de 16 milhões de acres.
+                    </p>
+                  </div>
+                </div>
+              </Card>
 
-            <Card className="p-8 bg-card/95 backdrop-blur-sm border-accent/20 hover:border-accent transition-colors animate-fade-in">
-              <div className="text-accent text-4xl font-bold mb-4">03</div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">
-                Mobilidade Estratégica
-              </h3>
-              <p className="text-muted-foreground">
-                Cabanas flutuantes com calado raso que navegam em apenas <span className="text-accent font-semibold">10" de água</span>, permitindo acesso além das barreiras de águas rasas.
-              </p>
-            </Card>
+              <Card className="p-6 bg-card border-accent/20 hover:border-accent transition-colors">
+                <div className="flex gap-4">
+                  <div className="text-accent text-3xl font-bold">03</div>
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">
+                      Mobilidade Estratégica
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      Cabanas flutuantes com calado raso que navegam em apenas <span className="text-accent font-semibold">10" de água</span>, permitindo acesso além das barreiras de águas rasas.
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+            {/* Image Column */}
+            <div className="animate-fade-in">
+              <img 
+                src={heroCabanasFlutuantes} 
+                alt="Cabanas flutuantes no rio Amazonas" 
+                className="w-full h-auto rounded-2xl shadow-2xl object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
