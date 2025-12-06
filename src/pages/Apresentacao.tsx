@@ -8,7 +8,7 @@ import { useEffect } from "react";
 // Images
 import presentationCover from "@/assets/presentation-cover.jpg";
 import presentationAmazonia from "@/assets/amazonia-rio-aereo.png";
-import presentationMap from "@/assets/presentation-map.png";
+import presentationMap from "@/assets/dry-zone-map.png";
 import presentationDiferenciais from "@/assets/presentation-diferenciais.jpg";
 import presentationTucunare from "@/assets/presentation-tucunare.jpg";
 import presentationCabanas from "@/assets/presentation-cabanas.jpg";
@@ -130,11 +130,11 @@ const Apresentacao = () => {
             </p>
           </div>
 
-          <div className="mb-16 animate-fade-in">
+          <div className="mb-16 animate-fade-in flex justify-center">
             <img 
               src={presentationMap} 
               alt="Dry Zone Map" 
-              className="w-full max-w-5xl mx-auto rounded-2xl shadow-2xl"
+              className="w-full max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto rounded-xl shadow-xl object-contain"
             />
           </div>
 
