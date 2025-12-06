@@ -23,19 +23,32 @@ const Apresentacao = () => {
   }, []);
 
   const packages = [
-    { name: "Rio Itapará", price: "R$ 31.000,00", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião" },
-    { name: "Rio Matá-Matá", price: "R$ 28.000,00", fishermen: "4 pescadores", waters: "Águas Turvas", transport: "Hidroavião" },
-    { name: "Rio Jufarí", price: "R$ 31.000,00", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião" },
-    { name: "Rio Amajaú", price: "R$ 28.000,00", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião" },
-    { name: "Rio Xeriuní", price: "R$ 31.000,00", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião" },
-    { name: "Rio Uneuixi", price: "R$ 38.000,00", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião" },
-    { name: "Rio Marmelos", price: "R$ 31.000,00", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião" },
-    { name: "Rio Caeteté", price: "R$ 35.000,00", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião" },
-    { name: "Rio Matupirí", price: "R$ 28.000,00", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião" },
-    { name: "Rio Jatapú", price: "R$ 35.000,00", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião" },
-    { name: "Rio Igapó-Açú", price: "R$ 28.000,00", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião" },
-    { name: "Baixo Itapará", price: "R$ 23.000,00", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião" },
+    { name: "Rio Itapará", price: "R$ 31.000", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião", waterType: "negras", highlight: false },
+    { name: "Rio Matá-Matá", price: "R$ 28.000", fishermen: "4 pescadores", waters: "Águas Turvas", transport: "Hidroavião", waterType: "turvas", highlight: false },
+    { name: "Rio Jufarí", price: "R$ 31.000", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião", waterType: "cristalinas", highlight: false },
+    { name: "Rio Amajaú", price: "R$ 28.000", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião", waterType: "negras", highlight: false },
+    { name: "Rio Xeriuní", price: "R$ 31.000", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião", waterType: "cristalinas", highlight: false },
+    { name: "Rio Uneuixi", price: "R$ 38.000", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião", waterType: "cristalinas", highlight: true },
+    { name: "Rio Marmelos", price: "R$ 31.000", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião", waterType: "negras", highlight: false },
+    { name: "Rio Caeteté", price: "R$ 35.000", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião", waterType: "cristalinas", highlight: true },
+    { name: "Rio Matupirí", price: "R$ 28.000", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião", waterType: "negras", highlight: false },
+    { name: "Rio Jatapú", price: "R$ 35.000", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião", waterType: "cristalinas", highlight: true },
+    { name: "Rio Igapó-Açú", price: "R$ 28.000", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião", waterType: "negras", highlight: false },
+    { name: "Baixo Itapará", price: "R$ 23.000", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião", waterType: "negras", highlight: false },
   ];
+
+  const getWaterBadgeStyle = (waterType: string) => {
+    switch (waterType) {
+      case "cristalinas":
+        return "bg-cyan-500/20 text-cyan-400 border-cyan-500/30";
+      case "negras":
+        return "bg-amber-500/20 text-amber-400 border-amber-500/30";
+      case "turvas":
+        return "bg-orange-500/20 text-orange-400 border-orange-500/30";
+      default:
+        return "bg-accent/20 text-accent border-accent/30";
+    }
+  };
 
   const included = [
     "Aéreo Manaus/Acampamento ida e volta",
@@ -440,39 +453,80 @@ const Apresentacao = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 animate-fade-in">
             {packages.map((pkg, index) => (
               <Card 
                 key={index} 
-                className="p-6 hover:shadow-xl transition-all hover:border-accent border-accent/20 hover:-translate-y-1"
+                className={`relative overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${
+                  pkg.highlight 
+                    ? 'border-accent ring-2 ring-accent/20' 
+                    : 'border-border/50 hover:border-accent/50'
+                }`}
               >
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-2xl font-bold text-foreground">{pkg.name}</h3>
-                  <Fish className="w-6 h-6 text-accent" />
+                {pkg.highlight && (
+                  <div className="absolute top-0 right-0 bg-accent text-accent-foreground text-xs font-bold px-3 py-1 rounded-bl-lg">
+                    PREMIUM
+                  </div>
+                )}
+                
+                <div className="p-5">
+                  {/* Header */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                      <Fish className="w-5 h-5 text-accent" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground leading-tight">{pkg.name}</h3>
+                  </div>
+                  
+                  {/* Price */}
+                  <div className="mb-4">
+                    <span className="text-3xl font-bold text-foreground">{pkg.price}</span>
+                    <span className="text-muted-foreground text-sm ml-1">/pessoa</span>
+                  </div>
+                  
+                  {/* Water Type Badge */}
+                  <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border mb-4 ${getWaterBadgeStyle(pkg.waterType)}`}>
+                    <span className="w-2 h-2 rounded-full bg-current"></span>
+                    {pkg.waters}
+                  </div>
+                  
+                  {/* Details */}
+                  <div className="space-y-2.5 pt-4 border-t border-border/50">
+                    <div className="flex items-center gap-2.5 text-sm">
+                      <Users className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-muted-foreground">{pkg.fishermen}</span>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-sm">
+                      <Ship className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-muted-foreground">{pkg.transport}</span>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-sm">
+                      <Calendar className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-muted-foreground">7 dias / 6,5 de pesca</span>
+                    </div>
+                  </div>
                 </div>
                 
-                <div className="text-3xl font-bold text-accent mb-4">{pkg.price}</div>
-                
-                <div className="space-y-2 text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-accent" />
-                    <span>{pkg.fishermen}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-accent" />
-                    <span>{pkg.waters}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Ship className="w-4 h-4 text-accent" />
-                    <span>{pkg.transport}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-accent" />
-                    <span>7 dias / 6,5 de pesca</span>
-                  </div>
-                </div>
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
               </Card>
             ))}
+          </div>
+          
+          {/* Legend */}
+          <div className="flex flex-wrap justify-center gap-6 mt-10 text-sm">
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-cyan-500"></span>
+              <span className="text-muted-foreground">Águas Cristalinas</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-amber-500"></span>
+              <span className="text-muted-foreground">Águas Negras</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-orange-500"></span>
+              <span className="text-muted-foreground">Águas Turvas</span>
+            </div>
           </div>
         </div>
       </section>
