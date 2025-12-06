@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 // Images
 import presentationCover from "@/assets/presentation-cover.jpg";
-import presentationAmazonia from "@/assets/presentation-amazonia.jpg";
+import presentationAmazonia from "@/assets/amazonia-rio-aereo.png";
 import presentationMap from "@/assets/presentation-map.png";
 import presentationDiferenciais from "@/assets/presentation-diferenciais.jpg";
 import presentationTucunare from "@/assets/presentation-tucunare.jpg";
