@@ -17,7 +17,7 @@ import presentationBarcos from "@/assets/presentation-barcos.jpg";
 import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
 import tucunarePesca from "@/assets/tucunare-pesca.png";
 import cabanaInterior from "@/assets/cabana-interior.png";
-import tremDoRio from "@/assets/trem-do-rio.png";
+import cabanasComboio from "@/assets/cabanas-comboio.png";
 
 const Apresentacao = () => {
   useEffect(() => {
@@ -418,7 +418,7 @@ const Apresentacao = () => {
                   {/* Cabin Convoy */}
                   <div className="relative overflow-hidden rounded-2xl shadow-lg group">
                     <img 
-                      src={tremDoRio} 
+                      src={cabanasComboio} 
                       alt="Comboio de cabanas navegando" 
                       className="w-full h-40 md:h-48 object-cover transition-transform duration-500 group-hover:scale-105"
                     />
