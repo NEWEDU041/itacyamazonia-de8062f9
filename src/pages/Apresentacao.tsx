@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, X, MapPin, Fish, Ship, Users, Calendar, Utensils, Home as HomeIcon, Award } from "lucide-react";
+import { Check, X, MapPin, Fish, Ship, Users, Calendar, Utensils, Home, Award, Thermometer, Sun, Droplets, Bed, Archive, Laptop, Satellite } from "lucide-react";
 import { useEffect } from "react";
 
 // Images
@@ -16,6 +16,8 @@ import presentationRestaurante from "@/assets/presentation-restaurante.jpg";
 import presentationBarcos from "@/assets/presentation-barcos.jpg";
 import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
 import tucunarePesca from "@/assets/tucunare-pesca.png";
+import cabanaInterior from "@/assets/cabana-interior.png";
+import tremDoRio from "@/assets/trem-do-rio.png";
 
 const Apresentacao = () => {
   useEffect(() => {
@@ -304,60 +306,127 @@ const Apresentacao = () => {
 
       {/* Section 6: Cabanas Flutuantes */}
       <section className="py-24 bg-gradient-to-b from-muted/20 to-background">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+        <div className="container mx-auto px-6 md:px-10">
+          {/* Header */}
+          <div className="text-center mb-16 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               CABANAS FLUTUANTES
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Infraestrutura e Serviços de Classe Mundial
+            <p className="text-xl text-accent font-medium">
+              Infraestrutura e Serviços
             </p>
           </div>
 
-          <div className="mb-12 animate-fade-in">
-            <img 
-              src={presentationCabanas} 
-              alt="Cabanas Flutuantes" 
-              className="w-full max-w-4xl mx-auto rounded-2xl shadow-2xl"
-            />
-          </div>
+          {/* Two Column Layout */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 max-w-7xl mx-auto">
+            {/* Left Column - Text Content */}
+            <div className="order-2 lg:order-1 animate-fade-in">
+              {/* Descriptive Text */}
+              <div className="mb-10">
+                <p className="text-muted-foreground leading-relaxed text-lg mb-4">
+                  Nossos <span className="text-accent font-semibold">Camps se movimentam</span> ao longo de todo território de abrangência de nossas licenças na Amazônia, distribuindo a pressão de pesca de forma <span className="text-accent font-semibold">igualitária</span> e causando o <span className="text-accent font-semibold">menor impacto ambiental</span> possível.
+                </p>
+                <p className="text-muted-foreground leading-relaxed text-lg">
+                  Pernoitamos em belíssimas <span className="text-accent font-semibold">praias de areia branca</span> da Amazônia, proporcionando uma experiência única de imersão na natureza.
+                </p>
+              </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto animate-fade-in">
-            <Card className="p-8 border-accent/20 hover:border-accent transition-colors">
-              <h3 className="text-2xl font-bold text-foreground mb-6">Cabanas Modernas</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">Ar condicionado</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">Energia solar off-grid</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">Ducha com água aquecida</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">02 camas king solteiro</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">Comunicação via satélite</span>
-                </li>
-              </ul>
-            </Card>
+              {/* Services List */}
+              <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-accent/20">
+                <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+                  <Home className="w-6 h-6 text-accent" />
+                  Serviços Inclusos
+                </h3>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <li className="flex items-center gap-3 group">
+                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                      <Home className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className="text-muted-foreground">Cabanas flutuantes modernas</span>
+                  </li>
+                  <li className="flex items-center gap-3 group">
+                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                      <Thermometer className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className="text-muted-foreground">Ar-condicionado</span>
+                  </li>
+                  <li className="flex items-center gap-3 group">
+                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                      <Sun className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className="text-muted-foreground">Energia solar off-grid</span>
+                  </li>
+                  <li className="flex items-center gap-3 group">
+                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                      <Droplets className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className="text-muted-foreground">Ducha com água aquecida</span>
+                  </li>
+                  <li className="flex items-center gap-3 group">
+                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                      <Bed className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className="text-muted-foreground">02 camas solteiro king</span>
+                  </li>
+                  <li className="flex items-center gap-3 group">
+                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                      <Archive className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className="text-muted-foreground">02 armários com cabideiro</span>
+                  </li>
+                  <li className="flex items-center gap-3 group">
+                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                      <Laptop className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className="text-muted-foreground">02 escrivaninhas com cadeira</span>
+                  </li>
+                  <li className="flex items-center gap-3 group">
+                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                      <Satellite className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className="text-muted-foreground">Comunicação via satélite</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-            <Card className="p-8 border-accent/20 hover:border-accent transition-colors">
-              <h3 className="text-2xl font-bold text-foreground mb-6">Mobilidade Única</h3>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                Nossos Camps se movimentam ao longo de todo território de abrangência de nossas licenças, distribuindo a pressão de pesca de forma igualitária e causando o menor impacto possível.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Pernoitamos em belíssimas <span className="text-accent font-semibold">praias de areia branca</span> da Amazônia.
-              </p>
-            </Card>
+            {/* Right Column - Image Gallery */}
+            <div className="order-1 lg:order-2 animate-fade-in">
+              <div className="grid grid-cols-1 gap-4">
+                {/* Main Image - External Cabin View */}
+                <div className="relative overflow-hidden rounded-2xl shadow-lg group">
+                  <img 
+                    src={presentationCabanas} 
+                    alt="Cabana flutuante vista externa" 
+                    className="w-full h-64 md:h-80 object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                
+                {/* Two Column Grid for smaller images */}
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Internal Room */}
+                  <div className="relative overflow-hidden rounded-2xl shadow-lg group">
+                    <img 
+                      src={cabanaInterior} 
+                      alt="Interior da cabana com duas camas" 
+                      className="w-full h-40 md:h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  
+                  {/* Cabin Convoy */}
+                  <div className="relative overflow-hidden rounded-2xl shadow-lg group">
+                    <img 
+                      src={tremDoRio} 
+                      alt="Comboio de cabanas navegando" 
+                      className="w-full h-40 md:h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
