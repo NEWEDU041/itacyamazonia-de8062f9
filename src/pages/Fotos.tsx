@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Navigation from "@/components/Navigation";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Badge } from "@/components/ui/badge";
+import LazyImage from "@/components/LazyImage";
 
 // Importando as imagens existentes
 import acomodacoes1 from "@/assets/acomodacoes-1.jpg";
@@ -225,7 +226,10 @@ const Fotos = () => {
     category: "landscapes",
     alt: "Curva do rio"
   }];
-  const filteredPhotos = selectedCategory === "all" ? photos : photos.filter(photo => photo.category === selectedCategory);
+  const filteredPhotos = useMemo(() => 
+    selectedCategory === "all" ? photos : photos.filter(photo => photo.category === selectedCategory),
+    [selectedCategory]
+  );
   const categories = [{
     key: "all",
     label: t.photos.categories.all
@@ -288,7 +292,7 @@ const Fotos = () => {
             animationDelay: `${index * 0.05}s`
           }}>
               <div className="aspect-[4/3] overflow-hidden">
-                  <img 
+                  <LazyImage 
                     src={photo.src} 
                     alt={photo.alt}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
