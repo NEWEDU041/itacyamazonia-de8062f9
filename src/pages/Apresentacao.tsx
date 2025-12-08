@@ -18,27 +18,107 @@ import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
 import tucunarePesca from "@/assets/tucunare-pesca.png";
 import cabanaInterior from "@/assets/cabana-interior.png";
 import cabanasComboio from "@/assets/cabanas-comboio.png";
-
 const Apresentacao = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const packages = [
-    { name: "Rio Itapará", price: "R$ 31.000", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião", waterType: "negras", highlight: false },
-    { name: "Rio Matá-Matá", price: "R$ 28.000", fishermen: "4 pescadores", waters: "Águas Turvas", transport: "Hidroavião", waterType: "turvas", highlight: false },
-    { name: "Rio Jufarí", price: "R$ 31.000", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião", waterType: "cristalinas", highlight: false },
-    { name: "Rio Amajaú", price: "R$ 28.000", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião", waterType: "negras", highlight: false },
-    { name: "Rio Xeriuní", price: "R$ 31.000", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião", waterType: "cristalinas", highlight: false },
-    { name: "Rio Uneuixi", price: "R$ 38.000", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião", waterType: "cristalinas", highlight: true },
-    { name: "Rio Marmelos", price: "R$ 31.000", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião", waterType: "negras", highlight: false },
-    { name: "Rio Caeteté", price: "R$ 35.000", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião", waterType: "cristalinas", highlight: true },
-    { name: "Rio Matupirí", price: "R$ 28.000", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião", waterType: "negras", highlight: false },
-    { name: "Rio Jatapú", price: "R$ 35.000", fishermen: "4 pescadores", waters: "Águas Cristalinas", transport: "Hidroavião", waterType: "cristalinas", highlight: true },
-    { name: "Rio Igapó-Açú", price: "R$ 28.000", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião", waterType: "negras", highlight: false },
-    { name: "Baixo Itapará", price: "R$ 23.000", fishermen: "4 pescadores", waters: "Águas Negras", transport: "Hidroavião", waterType: "negras", highlight: false },
-  ];
-
+  const packages = [{
+    name: "Rio Itapará",
+    price: "R$ 31.000",
+    fishermen: "4 pescadores",
+    waters: "Águas Negras",
+    transport: "Hidroavião",
+    waterType: "negras",
+    highlight: false
+  }, {
+    name: "Rio Matá-Matá",
+    price: "R$ 28.000",
+    fishermen: "4 pescadores",
+    waters: "Águas Turvas",
+    transport: "Hidroavião",
+    waterType: "turvas",
+    highlight: false
+  }, {
+    name: "Rio Jufarí",
+    price: "R$ 31.000",
+    fishermen: "4 pescadores",
+    waters: "Águas Cristalinas",
+    transport: "Hidroavião",
+    waterType: "cristalinas",
+    highlight: false
+  }, {
+    name: "Rio Amajaú",
+    price: "R$ 28.000",
+    fishermen: "4 pescadores",
+    waters: "Águas Negras",
+    transport: "Hidroavião",
+    waterType: "negras",
+    highlight: false
+  }, {
+    name: "Rio Xeriuní",
+    price: "R$ 31.000",
+    fishermen: "4 pescadores",
+    waters: "Águas Cristalinas",
+    transport: "Hidroavião",
+    waterType: "cristalinas",
+    highlight: false
+  }, {
+    name: "Rio Uneuixi",
+    price: "R$ 38.000",
+    fishermen: "4 pescadores",
+    waters: "Águas Cristalinas",
+    transport: "Hidroavião",
+    waterType: "cristalinas",
+    highlight: true
+  }, {
+    name: "Rio Marmelos",
+    price: "R$ 31.000",
+    fishermen: "4 pescadores",
+    waters: "Águas Negras",
+    transport: "Hidroavião",
+    waterType: "negras",
+    highlight: false
+  }, {
+    name: "Rio Caeteté",
+    price: "R$ 35.000",
+    fishermen: "4 pescadores",
+    waters: "Águas Cristalinas",
+    transport: "Hidroavião",
+    waterType: "cristalinas",
+    highlight: true
+  }, {
+    name: "Rio Matupirí",
+    price: "R$ 28.000",
+    fishermen: "4 pescadores",
+    waters: "Águas Negras",
+    transport: "Hidroavião",
+    waterType: "negras",
+    highlight: false
+  }, {
+    name: "Rio Jatapú",
+    price: "R$ 35.000",
+    fishermen: "4 pescadores",
+    waters: "Águas Cristalinas",
+    transport: "Hidroavião",
+    waterType: "cristalinas",
+    highlight: true
+  }, {
+    name: "Rio Igapó-Açú",
+    price: "R$ 28.000",
+    fishermen: "4 pescadores",
+    waters: "Águas Negras",
+    transport: "Hidroavião",
+    waterType: "negras",
+    highlight: false
+  }, {
+    name: "Baixo Itapará",
+    price: "R$ 23.000",
+    fishermen: "4 pescadores",
+    waters: "Águas Negras",
+    transport: "Hidroavião",
+    waterType: "negras",
+    highlight: false
+  }];
   const getWaterBadgeStyle = (waterType: string) => {
     switch (waterType) {
       case "cristalinas":
@@ -51,40 +131,16 @@ const Apresentacao = () => {
         return "bg-accent/20 text-accent border-accent/30";
     }
   };
-
-  const included = [
-    "Aéreo Manaus/Acampamento ida e volta",
-    "Todas as refeições (café, almoço, jantar, lanches e petiscos)",
-    "Bebidas não alcoólicas à vontade (água, café, chá, sucos)",
-    "Cervejas e drinks com moderação",
-    "Acomodação em cabanas flutuantes",
-    "Equipamentos de pesca profissionais",
-    "Barcos de pesca com guias especializados",
-    "Combustível para os barcos",
-    "Comunicação via satélite",
-    "Seguro de viagem",
-  ];
-
-  const notIncluded = [
-    "Passagem aérea até Manaus",
-    "Hospedagem em Manaus (antes e depois)",
-    "Bebidas especiais ou em excesso",
-    "Equipamentos pessoais de pesca (opcional)",
-    "Seguro de cancelamento de viagem",
-    "Gorjetas para a equipe (sugerido 10-15%)",
-    "Despesas pessoais",
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  const included = ["Aéreo Manaus/Acampamento ida e volta", "Todas as refeições (café, almoço, jantar, lanches e petiscos)", "Bebidas não alcoólicas à vontade (água, café, chá, sucos)", "Cervejas e drinks com moderação", "Acomodação em cabanas flutuantes", "Equipamentos de pesca profissionais", "Barcos de pesca com guias especializados", "Combustível para os barcos", "Comunicação via satélite", "Seguro de viagem"];
+  const notIncluded = ["Passagem aérea até Manaus", "Hospedagem em Manaus (antes e depois)", "Bebidas especiais ou em excesso", "Equipamentos pessoais de pesca (opcional)", "Seguro de cancelamento de viagem", "Gorjetas para a equipe (sugerido 10-15%)", "Despesas pessoais"];
+  return <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section - Cover */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${presentationCover})` }}
-        >
+        <div className="absolute inset-0 bg-cover bg-center" style={{
+        backgroundImage: `url(${presentationCover})`
+      }}>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
         </div>
         
@@ -124,11 +180,7 @@ const Apresentacao = () => {
               </p>
             </div>
             <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl animate-fade-in">
-              <img 
-                src={presentationAmazonia} 
-                alt="Amazônia Intocada" 
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-              />
+              <img src={presentationAmazonia} alt="Amazônia Intocada" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
           </div>
         </div>
@@ -148,11 +200,7 @@ const Apresentacao = () => {
           </div>
 
           <div className="mb-16 animate-fade-in flex justify-center">
-            <img 
-              src={presentationMap} 
-              alt="Dry Zone Map" 
-              className="w-full max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto rounded-xl shadow-xl object-contain"
-            />
+            <img src={presentationMap} alt="Dry Zone Map" className="w-full max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto rounded-xl shadow-xl object-contain" />
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 animate-fade-in">
@@ -244,11 +292,7 @@ const Apresentacao = () => {
 
             {/* Image Column */}
             <div className="animate-fade-in">
-              <img 
-                src={heroCabanasFlutuantes} 
-                alt="Cabanas flutuantes no rio Amazonas" 
-                className="w-full h-auto rounded-2xl shadow-2xl object-cover"
-              />
+              <img src={heroCabanasFlutuantes} alt="Cabanas flutuantes no rio Amazonas" className="w-full h-auto rounded-2xl shadow-2xl object-cover" />
             </div>
           </div>
         </div>
@@ -294,11 +338,7 @@ const Apresentacao = () => {
 
             {/* Image Column */}
             <div className="animate-fade-in order-1 lg:order-2">
-              <img 
-                src={tucunarePesca} 
-                alt="Pescadores com tucunaré gigante" 
-                className="w-full h-auto rounded-2xl shadow-2xl object-cover"
-              />
+              <img src={tucunarePesca} alt="Pescadores com tucunaré gigante" className="w-full h-auto rounded-2xl shadow-2xl object-cover" />
             </div>
           </div>
         </div>
@@ -395,11 +435,7 @@ const Apresentacao = () => {
               <div className="grid grid-cols-1 gap-4">
                 {/* Main Image - External Cabin View */}
                 <div className="relative overflow-hidden rounded-2xl shadow-lg group">
-                  <img 
-                    src={presentationCabanas} 
-                    alt="Cabana flutuante vista externa" 
-                    className="w-full h-64 md:h-80 object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                  <img src={presentationCabanas} alt="Cabana flutuante vista externa" className="w-full h-64 md:h-80 object-cover transition-transform duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 
@@ -407,21 +443,13 @@ const Apresentacao = () => {
                 <div className="grid grid-cols-2 gap-4">
                   {/* Internal Room */}
                   <div className="relative overflow-hidden rounded-2xl shadow-lg group">
-                    <img 
-                      src={cabanaInterior} 
-                      alt="Interior da cabana com duas camas" 
-                      className="w-full h-40 md:h-48 object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <img src={cabanaInterior} alt="Interior da cabana com duas camas" className="w-full h-40 md:h-48 object-cover transition-transform duration-500 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                   
                   {/* Cabin Convoy */}
                   <div className="relative overflow-hidden rounded-2xl shadow-lg group">
-                    <img 
-                      src={cabanasComboio} 
-                      alt="Comboio de cabanas navegando" 
-                      className="w-full h-40 md:h-48 object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <img src={cabanasComboio} alt="Comboio de cabanas navegando" className="w-full h-40 md:h-48 object-cover transition-transform duration-500 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 </div>
@@ -432,43 +460,7 @@ const Apresentacao = () => {
       </section>
 
       {/* Section 7: Restaurante */}
-      <section className="relative py-24 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${presentationRestaurante})` }}
-        >
-          <div className="absolute inset-0 bg-black/80"></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-3xl mx-auto text-center animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
-              Sabores que Celebram a Pesca e a Natureza
-            </h2>
-
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <Card className="p-6 bg-card/95 backdrop-blur-sm text-center">
-                <Utensils className="w-12 h-12 text-accent mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-foreground mb-2">Refeições Completas</h3>
-                <ul className="text-muted-foreground space-y-2">
-                  <li>🥣 Sopa reconfortante</li>
-                  <li>🥗 Salada fresca</li>
-                  <li>🍽 Prato principal</li>
-                  <li>🍮 Sobremesa</li>
-                </ul>
-              </Card>
-
-              <Card className="p-6 bg-card/95 backdrop-blur-sm text-center">
-                <Award className="w-12 h-12 text-accent mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-foreground mb-2">Destaque Especial</h3>
-                <p className="text-muted-foreground">
-                  Churrasco especial na praia com cortes nobres e experiência única sob as estrelas amazônicas.
-                </p>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Section 8: Pescaria de Classe Mundial */}
       <section className="py-24 bg-background">
@@ -500,11 +492,7 @@ const Apresentacao = () => {
           </div>
 
           <div className="animate-fade-in">
-            <img 
-              src={presentationBarcos} 
-              alt="Barcos de Pesca" 
-              className="w-full max-w-4xl mx-auto rounded-2xl shadow-2xl"
-            />
+            <img src={presentationBarcos} alt="Barcos de Pesca" className="w-full max-w-4xl mx-auto rounded-2xl shadow-2xl" />
           </div>
         </div>
       </section>
@@ -523,20 +511,10 @@ const Apresentacao = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 animate-fade-in">
-            {packages.map((pkg, index) => (
-              <Card 
-                key={index} 
-                className={`relative overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${
-                  pkg.highlight 
-                    ? 'border-accent ring-2 ring-accent/20' 
-                    : 'border-border/50 hover:border-accent/50'
-                }`}
-              >
-                {pkg.highlight && (
-                  <div className="absolute top-0 right-0 bg-accent text-accent-foreground text-xs font-bold px-3 py-1 rounded-bl-lg">
+            {packages.map((pkg, index) => <Card key={index} className={`relative overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${pkg.highlight ? 'border-accent ring-2 ring-accent/20' : 'border-border/50 hover:border-accent/50'}`}>
+                {pkg.highlight && <div className="absolute top-0 right-0 bg-accent text-accent-foreground text-xs font-bold px-3 py-1 rounded-bl-lg">
                     PREMIUM
-                  </div>
-                )}
+                  </div>}
                 
                 <div className="p-5">
                   {/* Header */}
@@ -578,8 +556,7 @@ const Apresentacao = () => {
                 
                 {/* Hover overlay */}
                 <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-              </Card>
-            ))}
+              </Card>)}
           </div>
           
           {/* Legend */}
@@ -614,12 +591,10 @@ const Apresentacao = () => {
                 O PACOTE INCLUI
               </h3>
               <ul className="space-y-3">
-                {included.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
+                {included.map((item, index) => <li key={index} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
                     <span className="text-muted-foreground">{item}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </Card>
 
@@ -629,12 +604,10 @@ const Apresentacao = () => {
                 NÃO INCLUI
               </h3>
               <ul className="space-y-3">
-                {notIncluded.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
+                {notIncluded.map((item, index) => <li key={index} className="flex items-start gap-3">
                     <X className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
                     <span className="text-muted-foreground">{item}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </Card>
           </div>
@@ -725,37 +698,21 @@ const Apresentacao = () => {
             <Card className="p-8 md:p-12 border-accent/20 mb-8">
               <div className="space-y-6">
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-lg">
-                  <a 
-                    href="https://wa.me/5597984058184" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-accent hover:text-accent/80 transition-colors font-semibold flex items-center gap-2"
-                  >
+                  <a href="https://wa.me/5597984058184" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent/80 transition-colors font-semibold flex items-center gap-2">
                     📱 WhatsApp: +55 97 98405-8184
                   </a>
                   <span className="hidden md:inline text-muted-foreground">|</span>
-                  <a 
-                    href="tel:18002314975"
-                    className="text-accent hover:text-accent/80 transition-colors font-semibold flex items-center gap-2"
-                  >
+                  <a href="tel:18002314975" className="text-accent hover:text-accent/80 transition-colors font-semibold flex items-center gap-2">
                     ☎️ Tel: 1-800-231-4975
                   </a>
                 </div>
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-lg">
-                  <a 
-                    href="mailto:robson@riverplateoutfitters.com"
-                    className="text-accent hover:text-accent/80 transition-colors font-semibold flex items-center gap-2"
-                  >
+                  <a href="mailto:robson@riverplateoutfitters.com" className="text-accent hover:text-accent/80 transition-colors font-semibold flex items-center gap-2">
                     ✉️ robson@riverplateoutfitters.com
                   </a>
                   <span className="hidden md:inline text-muted-foreground">|</span>
-                  <a 
-                    href="https://www.riverplateanglers.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-accent hover:text-accent/80 transition-colors font-semibold flex items-center gap-2"
-                  >
+                  <a href="https://www.riverplateanglers.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent/80 transition-colors font-semibold flex items-center gap-2">
                     🌐 riverplateanglers.com
                   </a>
                 </div>
@@ -763,22 +720,13 @@ const Apresentacao = () => {
             </Card>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg"
-                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8"
-                asChild
-              >
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8" asChild>
                 <a href="https://wa.me/5597984058184" target="_blank" rel="noopener noreferrer">
                   Fale Conosco no WhatsApp
                 </a>
               </Button>
               
-              <Button 
-                size="lg"
-                variant="outline"
-                className="border-accent text-accent hover:bg-accent/10 font-semibold px-8"
-                asChild
-              >
+              <Button size="lg" variant="outline" className="border-accent text-accent hover:bg-accent/10 font-semibold px-8" asChild>
                 <a href="https://us2.cloudbeds.com/reservas/PAWNo0" target="_blank" rel="noopener noreferrer">
                   Reservar Online
                 </a>
@@ -787,8 +735,6 @@ const Apresentacao = () => {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Apresentacao;
