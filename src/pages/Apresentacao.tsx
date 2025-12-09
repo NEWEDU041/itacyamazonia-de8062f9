@@ -434,28 +434,7 @@ const Apresentacao = () => {
 
             {/* Right Column - Image Gallery */}
             <div className="order-1 lg:order-2 animate-fade-in">
-              <div className="grid grid-cols-1 gap-4">
-                {/* Main Image - External Cabin View */}
-                <div className="relative overflow-hidden rounded-2xl shadow-lg group">
-                  <img src={presentationCabanas} alt={t.presentation.cabins.title} className="w-full h-64 md:h-80 object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-                
-                {/* Two Column Grid for smaller images */}
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Internal Room */}
-                  <div className="relative overflow-hidden rounded-2xl shadow-lg group">
-                    <img src={cabanaInterior} alt={t.presentation.cabins.service5} className="w-full h-40 md:h-48 object-cover transition-transform duration-500 group-hover:scale-105" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                  
-                  {/* Cabin Convoy */}
-                  <div className="relative overflow-hidden rounded-2xl shadow-lg group">
-                    <img src={cabanasComboio} alt={t.presentation.cabins.title} className="w-full h-40 md:h-48 object-cover transition-transform duration-500 group-hover:scale-105" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
