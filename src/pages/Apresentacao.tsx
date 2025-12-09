@@ -19,14 +19,13 @@ import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
 import tucunarePesca from "@/assets/tucunare-pesca.png";
 import cabanaInterior from "@/assets/cabana-interior.png";
 import cabanasComboio from "@/assets/cabanas-comboio.png";
-
 const Apresentacao = () => {
-  const { t } = useTranslation();
-  
+  const {
+    t
+  } = useTranslation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
   const packages = [{
     name: "Rio Itapará",
     price: "R$ 31.000",
@@ -124,7 +123,6 @@ const Apresentacao = () => {
     waterType: "negras",
     highlight: false
   }];
-
   const getWaterBadgeStyle = (waterType: string) => {
     switch (waterType) {
       case "cristalinas":
@@ -137,16 +135,14 @@ const Apresentacao = () => {
         return "bg-accent/20 text-accent border-accent/30";
     }
   };
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section - Cover */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center" style={{
-          backgroundImage: `url(${presentationCover})`
-        }}>
+        backgroundImage: `url(${presentationCover})`
+      }}>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
         </div>
         
@@ -501,88 +497,7 @@ const Apresentacao = () => {
       </section>
 
       {/* Sections 9-10: Pacotes Premium */}
-      <section className="py-24 bg-gradient-to-b from-muted/20 to-background">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16 animate-fade-in">
-            <Badge className="mb-4 bg-accent/20 text-accent">{t.presentation.packages.badge}</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              {t.presentation.packages.title}
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              {t.presentation.packages.subtitle}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 animate-fade-in">
-            {packages.map((pkg, index) => (
-              <Card key={index} className={`relative overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${pkg.highlight ? 'border-accent ring-2 ring-accent/20' : 'border-border/50 hover:border-accent/50'}`}>
-                {pkg.highlight && (
-                  <div className="absolute top-0 right-0 bg-accent text-accent-foreground text-xs font-bold px-3 py-1 rounded-bl-lg">
-                    PREMIUM
-                  </div>
-                )}
-                
-                <div className="p-5">
-                  {/* Header */}
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                      <Fish className="w-5 h-5 text-accent" />
-                    </div>
-                    <h3 className="text-lg font-bold text-foreground leading-tight">{pkg.name}</h3>
-                  </div>
-                  
-                  {/* Price */}
-                  <div className="mb-4">
-                    <span className="text-3xl font-bold text-foreground">{pkg.price}</span>
-                    <span className="text-muted-foreground text-sm ml-1">{t.presentation.packages.perPerson}</span>
-                  </div>
-                  
-                  {/* Water Type Badge */}
-                  <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border mb-4 ${getWaterBadgeStyle(pkg.waterType)}`}>
-                    <span className="w-2 h-2 rounded-full bg-current"></span>
-                    {t.presentation.packages[pkg.waters]}
-                  </div>
-                  
-                  {/* Details */}
-                  <div className="space-y-2.5 pt-4 border-t border-border/50">
-                    <div className="flex items-center gap-2.5 text-sm">
-                      <Users className="w-4 h-4 text-muted-foreground" />
-                      <span className="text-muted-foreground">{pkg.fishermen} {t.presentation.packages.fishermen}</span>
-                    </div>
-                    <div className="flex items-center gap-2.5 text-sm">
-                      <Ship className="w-4 h-4 text-muted-foreground" />
-                      <span className="text-muted-foreground">{pkg.transport}</span>
-                    </div>
-                    <div className="flex items-center gap-2.5 text-sm">
-                      <Calendar className="w-4 h-4 text-muted-foreground" />
-                      <span className="text-muted-foreground">{t.presentation.packages.days}</span>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-              </Card>
-            ))}
-          </div>
-          
-          {/* Legend */}
-          <div className="flex flex-wrap justify-center gap-6 mt-10 text-sm">
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-cyan-500"></span>
-              <span className="text-muted-foreground">{t.presentation.packages.clearWaters}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-amber-500"></span>
-              <span className="text-muted-foreground">{t.presentation.packages.darkWaters}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-orange-500"></span>
-              <span className="text-muted-foreground">{t.presentation.packages.murkyWaters}</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Section 11: Informações */}
       <section className="py-24 bg-primary/5">
@@ -598,12 +513,10 @@ const Apresentacao = () => {
                 {t.presentation.packageInfo.includedTitle}
               </h3>
               <ul className="space-y-3">
-                {t.presentation.packageInfo.included.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
+                {t.presentation.packageInfo.included.map((item, index) => <li key={index} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
                     <span className="text-muted-foreground">{item}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </Card>
 
@@ -613,12 +526,10 @@ const Apresentacao = () => {
                 {t.presentation.packageInfo.notIncludedTitle}
               </h3>
               <ul className="space-y-3">
-                {t.presentation.packageInfo.notIncluded.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
+                {t.presentation.packageInfo.notIncluded.map((item, index) => <li key={index} className="flex items-start gap-3">
                     <X className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
                     <span className="text-muted-foreground">{item}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </Card>
           </div>
@@ -750,8 +661,6 @@ const Apresentacao = () => {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Apresentacao;
