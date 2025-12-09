@@ -19,6 +19,8 @@ import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
 import tucunarePesca from "@/assets/tucunare-pesca.png";
 import cabanaInterior from "@/assets/cabana-interior.png";
 import cabanasComboio from "@/assets/cabanas-comboio.png";
+import apresentacaoVideo from "@/assets/apresentacao-video.mp4";
+
 const Apresentacao = () => {
   const {
     t
@@ -434,7 +436,15 @@ const Apresentacao = () => {
 
             {/* Right Column - Image Gallery */}
             <div className="order-1 lg:order-2 animate-fade-in">
-              
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-auto rounded-2xl shadow-2xl"
+              >
+                <source src={apresentacaoVideo} type="video/mp4" />
+              </video>
             </div>
           </div>
         </div>
