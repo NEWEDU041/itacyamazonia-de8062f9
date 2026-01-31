@@ -3,7 +3,7 @@ import ContactSection from "@/components/ContactSection";
 import { Home, Wind, Briefcase, Anchor, Navigation as NavigationIcon, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useTranslation } from "@/hooks/useTranslation";
-import acomodacao1 from "@/assets/acomodacoes-1.jpg";
+import acomodacao1 from "@/assets/acomodacoes-cozinha.png";
 import cabanaInterior from "@/assets/cabana-interior.png";
 import salaJantar from "@/assets/sala-jantar.png";
 import jantarPraia from "@/assets/jantar-praia.png";
