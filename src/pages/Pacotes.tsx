@@ -80,7 +80,7 @@ const Pacotes = () => {
                     <div className="flex items-center gap-2 text-muted-foreground"><Calendar className="w-4 h-4 text-accent" /><span>{t.packages.premium.days}</span></div>
                   </div>
                   <Button className="w-full bg-primary hover:bg-primary/90" asChild>
-                    <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">{t.packages.premium.bookNow}</a>
+                    <a href="https://us2.cloudbeds.com/pt-br/reservas/PAWNo0" target="_blank" rel="noopener noreferrer">{t.packages.premium.bookNow}</a>
                   </Button>
                 </CardContent>
               </Card>
@@ -126,7 +126,7 @@ const Pacotes = () => {
                     <div className="flex items-center gap-2 text-muted-foreground"><Calendar className="w-4 h-4 text-accent" /><span>{t.packages.standard.days}</span></div>
                   </div>
                   <Button className="w-full bg-primary hover:bg-primary/90" asChild>
-                    <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">{t.packages.standard.bookNow}</a>
+                    <a href="https://us2.cloudbeds.com/pt-br/reservas/PAWNo0" target="_blank" rel="noopener noreferrer">{t.packages.standard.bookNow}</a>
                   </Button>
                 </CardContent>
               </Card>
