@@ -256,6 +256,7 @@ export const translations = {
         title: "Equipamentos de Pesca Inclusos",
         subtitle: "Não se preocupe com equipamentos de pesca!",
         description: "Fornecemos varas, molinetes, iscas e todos os acessórios necessários. Nossos equipamentos são de primeira linha e adequados para as espécies locais.",
+        note: "(Fornecidos dependendo do pacote)",
         badges: [
           "Varas Profissionais",
           "Molinetes de Alta Performance",
@@ -701,6 +702,7 @@ export const translations = {
         title: "Fishing Equipment Included",
         subtitle: "Don't worry about fishing equipment!",
         description: "We provide rods, reels, lures, and all necessary accessories. Our equipment is top-notch and suitable for local species.",
+        note: "(Provided depending on the package)",
         badges: [
           "Professional Rods",
           "High Performance Reels",
@@ -1146,6 +1148,7 @@ export const translations = {
         title: "Equipo de Pesca Incluido",
         subtitle: "¡No te preocupes por el equipo de pesca!",
         description: "Proporcionamos cañas, carretes, señuelos y todos los accesorios necesarios. Nuestro equipo es de primera línea y adecuado para las especies locales.",
+        note: "(Proporcionados según el paquete)",
         badges: [
           "Cañas Profesionales",
           "Carretes de Alto Rendimiento",
