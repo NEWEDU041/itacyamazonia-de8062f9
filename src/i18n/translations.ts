@@ -444,6 +444,13 @@ export const translations = {
         email: "Envie um Email",
       },
     },
+    contactPage: {
+      hero: {
+        badge: "Fale Conosco",
+        title: "Entre em Contato",
+        subtitle: "Estamos prontos para criar a experiência de pesca dos seus sonhos. Entre em contato conosco para disponibilidade e informações.",
+      },
+    },
   },
   en: {
     navigation: {
@@ -890,6 +897,13 @@ export const translations = {
         email: "Send an Email",
       },
     },
+    contactPage: {
+      hero: {
+        badge: "Get in Touch",
+        title: "Contact Us",
+        subtitle: "We are ready to create the fishing experience of your dreams. Contact us for availability and information.",
+      },
+    },
   },
   es: {
     navigation: {
@@ -1334,6 +1348,13 @@ export const translations = {
         description: "Estamos listos para crear la experiencia de pesca de tus sueños. Contáctanos para disponibilidad, precios e información detallada.",
         whatsapp: "Contáctanos en WhatsApp",
         email: "Enviar un Email",
+      },
+    },
+    contactPage: {
+      hero: {
+        badge: "Contáctanos",
+        title: "Contacto",
+        subtitle: "Estamos listos para crear la experiencia de pesca de tus sueños. Contáctanos para disponibilidad e información.",
       },
     },
   },
