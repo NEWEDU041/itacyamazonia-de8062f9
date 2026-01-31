@@ -58,14 +58,6 @@ const RiverPlateSection = () => {
               playsInline
               className="w-full rounded-2xl shadow-2xl"
             />
-            <video 
-              src={riverPlateVideo}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full rounded-2xl shadow-2xl"
-            />
           </div>
           
           <div className="order-1 lg:order-2">
