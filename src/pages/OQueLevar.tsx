@@ -75,6 +75,7 @@ const OQueLevar = () => {
               </CardHeader>
               <CardContent className="text-center space-y-4">
                 <p className="text-base text-muted-foreground leading-relaxed">{t.whatToBring.equipment.description}</p>
+                <p className="text-base font-bold text-foreground">{t.whatToBring.equipment.note}</p>
                 <div className="flex flex-wrap justify-center gap-3 pt-4">
                   {t.whatToBring.equipment.badges.map((badge, index) => (
                     <Badge key={index} variant="secondary" className="px-4 py-2">{badge}</Badge>
