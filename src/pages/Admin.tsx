@@ -57,7 +57,7 @@ const Admin = () => {
       description: "Gerencie as fotos exibidas no site",
       icon: Image,
       href: "/admin/photos",
-      available: false,
+      available: true,
     },
     {
       title: "Pacotes",
