@@ -18,7 +18,7 @@ const Navigation = () => {
     { labelKey: "gastronomy", path: "/gastronomia" },
     { labelKey: "photos", path: "/fotos" },
     { labelKey: "whatToBring", path: "/o-que-levar" },
-    { labelKey: "contact", path: "#contato" }
+    { labelKey: "contact", path: "/contato" }
   ];
 
   const languages = [
