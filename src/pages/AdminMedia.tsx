@@ -123,6 +123,7 @@ const AdminMedia = () => {
         {/* Static Photos Importer */}
         {showImporter && (
           <StaticPhotosImporter 
+            activeCategory={activeCategory}
             onImportComplete={() => {
               fetchMedia(activeCategory);
               setShowImporter(false);

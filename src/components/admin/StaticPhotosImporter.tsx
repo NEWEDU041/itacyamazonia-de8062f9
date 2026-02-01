@@ -122,14 +122,18 @@ const categoryLabels: Record<MediaCategory, string> = {
 
 interface StaticPhotosImporterProps {
   onImportComplete: () => void;
+  activeCategory: MediaCategory;
 }
 
-export const StaticPhotosImporter = ({ onImportComplete }: StaticPhotosImporterProps) => {
+export const StaticPhotosImporter = ({ onImportComplete, activeCategory }: StaticPhotosImporterProps) => {
   const [selectedPhotos, setSelectedPhotos] = useState<Set<string>>(new Set());
   const [importing, setImporting] = useState(false);
   const [progress, setProgress] = useState(0);
   const [importedCount, setImportedCount] = useState(0);
   const [failedCount, setFailedCount] = useState(0);
+
+  // Filter photos by active category
+  const categoryPhotos = staticPhotos.filter(p => p.category === activeCategory);
 
   const togglePhoto = (id: string) => {
     const newSelected = new Set(selectedPhotos);
@@ -142,10 +146,10 @@ export const StaticPhotosImporter = ({ onImportComplete }: StaticPhotosImporterP
   };
 
   const selectAll = () => {
-    if (selectedPhotos.size === staticPhotos.length) {
+    if (selectedPhotos.size === categoryPhotos.length) {
       setSelectedPhotos(new Set());
     } else {
-      setSelectedPhotos(new Set(staticPhotos.map(p => p.id)));
+      setSelectedPhotos(new Set(categoryPhotos.map(p => p.id)));
     }
   };
 
@@ -160,7 +164,7 @@ export const StaticPhotosImporter = ({ onImportComplete }: StaticPhotosImporterP
     setImportedCount(0);
     setFailedCount(0);
 
-    const photosToImport = staticPhotos.filter(p => selectedPhotos.has(p.id));
+    const photosToImport = categoryPhotos.filter(p => selectedPhotos.has(p.id));
     let imported = 0;
     let failed = 0;
 
@@ -230,11 +234,15 @@ export const StaticPhotosImporter = ({ onImportComplete }: StaticPhotosImporterP
     onImportComplete();
   };
 
-  const groupedPhotos = staticPhotos.reduce((acc, photo) => {
-    if (!acc[photo.category]) acc[photo.category] = [];
-    acc[photo.category].push(photo);
-    return acc;
-  }, {} as Record<MediaCategory, StaticPhoto[]>);
+  if (categoryPhotos.length === 0) {
+    return (
+      <Card>
+        <CardContent className="py-8 text-center text-muted-foreground">
+          <p>Não há fotos estáticas disponíveis para importar nesta categoria.</p>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>
@@ -243,18 +251,18 @@ export const StaticPhotosImporter = ({ onImportComplete }: StaticPhotosImporterP
           <div>
             <CardTitle className="flex items-center gap-2">
               <Download className="w-5 h-5" />
-              Importar Fotos do Site
+              Importar Fotos - {categoryLabels[activeCategory]}
             </CardTitle>
             <CardDescription>
-              Selecione as fotos estáticas para migrar para o banco de dados
+              Selecione as fotos para migrar para o banco de dados
             </CardDescription>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={selectAll}>
-              {selectedPhotos.size === staticPhotos.length ? "Desmarcar Todas" : "Selecionar Todas"}
+              {selectedPhotos.size === categoryPhotos.length ? "Desmarcar Todas" : "Selecionar Todas"}
             </Button>
             <Badge variant="secondary">
-              {selectedPhotos.size} de {staticPhotos.length}
+              {selectedPhotos.size} de {categoryPhotos.length}
             </Badge>
           </div>
         </div>
@@ -280,39 +288,35 @@ export const StaticPhotosImporter = ({ onImportComplete }: StaticPhotosImporterP
           </div>
         )}
 
-        {Object.entries(groupedPhotos).map(([category, photos]) => (
-          <div key={category} className="space-y-3">
-            <h3 className="font-medium text-sm text-muted-foreground">
-              {categoryLabels[category as MediaCategory]} ({photos.length})
-            </h3>
-            <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
-              {photos.map((photo) => (
-                <div
-                  key={photo.id}
-                  className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer border-2 transition-all ${
-                    selectedPhotos.has(photo.id)
-                      ? "border-accent ring-2 ring-accent/50"
-                      : "border-transparent hover:border-accent/50"
-                  }`}
-                  onClick={() => togglePhoto(photo.id)}
-                >
-                  <img
-                    src={photo.src}
-                    alt={photo.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-1 right-1">
-                    <Checkbox
-                      checked={selectedPhotos.has(photo.id)}
-                      onCheckedChange={() => togglePhoto(photo.id)}
-                      className="bg-white/80"
-                    />
-                  </div>
-                </div>
-              ))}
+        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+          {categoryPhotos.map((photo) => (
+            <div
+              key={photo.id}
+              className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer border-2 transition-all ${
+                selectedPhotos.has(photo.id)
+                  ? "border-accent ring-2 ring-accent/50"
+                  : "border-transparent hover:border-accent/50"
+              }`}
+              onClick={() => togglePhoto(photo.id)}
+            >
+              <img
+                src={photo.src}
+                alt={photo.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-1 right-1">
+                <Checkbox
+                  checked={selectedPhotos.has(photo.id)}
+                  onCheckedChange={() => togglePhoto(photo.id)}
+                  className="bg-white/80"
+                />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 truncate">
+                {photo.title}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
 
         <div className="flex justify-end pt-4 border-t">
           <Button
