@@ -77,7 +77,7 @@ const Admin = () => {
       description: "Configurações gerais do site",
       icon: Settings,
       href: "/admin/settings",
-      available: false,
+      available: true,
     },
   ];
 
