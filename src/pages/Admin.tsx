@@ -176,15 +176,6 @@ const Admin = () => {
             </Card>
           ))}
         </div>
-
-        {/* Quick Actions */}
-        <div className="mt-8 p-6 bg-muted/50 rounded-lg border border-border">
-          <h3 className="font-semibold mb-2">🚧 Área em Desenvolvimento</h3>
-          <p className="text-sm text-muted-foreground">
-            Os módulos de gerenciamento estão sendo desenvolvidos. Em breve você poderá 
-            gerenciar fotos, pacotes, reservas e muito mais diretamente por aqui.
-          </p>
-        </div>
       </main>
     </div>
   );
