@@ -62,9 +62,6 @@ const Contato = () => {
             </a>
           </div>
           
-          <p className="text-center font-bold text-foreground mt-8">
-            {t.whatToBring.equipment.note}
-          </p>
           
           <div className="text-center mt-8">
             <Button 
