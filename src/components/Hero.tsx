@@ -2,11 +2,16 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useHeroMedia } from "@/hooks/useHeroMedia";
 import heroMainVideo from "@/assets/hero-main-video.mp4";
 
 const Hero = () => {
   const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { heroMedia, loading } = useHeroMedia();
+
+  // Use database video if available, otherwise fallback to static
+  const videoSource = heroMedia.video_url || heroMainVideo;
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -14,7 +19,7 @@ const Hero = () => {
       <div className="absolute inset-0">
         <video
           ref={videoRef}
-          src={heroMainVideo}
+          src={videoSource}
           className="w-full h-full object-cover object-center md:object-center"
           style={{ 
             minWidth: '100%',
