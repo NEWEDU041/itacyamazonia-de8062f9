@@ -10,7 +10,6 @@ import {
   LogOut, 
   Image, 
   FileText, 
-  Calendar,
   Settings,
   Users,
   Home
@@ -65,13 +64,6 @@ const Admin = () => {
       icon: FileText,
       href: "/admin/packages",
       available: true,
-    },
-    {
-      title: "Reservas",
-      description: "Visualize e gerencie reservas",
-      icon: Calendar,
-      href: "/admin/bookings",
-      available: false,
     },
     {
       title: "Usuários",
@@ -136,7 +128,7 @@ const Admin = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <Card className="bg-gradient-to-br from-accent/10 to-accent/5 border-accent/20">
             <CardHeader className="pb-2">
               <CardDescription>Total de Fotos</CardDescription>
@@ -146,13 +138,7 @@ const Admin = () => {
           <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
             <CardHeader className="pb-2">
               <CardDescription>Pacotes Ativos</CardDescription>
-              <CardTitle className="text-3xl">12</CardTitle>
-            </CardHeader>
-          </Card>
-          <Card className="bg-gradient-to-br from-green-500/10 to-green-500/5 border-green-500/20">
-            <CardHeader className="pb-2">
-              <CardDescription>Reservas Pendentes</CardDescription>
-              <CardTitle className="text-3xl">-</CardTitle>
+              <CardTitle className="text-3xl">8</CardTitle>
             </CardHeader>
           </Card>
         </div>
