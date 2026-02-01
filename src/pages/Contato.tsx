@@ -62,7 +62,11 @@ const Contato = () => {
             </a>
           </div>
           
-          <div className="text-center mt-12">
+          <p className="text-center font-bold text-foreground mt-8">
+            {t.whatToBring.equipment.note}
+          </p>
+          
+          <div className="text-center mt-8">
             <Button 
               size="lg"
               className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-6 text-lg"
