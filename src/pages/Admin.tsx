@@ -64,7 +64,7 @@ const Admin = () => {
       description: "Configure os pacotes e preços",
       icon: FileText,
       href: "/admin/packages",
-      available: false,
+      available: true,
     },
     {
       title: "Reservas",

@@ -3,26 +3,24 @@ import ContactSection from "@/components/ContactSection";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Check, Plane, Calendar, Users } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { usePackages } from "@/hooks/usePackages";
+import { useLanguage } from "@/contexts/LanguageContext";
 import pacotesHeroBg from "@/assets/pacotes-hero-bg.jpg";
 
 const Pacotes = () => {
   const { t } = useTranslation();
+  const { language } = useLanguage();
+  const { data: packages, isLoading } = usePackages(true);
 
-  const premiumPackages = [
-    { river: "Alto Itapará", riverEn: "Itapara Upper", price: "6,490", featured: false },
-    { river: "Alto Jufari", riverEn: "Jufari Upper", price: "6,490", featured: false },
-    { river: "Alto Abacaxis", riverEn: "Abacaxis Upper", price: "6,490", featured: false },
-    { river: "Rio Uneuixi", riverEn: "Uniuixi River", price: "6,990", featured: true }
-  ];
+  const premiumPackages = packages?.filter(pkg => pkg.is_premium) || [];
+  const standardPackages = packages?.filter(pkg => !pkg.is_premium) || [];
 
-  const standardPackages = [
-    { river: "Alto Itapará", riverEn: "Itapara Upper", price: "5,490" },
-    { river: "Alto Jufari", riverEn: "Jufari Upper", price: "5,490" },
-    { river: "Rio Paratucu", riverEn: "Paratucu River", price: "5,490" },
-    { river: "Alto Uneuixi", riverEn: "Uneuixi Upper", price: "5,990" }
-  ];
+  const formatPrice = (price: number) => {
+    return price.toLocaleString("en-US");
+  };
 
   return (
     <div className="min-h-screen">
@@ -62,30 +60,47 @@ const Pacotes = () => {
             <p className="text-muted-foreground text-lg">{t.packages.premium.subtitle}</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12">
-            {premiumPackages.map((pkg, index) => (
-              <Card key={index} className={`relative overflow-hidden hover-scale ${pkg.featured ? 'ring-2 ring-accent shadow-lg' : ''}`}>
-                {pkg.featured && <div className="absolute top-0 right-0 bg-accent text-accent-foreground text-xs font-bold px-3 py-1 rounded-bl-lg">{t.packages.premium.popular}</div>}
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-xl font-serif text-foreground">{pkg.river}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{pkg.riverEn}</p>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="text-center py-4 bg-secondary/50 rounded-lg">
-                    <div className="text-4xl font-bold text-foreground">${pkg.price}</div>
-                    <p className="text-xs text-muted-foreground mt-2">{t.packages.premium.perFisherman}</p>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center gap-2 text-muted-foreground"><Users className="w-4 h-4 text-accent" /><span>{t.packages.premium.group}</span></div>
-                    <div className="flex items-center gap-2 text-muted-foreground"><Calendar className="w-4 h-4 text-accent" /><span>{t.packages.premium.days}</span></div>
-                  </div>
-                  <Button className="w-full bg-primary hover:bg-primary/90" asChild>
-                    <a href="https://us2.cloudbeds.com/pt-br/reservas/PAWNo0" target="_blank" rel="noopener noreferrer">{t.packages.premium.bookNow}</a>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12">
+              {[1, 2, 3, 4].map((i) => (
+                <Card key={i} className="overflow-hidden">
+                  <CardHeader className="pb-4">
+                    <Skeleton className="h-6 w-32" />
+                    <Skeleton className="h-4 w-24 mt-2" />
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <Skeleton className="h-20 w-full" />
+                    <Skeleton className="h-10 w-full" />
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12">
+              {premiumPackages.map((pkg) => (
+                <Card key={pkg.id} className={`relative overflow-hidden hover-scale ${pkg.is_highlight ? 'ring-2 ring-accent shadow-lg' : ''}`}>
+                  {pkg.is_highlight && <div className="absolute top-0 right-0 bg-accent text-accent-foreground text-xs font-bold px-3 py-1 rounded-bl-lg">{t.packages.premium.popular}</div>}
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-xl font-serif text-foreground">{pkg.river}</CardTitle>
+                    <p className="text-sm text-muted-foreground">{language === "en" ? pkg.river_en : pkg.river}</p>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="text-center py-4 bg-secondary/50 rounded-lg">
+                      <div className="text-4xl font-bold text-foreground">${formatPrice(pkg.price)}</div>
+                      <p className="text-xs text-muted-foreground mt-2">{t.packages.premium.perFisherman}</p>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center gap-2 text-muted-foreground"><Users className="w-4 h-4 text-accent" /><span>{t.packages.premium.group}</span></div>
+                      <div className="flex items-center gap-2 text-muted-foreground"><Calendar className="w-4 h-4 text-accent" /><span>{t.packages.premium.days}</span></div>
+                    </div>
+                    <Button className="w-full bg-primary hover:bg-primary/90" asChild>
+                      <a href="https://us2.cloudbeds.com/pt-br/reservas/PAWNo0" target="_blank" rel="noopener noreferrer">{t.packages.premium.bookNow}</a>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
 
           <Card className="max-w-4xl mx-auto bg-secondary/30">
             <CardContent className="pt-6">
@@ -110,15 +125,15 @@ const Pacotes = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {standardPackages.map((pkg, index) => (
-              <Card key={index} className="hover-scale">
+            {standardPackages.map((pkg) => (
+              <Card key={pkg.id} className="hover-scale">
                 <CardHeader className="pb-4">
                   <CardTitle className="text-xl font-serif text-foreground">{pkg.river}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{pkg.riverEn}</p>
+                  <p className="text-sm text-muted-foreground">{language === "en" ? pkg.river_en : pkg.river}</p>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="text-center py-4 bg-secondary/50 rounded-lg">
-                    <div className="text-4xl font-bold text-foreground">${pkg.price}</div>
+                    <div className="text-4xl font-bold text-foreground">${formatPrice(pkg.price)}</div>
                     <p className="text-xs text-muted-foreground mt-2">{t.packages.standard.perFisherman}</p>
                   </div>
                   <div className="space-y-2 text-sm">
