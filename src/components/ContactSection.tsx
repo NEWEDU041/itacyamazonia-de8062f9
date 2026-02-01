@@ -1,6 +1,7 @@
-import { Mail, Phone, Instagram } from "lucide-react";
+import { Mail, Phone, Instagram, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/useTranslation";
+import { Link } from "react-router-dom";
 
 const ContactSection = () => {
   const { t } = useTranslation();
@@ -56,6 +57,17 @@ const ContactSection = () => {
               {t.contact.bookNow}
             </a>
           </Button>
+        </div>
+
+        {/* Admin link - discrete footer */}
+        <div className="flex justify-center mt-16 pt-8 border-t border-border/20">
+          <Link 
+            to="/auth" 
+            className="text-muted-foreground/40 hover:text-muted-foreground transition-colors p-2"
+            title="Área Administrativa"
+          >
+            <Settings className="w-5 h-5" />
+          </Link>
         </div>
       </div>
     </section>
