@@ -7,11 +7,11 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
-import { Fish, Loader2, Eye, EyeOff, AlertTriangle } from "lucide-react";
+import { Fish, Loader2, Eye, EyeOff } from "lucide-react";
 
 const Auth = () => {
   const navigate = useNavigate();
-  const { signIn, signUp, isAuthenticated, loading: authLoading, configError } = useAuth();
+  const { signIn, signUp, isAuthenticated, loading: authLoading } = useAuth();
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,37 +24,6 @@ const Auth = () => {
       navigate("/admin");
     }
   }, [isAuthenticated, authLoading, navigate]);
-
-  if (configError) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-primary via-primary to-[hsl(180,20%,20%)] flex items-center justify-center p-4">
-        <Card className="max-w-md border-border/20 bg-card/95 backdrop-blur-sm">
-          <CardHeader className="text-center">
-            <AlertTriangle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
-            <CardTitle>Configuração Pendente</CardTitle>
-            <CardDescription>
-              O backend ainda está sendo configurado. Por favor, aguarde alguns instantes e recarregue a página.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="text-center">
-            <Button 
-              onClick={() => window.location.reload()}
-              className="bg-accent text-accent-foreground hover:bg-accent/90"
-            >
-              Recarregar Página
-            </Button>
-            <Button 
-              variant="ghost" 
-              onClick={() => navigate("/")}
-              className="ml-2"
-            >
-              Voltar ao Site
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
