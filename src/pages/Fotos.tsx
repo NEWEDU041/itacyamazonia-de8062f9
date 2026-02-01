@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import LazyImage from "@/components/LazyImage";
 
 // Importando as imagens existentes
-import acomodacoes1 from "@/assets/acomodacoes-1.jpg";
+
 import acomodacoes2 from "@/assets/acomodacoes-2.jpg";
 import acomodacoes3 from "@/assets/acomodacoes-3.jpg";
 import acomodacoes4 from "@/assets/acomodacoes-4.jpg";
@@ -54,10 +54,6 @@ const Fotos = () => {
   const photos = [
   // Acomodações
   {
-    src: acomodacoes1,
-    category: "accommodations",
-    alt: "Acomodação 1"
-  }, {
     src: acomodacoes2,
     category: "accommodations",
     alt: "Acomodação 2"
