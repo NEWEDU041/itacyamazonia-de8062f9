@@ -59,6 +59,63 @@ export type Database = {
         }
         Relationships: []
       }
+      packages: {
+        Row: {
+          created_at: string
+          days_count: number
+          display_order: number
+          fishermen_count: number
+          has_floatplane: boolean
+          id: string
+          is_active: boolean
+          is_highlight: boolean
+          is_premium: boolean
+          name: string
+          name_en: string | null
+          price: number
+          river: string
+          river_en: string | null
+          updated_at: string
+          water_type: Database["public"]["Enums"]["water_type"]
+        }
+        Insert: {
+          created_at?: string
+          days_count?: number
+          display_order?: number
+          fishermen_count?: number
+          has_floatplane?: boolean
+          id?: string
+          is_active?: boolean
+          is_highlight?: boolean
+          is_premium?: boolean
+          name: string
+          name_en?: string | null
+          price: number
+          river: string
+          river_en?: string | null
+          updated_at?: string
+          water_type?: Database["public"]["Enums"]["water_type"]
+        }
+        Update: {
+          created_at?: string
+          days_count?: number
+          display_order?: number
+          fishermen_count?: number
+          has_floatplane?: boolean
+          id?: string
+          is_active?: boolean
+          is_highlight?: boolean
+          is_premium?: boolean
+          name?: string
+          name_en?: string | null
+          price?: number
+          river?: string
+          river_en?: string | null
+          updated_at?: string
+          water_type?: Database["public"]["Enums"]["water_type"]
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -104,6 +161,7 @@ export type Database = {
         | "presentation"
         | "other"
       media_type: "image" | "video"
+      water_type: "crystalline" | "black" | "murky"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -242,6 +300,7 @@ export const Constants = {
         "other",
       ],
       media_type: ["image", "video"],
+      water_type: ["crystalline", "black", "murky"],
     },
   },
 } as const
