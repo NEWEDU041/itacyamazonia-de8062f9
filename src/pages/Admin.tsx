@@ -66,11 +66,11 @@ const Admin = () => {
       available: true,
     },
     {
-      title: "Usuários",
-      description: "Gerencie administradores",
+      title: "Minha Conta",
+      description: "Altere seu e-mail e senha",
       icon: Users,
       href: "/admin/users",
-      available: false,
+      available: true,
     },
     {
       title: "Configurações",
