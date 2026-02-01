@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { useMedia, MediaCategory } from "@/hooks/useMedia";
+import { useAutoImportMedia } from "@/hooks/useAutoImportMedia";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
 import { MediaUploadDialog } from "@/components/admin/MediaUploadDialog";
 import { MediaGrid } from "@/components/admin/MediaGrid";
-import { StaticPhotosImporter } from "@/components/admin/StaticPhotosImporter";
 import { 
   Fish, 
   Loader2, 
@@ -18,8 +19,7 @@ import {
   Anchor,
   Images,
   Presentation,
-  MoreHorizontal,
-  Download
+  MoreHorizontal
 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
@@ -38,10 +38,10 @@ const AdminMedia = () => {
   const { loading: authLoading, isAuthenticated } = useAuth();
   const { isAdmin, loading: adminLoading } = useAdminRole();
   const { media, loading: mediaLoading, fetchMedia, uploadMedia, updateMedia, deleteMedia } = useMedia();
+  const { importing, progress, hasImported, checkAndImport } = useAutoImportMedia();
   
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<MediaCategory>('gallery');
-  const [showImporter, setShowImporter] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<MediaCategory>('hero');
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
@@ -60,16 +60,35 @@ const AdminMedia = () => {
     }
   }, [adminLoading, isAdmin, authLoading, navigate]);
 
+  // Auto-import static photos on first access
   useEffect(() => {
-    if (isAdmin) {
+    if (isAdmin && !hasImported) {
+      checkAndImport();
+    }
+  }, [isAdmin, hasImported, checkAndImport]);
+
+  // Fetch media when category changes or after import completes
+  useEffect(() => {
+    if (isAdmin && hasImported) {
       fetchMedia(activeCategory);
     }
-  }, [isAdmin, activeCategory, fetchMedia]);
+  }, [isAdmin, activeCategory, hasImported, fetchMedia]);
 
-  if (authLoading || adminLoading) {
+  if (authLoading || adminLoading || importing) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4">
         <Loader2 className="w-8 h-8 animate-spin text-accent" />
+        {importing && (
+          <div className="w-64 space-y-2">
+            <p className="text-sm text-center text-muted-foreground">
+              Importando fotos do site...
+            </p>
+            <Progress value={progress} />
+            <p className="text-xs text-center text-muted-foreground">
+              {Math.round(progress)}%
+            </p>
+          </div>
+        )}
       </div>
     );
   }
@@ -99,14 +118,6 @@ const AdminMedia = () => {
               </div>
             </div>
           </div>
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              onClick={() => setShowImporter(!showImporter)}
-            >
-              <Download className="w-4 h-4 mr-2" />
-              {showImporter ? "Ocultar Importador" : "Importar do Site"}
-            </Button>
             <Button
               onClick={() => setUploadDialogOpen(true)}
               className="bg-accent text-accent-foreground hover:bg-accent/90"
@@ -114,22 +125,11 @@ const AdminMedia = () => {
               <Plus className="w-4 h-4 mr-2" />
               Enviar Mídia
             </Button>
-          </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6 space-y-6">
-        {/* Static Photos Importer */}
-        {showImporter && (
-          <StaticPhotosImporter 
-            activeCategory={activeCategory}
-            onImportComplete={() => {
-              fetchMedia(activeCategory);
-              setShowImporter(false);
-            }} 
-          />
-        )}
 
         {/* Media Tabs */}
         <Tabs 
