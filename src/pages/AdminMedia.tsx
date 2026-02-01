@@ -7,18 +7,19 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MediaUploadDialog } from "@/components/admin/MediaUploadDialog";
 import { MediaGrid } from "@/components/admin/MediaGrid";
+import { StaticPhotosImporter } from "@/components/admin/StaticPhotosImporter";
 import { 
   Fish, 
   Loader2, 
   ArrowLeft, 
   Plus,
-  Image,
   Home,
   UtensilsCrossed,
   Anchor,
   Images,
   Presentation,
-  MoreHorizontal
+  MoreHorizontal,
+  Download
 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
@@ -40,6 +41,7 @@ const AdminMedia = () => {
   
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<MediaCategory>('gallery');
+  const [showImporter, setShowImporter] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
@@ -97,18 +99,38 @@ const AdminMedia = () => {
               </div>
             </div>
           </div>
-          <Button
-            onClick={() => setUploadDialogOpen(true)}
-            className="bg-accent text-accent-foreground hover:bg-accent/90"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Enviar Mídia
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setShowImporter(!showImporter)}
+            >
+              <Download className="w-4 h-4 mr-2" />
+              {showImporter ? "Ocultar Importador" : "Importar do Site"}
+            </Button>
+            <Button
+              onClick={() => setUploadDialogOpen(true)}
+              className="bg-accent text-accent-foreground hover:bg-accent/90"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Enviar Mídia
+            </Button>
+          </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-6">
+      <main className="container mx-auto px-4 py-6 space-y-6">
+        {/* Static Photos Importer */}
+        {showImporter && (
+          <StaticPhotosImporter 
+            onImportComplete={() => {
+              fetchMedia(activeCategory);
+              setShowImporter(false);
+            }} 
+          />
+        )}
+
+        {/* Media Tabs */}
         <Tabs 
           value={activeCategory} 
           onValueChange={(v) => setActiveCategory(v as MediaCategory)}
