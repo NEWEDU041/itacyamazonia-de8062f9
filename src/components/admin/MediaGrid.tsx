@@ -1,36 +1,87 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
+import { useState, useCallback } from "react";
 import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Trash2, Edit2, GripVertical, Video, Image, Check, X } from "lucide-react";
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  rectSortingStrategy,
+} from "@dnd-kit/sortable";
+import { Image as ImageIcon, Loader2 } from "lucide-react";
 import { MediaItem } from "@/hooks/useMedia";
+import { SortableMediaItem } from "./SortableMediaItem";
+import { cn } from "@/lib/utils";
 
 interface MediaGridProps {
   media: MediaItem[];
   onUpdate: (id: string, updates: Partial<Pick<MediaItem, 'title' | 'description' | 'display_order' | 'is_active'>>) => Promise<void>;
   onDelete: (id: string, filePath: string) => Promise<void>;
   loading: boolean;
+  onReorder?: (reorderedMedia: MediaItem[]) => Promise<void>;
 }
 
-export const MediaGrid = ({ media, onUpdate, onDelete, loading }: MediaGridProps) => {
+export const MediaGrid = ({ media, onUpdate, onDelete, loading, onReorder }: MediaGridProps) => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
+  const [items, setItems] = useState<MediaItem[]>(media);
+  const [isReordering, setIsReordering] = useState(false);
+
+  // Update items when media prop changes
+  if (JSON.stringify(media.map(m => m.id)) !== JSON.stringify(items.map(i => i.id))) {
+    setItems(media);
+  }
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragEnd = useCallback(async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = items.findIndex((item) => item.id === active.id);
+      const newIndex = items.findIndex((item) => item.id === over.id);
+
+      const newItems = arrayMove(items, oldIndex, newIndex);
+      setItems(newItems);
+
+      // Update display_order for all items
+      if (onReorder) {
+        setIsReordering(true);
+        try {
+          await onReorder(newItems);
+        } finally {
+          setIsReordering(false);
+        }
+      } else {
+        // Fallback: update each item individually
+        setIsReordering(true);
+        try {
+          for (let i = 0; i < newItems.length; i++) {
+            if (newItems[i].display_order !== i) {
+              await onUpdate(newItems[i].id, { display_order: i });
+            }
+          }
+        } finally {
+          setIsReordering(false);
+        }
+      }
+    }
+  }, [items, onReorder, onUpdate]);
 
   const handleStartEdit = (item: MediaItem) => {
     setEditingId(item.id);
@@ -50,135 +101,61 @@ export const MediaGrid = ({ media, onUpdate, onDelete, loading }: MediaGridProps
 
   if (media.length === 0) {
     return (
-      <div className="text-center py-12 text-muted-foreground">
-        <Image className="w-12 h-12 mx-auto mb-4 opacity-50" />
-        <p>Nenhuma mídia encontrada nesta categoria.</p>
-        <p className="text-sm">Clique em "Enviar Mídia" para adicionar.</p>
+      <div className="flex flex-col items-center justify-center py-16 px-4">
+        <div className="w-20 h-20 rounded-full bg-muted/50 flex items-center justify-center mb-4">
+          <ImageIcon className="w-10 h-10 text-muted-foreground/50" />
+        </div>
+        <h3 className="text-lg font-medium text-foreground mb-1">Nenhuma mídia</h3>
+        <p className="text-sm text-muted-foreground text-center max-w-sm">
+          Esta categoria está vazia. Clique em "Enviar Mídia" para adicionar fotos ou vídeos.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {media.map((item) => (
-        <Card 
-          key={item.id} 
-          className={`overflow-hidden transition-opacity ${!item.is_active ? 'opacity-50' : ''}`}
-        >
-          <div className="aspect-square relative group">
-            {item.media_type === 'video' ? (
-              <video 
-                src={item.file_url} 
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <img 
-                src={item.file_url} 
-                alt={item.title || 'Media'} 
-                className="w-full h-full object-cover"
-              />
-            )}
-            
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-              <Button
-                size="icon"
-                variant="secondary"
-                onClick={() => handleStartEdit(item)}
-              >
-                <Edit2 className="w-4 h-4" />
-              </Button>
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button size="icon" variant="destructive">
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Excluir mídia?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Esta ação não pode ser desfeita. O arquivo será removido permanentemente.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={() => onDelete(item.id, item.file_path)}
-                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                    >
-                      Excluir
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
-
-            {/* Type badge */}
-            <div className="absolute top-2 left-2">
-              <div className="bg-black/50 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
-                {item.media_type === 'video' ? (
-                  <Video className="w-3 h-3" />
-                ) : (
-                  <Image className="w-3 h-3" />
-                )}
-              </div>
-            </div>
+    <div className="space-y-4">
+      {/* Header info */}
+      <div className="flex items-center justify-between text-sm text-muted-foreground">
+        <p>Arraste as mídias para reorganizar a ordem de exibição</p>
+        {isReordering && (
+          <div className="flex items-center gap-2 text-accent">
+            <Loader2 className="w-4 h-4 animate-spin" />
+            <span>Salvando ordem...</span>
           </div>
+        )}
+      </div>
 
-          <CardContent className="p-3">
-            {editingId === item.id ? (
-              <div className="space-y-2">
-                <Input
-                  value={editTitle}
-                  onChange={(e) => setEditTitle(e.target.value)}
-                  placeholder="Título..."
-                  className="h-8 text-sm"
-                />
-                <div className="flex gap-2">
-                  <Button 
-                    size="sm" 
-                    className="flex-1 h-7"
-                    onClick={() => handleSaveEdit(item.id)}
-                    disabled={loading}
-                  >
-                    <Check className="w-3 h-3 mr-1" />
-                    Salvar
-                  </Button>
-                  <Button 
-                    size="sm" 
-                    variant="outline" 
-                    className="h-7"
-                    onClick={handleCancelEdit}
-                  >
-                    <X className="w-3 h-3" />
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <p className="text-sm font-medium truncate">
-                  {item.title || 'Sem título'}
-                </p>
-                <div className="flex items-center justify-between mt-2">
-                  <div className="flex items-center gap-2">
-                    <Switch
-                      id={`active-${item.id}`}
-                      checked={item.is_active}
-                      onCheckedChange={(checked) => onUpdate(item.id, { is_active: checked })}
-                      disabled={loading}
-                    />
-                    <Label htmlFor={`active-${item.id}`} className="text-xs text-muted-foreground">
-                      Ativo
-                    </Label>
-                  </div>
-                  <GripVertical className="w-4 h-4 text-muted-foreground cursor-grab" />
-                </div>
-              </>
-            )}
-          </CardContent>
-        </Card>
-      ))}
+      {/* Grid */}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={items.map(i => i.id)} strategy={rectSortingStrategy}>
+          <div className={cn(
+            "grid gap-4",
+            "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          )}>
+            {items.map((item, index) => (
+              <SortableMediaItem
+                key={item.id}
+                item={item}
+                index={index}
+                isEditing={editingId === item.id}
+                editTitle={editTitle}
+                onStartEdit={handleStartEdit}
+                onSaveEdit={handleSaveEdit}
+                onCancelEdit={handleCancelEdit}
+                onEditTitleChange={setEditTitle}
+                onUpdate={onUpdate}
+                onDelete={onDelete}
+                loading={loading}
+              />
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
     </div>
   );
 };
