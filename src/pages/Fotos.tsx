@@ -26,6 +26,7 @@ import heroPaisagem from "@/assets/hero-paisagem.jpg";
 import heroPraiaCabanas from "@/assets/hero-praia-cabanas.png";
 import heroRioCurva from "@/assets/hero-rio-curva.png";
 import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
+import fotosHeroBg from "@/assets/fotos-hero-bg.png";
 import pesca1 from "@/assets/pesca-1.jpg";
 import pesca2 from "@/assets/pesca-2.jpg";
 import pesca3 from "@/assets/pesca-3.jpg";
@@ -251,7 +252,7 @@ const Fotos = () => {
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center" style={{
-        backgroundImage: `url(${heroAmazon})`
+        backgroundImage: `url(${fotosHeroBg})`
       }}>
           <div className="absolute inset-0 bg-gradient-to-b from-secondary/80 via-secondary/60 to-secondary/90" />
         </div>
