@@ -55,7 +55,7 @@ const Hero = () => {
               className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 hover:scale-105"
               asChild
             >
-              <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">
+              <a href="https://us2.cloudbeds.com/pt-br/reservas/PAWNo0?currency=usd" target="_blank" rel="noopener noreferrer">
                 {t.hero.bookNow}
               </a>
             </Button>
