@@ -254,7 +254,7 @@ const Fotos = () => {
         <div className="absolute inset-0 bg-cover bg-center" style={{
         backgroundImage: `url(${fotosHeroBg})`
       }}>
-          <div className="absolute inset-0 bg-gradient-to-b from-secondary/80 via-secondary/60 to-secondary/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/90" />
         </div>
         
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in">
