@@ -1,259 +1,43 @@
 import { useState, useMemo } from "react";
 import Navigation from "@/components/Navigation";
 import { useTranslation } from "@/hooks/useTranslation";
+import { usePublicMedia } from "@/hooks/usePublicMedia";
 import { Badge } from "@/components/ui/badge";
 import LazyImage from "@/components/LazyImage";
-
-// Importando as imagens existentes
-
-import acomodacoes2 from "@/assets/acomodacoes-2.jpg";
-import acomodacoes3 from "@/assets/acomodacoes-3.jpg";
-import acomodacoes4 from "@/assets/acomodacoes-4.jpg";
-import gastronomia1 from "@/assets/gastronomia-1.jpg";
-import gastronomia2 from "@/assets/gastronomia-2.jpg";
-import gastronomia3 from "@/assets/gastronomia-3.jpg";
-import gastronomia4 from "@/assets/gastronomia-4.jpg";
-import gastronomia5 from "@/assets/gastronomia-5.jpg";
-import gastronomia6 from "@/assets/gastronomia-6.jpg";
-import jantarPraia from "@/assets/jantar-praia.png";
-import salaJantar from "@/assets/sala-jantar.png";
-import tremDoRio from "@/assets/trem-do-rio.png";
-import heroAereo from "@/assets/hero-aereo-cabanas.png";
-import heroAereoRio from "@/assets/hero-aereo-rio.jpg";
-import heroAmazon from "@/assets/hero-amazon.jpg";
-import heroCabanasNoite from "@/assets/hero-cabanas-noite.jpg";
-import heroPaisagem from "@/assets/hero-paisagem.jpg";
-import heroPraiaCabanas from "@/assets/hero-praia-cabanas.png";
-import heroRioCurva from "@/assets/hero-rio-curva.png";
-import heroCabanasFlutuantes from "@/assets/hero-cabanas-flutuantes.png";
+import { Loader2 } from "lucide-react";
 import fotosHeroBg from "@/assets/fotos-hero-bg.png";
-import pesca1 from "@/assets/pesca-1.jpg";
-import pesca2 from "@/assets/pesca-2.jpg";
-import pesca3 from "@/assets/pesca-3.jpg";
-import pesca4 from "@/assets/pesca-4.jpg";
-import pesca5 from "@/assets/pesca-5.jpg";
-import pesca6 from "@/assets/pesca-6.jpg";
-import pesca7 from "@/assets/pesca-7.jpg";
-import pesca8 from "@/assets/pesca-8.jpg";
-import pesca9 from "@/assets/pesca-9.jpg";
-import pesca10 from "@/assets/pesca-10.jpg";
-import pesca11 from "@/assets/pesca-11.jpg";
-import pesca12 from "@/assets/pesca-12.jpg";
-import pesca13 from "@/assets/pesca-13.jpg";
-import pesca14 from "@/assets/pesca-14.jpg";
-import pesca15 from "@/assets/pesca-15.jpg";
-import pesca16 from "@/assets/pesca-16.jpg";
-import pesca17 from "@/assets/pesca-17.jpg";
-import pesca18 from "@/assets/pesca-18.jpg";
-import pesca19 from "@/assets/pesca-19.jpg";
-import pesca20 from "@/assets/pesca-20.jpg";
+
 const Fotos = () => {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const photos = [
-  // Acomodações
-  {
-    src: acomodacoes2,
-    category: "accommodations",
-    alt: "Acomodação 2"
-  }, {
-    src: acomodacoes3,
-    category: "accommodations",
-    alt: "Acomodação 3"
-  }, {
-    src: acomodacoes4,
-    category: "accommodations",
-    alt: "Acomodação 4"
-  }, {
-    src: heroCabanasFlutuantes,
-    category: "accommodations",
-    alt: "Cabanas flutuantes"
-  },
-  // Gastronomia
-  {
-    src: gastronomia1,
-    category: "gastronomy",
-    alt: "Gastronomia 1"
-  }, {
-    src: gastronomia2,
-    category: "gastronomy",
-    alt: "Gastronomia 2"
-  }, {
-    src: gastronomia3,
-    category: "gastronomy",
-    alt: "Gastronomia 3"
-  }, {
-    src: gastronomia4,
-    category: "gastronomy",
-    alt: "Gastronomia 4"
-  }, {
-    src: gastronomia5,
-    category: "gastronomy",
-    alt: "Gastronomia 5"
-  }, {
-    src: gastronomia6,
-    category: "gastronomy",
-    alt: "Gastronomia 6"
-  }, {
-    src: jantarPraia,
-    category: "gastronomy",
-    alt: "Jantar na praia"
-  }, {
-    src: salaJantar,
-    category: "gastronomy",
-    alt: "Sala de jantar"
-  },
-  // Pesca
-  {
-    src: pesca1,
-    category: "fishing",
-    alt: "Pesca 1"
-  }, {
-    src: pesca2,
-    category: "fishing",
-    alt: "Pesca 2"
-  }, {
-    src: pesca3,
-    category: "fishing",
-    alt: "Pesca 3"
-  }, {
-    src: pesca4,
-    category: "fishing",
-    alt: "Pesca 4"
-  }, {
-    src: pesca5,
-    category: "fishing",
-    alt: "Pesca 5"
-  }, {
-    src: pesca6,
-    category: "fishing",
-    alt: "Pesca 6"
-  }, {
-    src: pesca7,
-    category: "fishing",
-    alt: "Pesca 7"
-  }, {
-    src: pesca8,
-    category: "fishing",
-    alt: "Pesca 8"
-  }, {
-    src: pesca9,
-    category: "fishing",
-    alt: "Pesca 9"
-  }, {
-    src: pesca10,
-    category: "fishing",
-    alt: "Pesca 10"
-  }, {
-    src: pesca11,
-    category: "fishing",
-    alt: "Pesca 11"
-  }, {
-    src: pesca12,
-    category: "fishing",
-    alt: "Pesca 12"
-  }, {
-    src: pesca13,
-    category: "fishing",
-    alt: "Pesca 13"
-  }, {
-    src: pesca14,
-    category: "fishing",
-    alt: "Pesca 14"
-  }, {
-    src: pesca15,
-    category: "fishing",
-    alt: "Pesca 15"
-  }, {
-    src: pesca16,
-    category: "fishing",
-    alt: "Pesca 16"
-  }, {
-    src: pesca17,
-    category: "fishing",
-    alt: "Pesca 17"
-  }, {
-    src: pesca18,
-    category: "fishing",
-    alt: "Pesca 18"
-  }, {
-    src: pesca19,
-    category: "fishing",
-    alt: "Pesca 19"
-  }, {
-    src: pesca20,
-    category: "fishing",
-    alt: "Pesca 20"
-  },
-  // Estrutura
-  {
-    src: tremDoRio,
-    category: "structure",
-    alt: "Trem do Rio"
-  },
-  // Paisagens
-  {
-    src: heroAereo,
-    category: "landscapes",
-    alt: "Vista aérea das cabanas"
-  }, {
-    src: heroAereoRio,
-    category: "landscapes",
-    alt: "Vista aérea do rio"
-  }, {
-    src: heroAmazon,
-    category: "landscapes",
-    alt: "Amazônia"
-  }, {
-    src: heroCabanasNoite,
-    category: "landscapes",
-    alt: "Cabanas à noite"
-  }, {
-    src: heroPaisagem,
-    category: "landscapes",
-    alt: "Paisagem amazônica"
-  }, {
-    src: heroPraiaCabanas,
-    category: "landscapes",
-    alt: "Praia com cabanas"
-  }, {
-    src: heroRioCurva,
-    category: "landscapes",
-    alt: "Curva do rio"
-  }];
+  const { getPhotosForGallery, loading, error } = usePublicMedia();
+  
+  const photos = getPhotosForGallery();
+  
   const filteredPhotos = useMemo(() => 
     selectedCategory === "all" ? photos : photos.filter(photo => photo.category === selectedCategory),
-    [selectedCategory]
+    [selectedCategory, photos]
   );
-  const categories = [{
-    key: "all",
-    label: t.photos.categories.all
-  }, {
-    key: "accommodations",
-    label: t.photos.categories.accommodations
-  }, {
-    key: "gastronomy",
-    label: t.photos.categories.gastronomy
-  }, {
-    key: "fishing",
-    label: t.photos.categories.fishing
-  }, {
-    key: "structure",
-    label: t.photos.categories.structure
-  }, {
-    key: "landscapes",
-    label: t.photos.categories.landscapes
-  }];
-  return <div className="min-h-screen bg-background">
+  
+  const categories = [
+    { key: "all", label: t.photos.categories.all },
+    { key: "accommodations", label: t.photos.categories.accommodations },
+    { key: "gastronomy", label: t.photos.categories.gastronomy },
+    { key: "fishing", label: t.photos.categories.fishing },
+    { key: "structure", label: t.photos.categories.structure },
+    { key: "landscapes", label: t.photos.categories.landscapes },
+  ];
+
+  return (
+    <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center" style={{
-        backgroundImage: `url(${fotosHeroBg})`
-      }}>
+        <div 
+          className="absolute inset-0 bg-cover bg-center" 
+          style={{ backgroundImage: `url(${fotosHeroBg})` }}
+        >
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/90" />
         </div>
         
@@ -274,9 +58,19 @@ const Fotos = () => {
       <section className="py-8 bg-secondary/30 sticky top-[72px] z-40 backdrop-blur-sm border-b border-accent/20">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap gap-3 justify-center">
-            {categories.map(category => <button key={category.key} onClick={() => setSelectedCategory(category.key)} className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${selectedCategory === category.key ? "bg-accent text-accent-foreground shadow-lg scale-105" : "bg-card/60 text-foreground hover:bg-card/80 hover:scale-105"}`}>
+            {categories.map(category => (
+              <button 
+                key={category.key} 
+                onClick={() => setSelectedCategory(category.key)} 
+                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
+                  selectedCategory === category.key 
+                    ? "bg-accent text-accent-foreground shadow-lg scale-105" 
+                    : "bg-card/60 text-foreground hover:bg-card/80 hover:scale-105"
+                }`}
+              >
                 {category.label}
-              </button>)}
+              </button>
+            ))}
           </div>
         </div>
       </section>
@@ -284,38 +78,58 @@ const Fotos = () => {
       {/* Photo Gallery */}
       <section className="py-16 bg-gradient-to-b from-background to-secondary/20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPhotos.map((photo, index) => <div key={index} className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] animate-fade-in bg-card" style={{
-            animationDelay: `${index * 0.05}s`
-          }}>
-              <div className="aspect-[4/3] overflow-hidden">
-                  <LazyImage 
-                    src={photo.src} 
-                    alt={photo.alt}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                
-                {/* Overlay with info */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <Badge className="mb-2 bg-accent/90 text-accent-foreground">
-                      {categories.find(c => c.key === photo.category)?.label}
-                    </Badge>
-                    <p className="text-white text-sm font-medium">{photo.alt}</p>
+          {loading ? (
+            <div className="flex flex-col items-center justify-center py-16">
+              <Loader2 className="w-8 h-8 animate-spin text-accent mb-4" />
+              <p className="text-muted-foreground">Carregando fotos...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-16">
+              <p className="text-destructive text-lg">
+                Erro ao carregar fotos. Tente novamente.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredPhotos.map((photo, index) => (
+                <div 
+                  key={photo.id || index} 
+                  className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] animate-fade-in bg-card" 
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <LazyImage 
+                      src={photo.src} 
+                      alt={photo.alt}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  
+                  {/* Overlay with info */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <Badge className="mb-2 bg-accent/90 text-accent-foreground">
+                        {categories.find(c => c.key === photo.category)?.label}
+                      </Badge>
+                      <p className="text-white text-sm font-medium">{photo.alt}</p>
+                    </div>
                   </div>
                 </div>
-                
-              </div>)}
-          </div>
+              ))}
+            </div>
+          )}
 
-          {filteredPhotos.length === 0 && <div className="text-center py-16">
+          {!loading && !error && filteredPhotos.length === 0 && (
+            <div className="text-center py-16">
               <p className="text-muted-foreground text-lg">
                 Nenhuma foto encontrada nesta categoria.
               </p>
-            </div>}
+            </div>
+          )}
         </div>
       </section>
-    </div>;
+    </div>
+  );
 };
+
 export default Fotos;
