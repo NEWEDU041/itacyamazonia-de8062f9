@@ -186,28 +186,6 @@ const AdminMedia = () => {
           </Button>
         </div>
       </header>
-
-      {/* Quick Category Switcher */}
-      <div className="border-b border-border bg-card/50 overflow-x-auto">
-        <div className="container mx-auto px-4 py-2 flex gap-2">
-          {categories.map((cat) => (
-            <button
-              key={cat.value}
-              onClick={() => setActiveCategory(cat.value)}
-              className={cn(
-                "flex items-center gap-2 px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all",
-                activeCategory === cat.value
-                  ? "bg-accent text-accent-foreground"
-                  : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
-              )}
-            >
-              <cat.icon className="w-3.5 h-3.5" />
-              {cat.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6">
         {mediaLoading ? (
