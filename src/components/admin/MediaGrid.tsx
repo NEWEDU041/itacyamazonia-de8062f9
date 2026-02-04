@@ -30,6 +30,7 @@ interface MediaGridProps {
 export const MediaGrid = ({ media, onUpdate, onDelete, loading, onReorder }: MediaGridProps) => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
   const [items, setItems] = useState<MediaItem[]>(media);
   const [isReordering, setIsReordering] = useState(false);
 
@@ -86,17 +87,20 @@ export const MediaGrid = ({ media, onUpdate, onDelete, loading, onReorder }: Med
   const handleStartEdit = (item: MediaItem) => {
     setEditingId(item.id);
     setEditTitle(item.title || "");
+    setEditDescription(item.description || "");
   };
 
   const handleSaveEdit = async (id: string) => {
-    await onUpdate(id, { title: editTitle || null });
+    await onUpdate(id, { title: editTitle || null, description: editDescription || null });
     setEditingId(null);
     setEditTitle("");
+    setEditDescription("");
   };
 
   const handleCancelEdit = () => {
     setEditingId(null);
     setEditTitle("");
+    setEditDescription("");
   };
 
   if (media.length === 0) {
@@ -144,10 +148,12 @@ export const MediaGrid = ({ media, onUpdate, onDelete, loading, onReorder }: Med
                 index={index}
                 isEditing={editingId === item.id}
                 editTitle={editTitle}
+                editDescription={editDescription}
                 onStartEdit={handleStartEdit}
                 onSaveEdit={handleSaveEdit}
                 onCancelEdit={handleCancelEdit}
                 onEditTitleChange={setEditTitle}
+                onEditDescriptionChange={setEditDescription}
                 onUpdate={onUpdate}
                 onDelete={onDelete}
                 loading={loading}
