@@ -23,10 +23,12 @@ interface SortableMediaItemProps {
   item: MediaItem;
   isEditing: boolean;
   editTitle: string;
+  editDescription: string;
   onStartEdit: (item: MediaItem) => void;
   onSaveEdit: (id: string) => void;
   onCancelEdit: () => void;
   onEditTitleChange: (value: string) => void;
+  onEditDescriptionChange: (value: string) => void;
   onUpdate: (id: string, updates: Partial<Pick<MediaItem, 'title' | 'description' | 'display_order' | 'is_active'>>) => Promise<void>;
   onDelete: (id: string, filePath: string) => Promise<void>;
   loading: boolean;
@@ -37,10 +39,12 @@ export const SortableMediaItem = ({
   item,
   isEditing,
   editTitle,
+  editDescription,
   onStartEdit,
   onSaveEdit,
   onCancelEdit,
   onEditTitleChange,
+  onEditDescriptionChange,
   onUpdate,
   onDelete,
   loading,
@@ -173,6 +177,12 @@ export const SortableMediaItem = ({
               className="h-9"
               autoFocus
             />
+            <textarea
+              value={editDescription}
+              onChange={(e) => onEditDescriptionChange(e.target.value)}
+              placeholder="Descrição (opcional)..."
+              className="w-full h-16 px-3 py-2 text-sm rounded-md border border-input bg-background resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+            />
             <div className="flex gap-2">
               <Button 
                 size="sm" 
@@ -194,10 +204,15 @@ export const SortableMediaItem = ({
             </div>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2">
             <p className="font-medium text-sm text-foreground truncate">
               {item.title || 'Sem título'}
             </p>
+            {item.description && (
+              <p className="text-xs text-muted-foreground line-clamp-2">
+                {item.description}
+              </p>
+            )}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Switch
