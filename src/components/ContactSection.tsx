@@ -53,7 +53,7 @@ const ContactSection = () => {
             className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-6 text-lg"
             asChild
           >
-            <a href="https://wa.me/5565999036367" target="_blank" rel="noopener noreferrer">
+            <a href="https://us2.cloudbeds.com/pt-br/reservas/PAWNo0" target="_blank" rel="noopener noreferrer">
               {t.contact.bookNow}
             </a>
           </Button>
