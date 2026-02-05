@@ -1,5 +1,6 @@
 import { Fish, Home, Utensils, Compass } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import featuresBgVideo from "@/assets/features-bg.mp4";
 
 const Features = () => {
   const { t } = useTranslation();
@@ -26,6 +27,18 @@ const Features = () => {
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-6">
+        {/* Video Section */}
+        <div className="mb-12">
+          <video
+            src={featuresBgVideo}
+            className="w-full h-[400px] md:h-[500px] object-cover rounded-xl shadow-lg"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => {
             const Icon = feature.icon;
