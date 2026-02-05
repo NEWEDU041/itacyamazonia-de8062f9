@@ -479,9 +479,6 @@ const Apresentacao = () => {
             </div>
           </div>
 
-          <div className="animate-fade-in">
-            <img src={presentationBarcos} alt={t.presentation.fishing.boatsTitle} className="w-full max-w-4xl mx-auto rounded-2xl shadow-2xl" />
-          </div>
         </div>
       </section>
 
