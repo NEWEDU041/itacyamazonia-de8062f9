@@ -54,6 +54,7 @@ import presentationTucunare from "@/assets/presentation-tucunare.jpg";
 // Videos
 import heroMainVideo from "@/assets/hero-main-video.mp4";
 import apresentacaoVideo from "@/assets/apresentacao-video.mp4";
+import featuresBgVideo from "@/assets/features-bg.mp4";
 
 interface StaticMedia {
   id: string;
@@ -124,8 +125,9 @@ const staticMedia: StaticMedia[] = [
   { id: "presentation-tucunare", src: presentationTucunare, title: "Tucunaré", category: "presentation", media_type: "image" },
   { id: "apresentacao-video", src: apresentacaoVideo, title: "Vídeo Apresentação", category: "presentation", media_type: "video" },
   
-  // Outros
+  // Primeira Página (Outros)
   { id: "trem-do-rio", src: tremDoRio, title: "Trem do Rio", category: "other", media_type: "image" },
+  { id: "features-bg-video", src: featuresBgVideo, title: "Vídeo Seção Features", category: "other", media_type: "video" },
 ];
 
 export const useAutoImportMedia = () => {
