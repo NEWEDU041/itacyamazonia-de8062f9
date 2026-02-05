@@ -32,7 +32,7 @@ const categories: { value: MediaCategory; label: string; icon: React.ElementType
   { value: 'fishing', label: 'Pesca', icon: Anchor, color: 'from-cyan-500/20 to-cyan-600/10 border-cyan-500/30' },
   { value: 'gallery', label: 'Galeria', icon: Images, color: 'from-purple-500/20 to-purple-600/10 border-purple-500/30' },
   { value: 'presentation', label: 'Apresentação', icon: Presentation, color: 'from-emerald-500/20 to-emerald-600/10 border-emerald-500/30' },
-  { value: 'other', label: 'Outros', icon: MoreHorizontal, color: 'from-gray-500/20 to-gray-600/10 border-gray-500/30' },
+  { value: 'other', label: 'Primeira Página', icon: Home, color: 'from-gray-500/20 to-gray-600/10 border-gray-500/30' },
 ];
 
 const AdminMedia = () => {
