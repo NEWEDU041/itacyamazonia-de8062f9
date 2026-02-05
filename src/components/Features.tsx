@@ -1,9 +1,11 @@
 import { Fish, Home, Utensils, Compass } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
-import featuresBgVideo from "@/assets/features-bg.mp4";
+import { useCategoryVideo } from "@/hooks/useCategoryVideo";
+import featuresBgVideoFallback from "@/assets/features-bg.mp4";
 
 const Features = () => {
   const { t } = useTranslation();
+  const { videoUrl, loading } = useCategoryVideo('other');
   
   const features = [
     {
@@ -24,19 +26,24 @@ const Features = () => {
     }
   ];
 
+  // Use dynamic URL or fallback to static asset
+  const videoSrc = videoUrl || featuresBgVideoFallback;
+
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-6">
         {/* Video Section */}
         <div className="mb-12">
-          <video
-            src={featuresBgVideo}
-            className="w-full h-[400px] md:h-[500px] object-cover rounded-xl shadow-lg"
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
+          {!loading && (
+            <video
+              src={videoSrc}
+              className="w-full h-[400px] md:h-[500px] object-cover rounded-xl shadow-lg"
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+          )}
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

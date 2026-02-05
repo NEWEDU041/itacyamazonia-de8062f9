@@ -3,14 +3,19 @@ import ContactSection from "@/components/ContactSection";
 import { Home, Wind, Briefcase, Anchor, Navigation as NavigationIcon, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useCategoryVideo } from "@/hooks/useCategoryVideo";
 import acomodacao1 from "@/assets/acomodacoes-cozinha.png";
-import cabanaInteriorVideo from "@/assets/cabana-interior-video.mp4";
+import cabanaInteriorVideoFallback from "@/assets/cabana-interior-video.mp4";
 import salaJantar from "@/assets/sala-jantar.png";
 import jantarPraia from "@/assets/jantar-praia.png";
 import acomodacoesHeroBg from "@/assets/acomodacoes-hero-bg.jpg";
 
 const Acomodacoes = () => {
   const { t } = useTranslation();
+  const { videoUrl, loading: videoLoading } = useCategoryVideo('accommodations');
+  
+  // Use dynamic URL or fallback to static asset
+  const cabanaVideoSrc = videoUrl || cabanaInteriorVideoFallback;
 
   const comodidades = [
     { icon: Home, key: "privateBathroom" as const },
@@ -157,14 +162,16 @@ const Acomodacoes = () => {
       <section className="py-12 bg-secondary">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
-            <video 
-              src={cabanaInteriorVideo} 
-              className="w-full rounded-lg shadow-lg object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-            />
+            {!videoLoading && (
+              <video 
+                src={cabanaVideoSrc} 
+                className="w-full rounded-lg shadow-lg object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+            )}
           </div>
         </div>
       </section>
