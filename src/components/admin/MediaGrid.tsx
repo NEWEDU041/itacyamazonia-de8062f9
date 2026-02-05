@@ -1,9 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   DndContext,
   closestCenter,
   KeyboardSensor,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   DragEndEvent,
@@ -34,15 +35,20 @@ export const MediaGrid = ({ media, onUpdate, onDelete, loading, onReorder }: Med
   const [items, setItems] = useState<MediaItem[]>(media);
   const [isReordering, setIsReordering] = useState(false);
 
-  // Update items when media prop changes
-  if (JSON.stringify(media.map(m => m.id)) !== JSON.stringify(items.map(i => i.id))) {
+  // Sync items when media prop changes
+  useEffect(() => {
     setItems(media);
-  }
-
+  }, [media]);
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
         distance: 8,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 180,
+        tolerance: 8,
       },
     }),
     useSensor(KeyboardSensor, {
