@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -9,18 +9,44 @@ const Hero = () => {
   const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const { heroMedia, loading } = useHeroMedia();
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   // Use database video if available, otherwise fallback to static
   const videoSource = heroMedia.video_url || heroMainVideo;
+
+  // Force video play when source changes or component mounts
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video && videoSource) {
+      video.load();
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay was prevented, user interaction needed
+          console.log("Autoplay prevented, waiting for user interaction");
+        });
+      }
+    }
+  }, [videoSource]);
+
+  const handleVideoLoaded = () => {
+    setVideoLoaded(true);
+  };
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* Background Video with Overlay */}
       <div className="absolute inset-0">
+        {/* Loading placeholder */}
+        {!videoLoaded && (
+          <div className="absolute inset-0 bg-primary animate-pulse" />
+        )}
         <video
           ref={videoRef}
           src={videoSource}
-          className="w-full h-full object-cover object-center md:object-center"
+          className={`w-full h-full object-cover object-center md:object-center transition-opacity duration-500 ${
+            videoLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
           style={{ 
             minWidth: '100%',
             minHeight: '100%'
@@ -29,8 +55,9 @@ const Hero = () => {
           muted
           loop
           playsInline
-          preload="metadata"
-          poster=""
+          preload="auto"
+          onCanPlayThrough={handleVideoLoaded}
+          onLoadedData={handleVideoLoaded}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-black/85" />
       </div>
