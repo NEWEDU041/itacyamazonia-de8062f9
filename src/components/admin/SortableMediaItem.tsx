@@ -107,11 +107,10 @@ export const SortableMediaItem = ({
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
 
         {/* Type badge */}
-        <div className="absolute top-3 left-3">
-          <div className={cn(
-            "text-white text-xs font-medium px-2.5 py-1 rounded-full flex items-center gap-1.5 backdrop-blur-sm",
-            item.media_type === 'video' ? "bg-purple-500/80" : "bg-blue-500/80"
-          )}>
+          <div className="absolute top-3 left-3">
+            <div className={cn(
+              "text-white text-xs font-medium px-2.5 py-1 rounded-full flex items-center gap-1.5 backdrop-blur-sm bg-accent/80"
+            )}>
             {item.media_type === 'video' ? (
               <>
                 <Video className="w-3 h-3" />
@@ -132,7 +131,7 @@ export const SortableMediaItem = ({
             <Button
               size="sm"
               variant="secondary"
-              className="h-8 bg-white/90 hover:bg-white text-gray-900"
+              className="h-8 bg-background/90 hover:bg-background text-foreground"
               onClick={() => onStartEdit(item)}
             >
               <Edit2 className="w-3.5 h-3.5 mr-1" />
@@ -233,12 +232,17 @@ export const SortableMediaItem = ({
                 </Label>
               </div>
               <button
+                type="button"
                 {...attributes}
                 {...listeners}
-                className="p-1.5 rounded-md hover:bg-muted cursor-grab active:cursor-grabbing transition-colors"
+                className="flex items-center gap-1.5 p-2 rounded-md hover:bg-muted cursor-grab active:cursor-grabbing transition-colors touch-none"
                 title="Arraste para reordenar"
+                aria-label="Arraste para reordenar"
               >
                 <GripVertical className="w-4 h-4 text-muted-foreground" />
+                <span className="text-xs text-muted-foreground hidden sm:inline">
+                  Arrastar
+                </span>
               </button>
             </div>
           </div>

@@ -37,7 +37,7 @@ const categoryLabels: Record<MediaCategory, string> = {
   fishing: "Pesca",
   gallery: "Galeria Geral",
   presentation: "Apresentação",
-  other: "Outros",
+  other: "Primeira Página",
 };
 
 export const MediaUploadDialog = ({
