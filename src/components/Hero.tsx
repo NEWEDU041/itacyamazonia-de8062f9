@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -6,18 +6,19 @@ import { useHeroMedia } from "@/hooks/useHeroMedia";
 import { useIsMobile } from "@/hooks/use-mobile";
 import heroMainVideo from "@/assets/hero-main-video.mp4";
 
+const CONTENT_DISPLAY_DURATION = 6000; // 6 seconds
+
 const Hero = () => {
   const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const { heroMedia, loading } = useHeroMedia();
   const isMobile = useIsMobile();
 
-  // Important: don't start downloading a fallback video and then swap to the DB video.
-  // That swap aborts the first request (ERR_ABORTED) and causes visible stutter on mobile.
   const [resolvedSrc, setResolvedSrc] = useState<string | null>(null);
   const [posterSrc, setPosterSrc] = useState<string | null>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     if (loading) return;
@@ -26,14 +27,30 @@ const Hero = () => {
   }, [loading, heroMedia.image_url, heroMedia.video_url]);
 
   useEffect(() => {
-    // reset UX states whenever we resolve a new source
     setVideoLoaded(false);
     setIsBuffering(false);
+    setShowContent(false);
   }, [resolvedSrc]);
 
   const handleVideoLoaded = () => {
     setVideoLoaded(true);
   };
+
+  const handleVideoEnded = useCallback(() => {
+    // Show content when video ends
+    setShowContent(true);
+
+    // After 6 seconds, hide content and restart video
+    setTimeout(() => {
+      setShowContent(false);
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play().catch(() => {
+          console.log("Autoplay prevented");
+        });
+      }
+    }, CONTENT_DISPLAY_DURATION);
+  }, []);
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -56,23 +73,32 @@ const Hero = () => {
             }}
             autoPlay
             muted
-            loop
             playsInline
             preload={isMobile ? "metadata" : "auto"}
             onLoadedData={handleVideoLoaded}
             onCanPlayThrough={handleVideoLoaded}
             onWaiting={() => setIsBuffering(true)}
             onPlaying={() => setIsBuffering(false)}
+            onEnded={handleVideoEnded}
           />
         ) : null}
 
-        {/* Optional: keep overlay strong even while buffering */}
         {isBuffering ? <div className="absolute inset-0 bg-black/10" /> : null}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-black/85" />
+        
+        {/* Overlay only when content is shown */}
+        <div 
+          className={`absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-black/85 transition-opacity duration-700 ${
+            showContent ? "opacity-100" : "opacity-0"
+          }`} 
+        />
       </div>
 
-      {/* Hero Content */}
-      <div className="relative h-full flex items-center justify-center text-center px-4 sm:px-6 py-20 md:py-0">
+      {/* Hero Content - Only visible when showContent is true */}
+      <div 
+        className={`relative h-full flex items-center justify-center text-center px-4 sm:px-6 py-20 md:py-0 transition-opacity duration-700 ${
+          showContent ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
         <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 md:space-y-8 animate-fade-in">
           <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-[1.2] sm:leading-tight drop-shadow-2xl">
             {t.hero.title}
