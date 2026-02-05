@@ -187,6 +187,7 @@ export type Database = {
         | "gallery"
         | "presentation"
         | "other"
+        | "landscapes"
       media_type: "image" | "video"
       water_type: "crystalline" | "black" | "murky"
     }
@@ -325,6 +326,7 @@ export const Constants = {
         "gallery",
         "presentation",
         "other",
+        "landscapes",
       ],
       media_type: ["image", "video"],
       water_type: ["crystalline", "black", "murky"],

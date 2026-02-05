@@ -112,6 +112,7 @@ const staticPhotos: StaticPhoto[] = [
 
 const categoryLabels: Record<MediaCategory, string> = {
   hero: "Hero / Banner",
+  landscapes: "Paisagens",
   accommodations: "Acomodações",
   gastronomy: "Gastronomia",
   fishing: "Pesca",
