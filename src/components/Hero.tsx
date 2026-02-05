@@ -3,31 +3,33 @@ import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useHeroMedia } from "@/hooks/useHeroMedia";
+import { useIsMobile } from "@/hooks/use-mobile";
 import heroMainVideo from "@/assets/hero-main-video.mp4";
 
 const Hero = () => {
   const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const { heroMedia, loading } = useHeroMedia();
+  const isMobile = useIsMobile();
+
+  // Important: don't start downloading a fallback video and then swap to the DB video.
+  // That swap aborts the first request (ERR_ABORTED) and causes visible stutter on mobile.
+  const [resolvedSrc, setResolvedSrc] = useState<string | null>(null);
+  const [posterSrc, setPosterSrc] = useState<string | null>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
 
-  // Use database video if available, otherwise fallback to static
-  const videoSource = heroMedia.video_url || heroMainVideo;
-
-  // Force video play when source changes or component mounts
   useEffect(() => {
-    const video = videoRef.current;
-    if (video && videoSource) {
-      video.load();
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Autoplay was prevented, user interaction needed
-          console.log("Autoplay prevented, waiting for user interaction");
-        });
-      }
-    }
-  }, [videoSource]);
+    if (loading) return;
+    setPosterSrc(heroMedia.image_url || null);
+    setResolvedSrc(heroMedia.video_url || heroMainVideo);
+  }, [loading, heroMedia.image_url, heroMedia.video_url]);
+
+  useEffect(() => {
+    // reset UX states whenever we resolve a new source
+    setVideoLoaded(false);
+    setIsBuffering(false);
+  }, [resolvedSrc]);
 
   const handleVideoLoaded = () => {
     setVideoLoaded(true);
@@ -38,27 +40,34 @@ const Hero = () => {
       {/* Background Video with Overlay */}
       <div className="absolute inset-0">
         {/* Loading placeholder */}
-        {!videoLoaded && (
-          <div className="absolute inset-0 bg-primary animate-pulse" />
-        )}
-        <video
-          ref={videoRef}
-          src={videoSource}
-          className={`w-full h-full object-cover object-center md:object-center transition-opacity duration-500 ${
-            videoLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-          style={{ 
-            minWidth: '100%',
-            minHeight: '100%'
-          }}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          onCanPlayThrough={handleVideoLoaded}
-          onLoadedData={handleVideoLoaded}
-        />
+        {!videoLoaded && <div className="absolute inset-0 bg-primary animate-pulse" />}
+
+        {resolvedSrc ? (
+          <video
+            ref={videoRef}
+            src={resolvedSrc}
+            poster={posterSrc ?? undefined}
+            className={`w-full h-full object-cover object-center md:object-center transition-opacity duration-500 ${
+              videoLoaded ? "opacity-100" : "opacity-0"
+            }`}
+            style={{
+              minWidth: "100%",
+              minHeight: "100%",
+            }}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload={isMobile ? "metadata" : "auto"}
+            onLoadedData={handleVideoLoaded}
+            onCanPlayThrough={handleVideoLoaded}
+            onWaiting={() => setIsBuffering(true)}
+            onPlaying={() => setIsBuffering(false)}
+          />
+        ) : null}
+
+        {/* Optional: keep overlay strong even while buffering */}
+        {isBuffering ? <div className="absolute inset-0 bg-black/10" /> : null}
         <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-black/85" />
       </div>
 
