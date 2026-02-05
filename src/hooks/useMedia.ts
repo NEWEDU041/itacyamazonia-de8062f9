@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 
-export type MediaCategory = 'hero' | 'accommodations' | 'gastronomy' | 'fishing' | 'gallery' | 'presentation' | 'other';
+export type MediaCategory = 'hero' | 'landscapes' | 'accommodations' | 'gastronomy' | 'fishing' | 'gallery' | 'presentation' | 'other';
 export type MediaType = 'image' | 'video';
 
 export interface MediaItem {

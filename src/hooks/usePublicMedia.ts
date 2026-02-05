@@ -13,7 +13,8 @@ export interface PublicMediaItem {
 
 // Mapping from database categories to Fotos page categories
 const categoryMapping: Record<MediaCategory, string> = {
-  hero: 'landscapes',
+  hero: 'structure', // Hero images are not shown in gallery (they're for the hero section)
+  landscapes: 'landscapes',
   accommodations: 'accommodations',
   gastronomy: 'gastronomy',
   fishing: 'fishing',

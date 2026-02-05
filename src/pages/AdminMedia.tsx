@@ -26,6 +26,7 @@ import { toast } from "@/hooks/use-toast";
 
 const categories: { value: MediaCategory; label: string; icon: React.ElementType; color: string }[] = [
   { value: 'hero', label: 'Hero', icon: Home, color: 'from-amber-500/20 to-amber-600/10 border-amber-500/30' },
+  { value: 'landscapes', label: 'Paisagens', icon: Images, color: 'from-green-500/20 to-green-600/10 border-green-500/30' },
   { value: 'accommodations', label: 'Acomodações', icon: Bed, color: 'from-blue-500/20 to-blue-600/10 border-blue-500/30' },
   { value: 'gastronomy', label: 'Gastronomia', icon: UtensilsCrossed, color: 'from-orange-500/20 to-orange-600/10 border-orange-500/30' },
   { value: 'fishing', label: 'Pesca', icon: Anchor, color: 'from-cyan-500/20 to-cyan-600/10 border-cyan-500/30' },
