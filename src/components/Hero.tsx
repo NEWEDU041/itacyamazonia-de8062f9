@@ -5,6 +5,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { useHeroMedia } from "@/hooks/useHeroMedia";
 import { useIsMobile } from "@/hooks/use-mobile";
 import heroMainVideo from "@/assets/hero-main-video.mp4";
+import heroAereoRio from "@/assets/hero-aereo-rio.jpg";
 
 const CONTENT_DISPLAY_DURATION = 6000; // 6 seconds
 
@@ -69,18 +70,11 @@ const Hero = () => {
 
         {isMobile ? (
           /* Mobile: show static image only to avoid video crash/freeze */
-          posterSrc ? (
-            <img
-              src={posterSrc}
-              alt="Hero background"
-              className="w-full h-full object-cover object-center"
-            />
-          ) : (
-            /* Fallback: use video poster frame as static background */
-            <div
-              className="w-full h-full bg-cover bg-center bg-primary"
-            />
-          )
+          <img
+            src={posterSrc || heroAereoRio}
+            alt="Hero background"
+            className="w-full h-full object-cover object-center"
+          />
         ) : resolvedSrc ? (
           <video
             ref={videoRef}
