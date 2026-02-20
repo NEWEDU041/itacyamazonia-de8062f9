@@ -24,7 +24,9 @@ const Hero = () => {
     if (loading) return;
     setPosterSrc(heroMedia.image_url || null);
     setResolvedSrc(heroMedia.video_url || heroMainVideo);
-  }, [loading, heroMedia.image_url, heroMedia.video_url]);
+    // On mobile, show content immediately (no video playback)
+    if (isMobile) setShowContent(true);
+  }, [loading, heroMedia.image_url, heroMedia.video_url, isMobile]);
 
   useEffect(() => {
     setVideoLoaded(false);
@@ -59,22 +61,31 @@ const Hero = () => {
         {/* Loading placeholder */}
         {!videoLoaded && <div className="absolute inset-0 bg-primary animate-pulse" />}
 
-        {resolvedSrc ? (
+        {isMobile ? (
+          /* Mobile: show static image only to avoid video crash/freeze */
+          posterSrc ? (
+            <img
+              src={posterSrc}
+              alt="Hero background"
+              className="w-full h-full object-cover object-center"
+              onLoad={() => setVideoLoaded(true)}
+            />
+          ) : (
+            <div className="w-full h-full bg-primary" />
+          )
+        ) : resolvedSrc ? (
           <video
             ref={videoRef}
             src={resolvedSrc}
             poster={posterSrc ?? undefined}
-            className={`w-full h-full object-cover object-center md:object-center transition-opacity duration-500 ${
+            className={`w-full h-full object-cover object-center transition-opacity duration-500 ${
               videoLoaded ? "opacity-100" : "opacity-0"
             }`}
-            style={{
-              minWidth: "100%",
-              minHeight: "100%",
-            }}
+            style={{ minWidth: "100%", minHeight: "100%" }}
             autoPlay
             muted
             playsInline
-            preload={isMobile ? "metadata" : "auto"}
+            preload="auto"
             onLoadedData={handleVideoLoaded}
             onCanPlayThrough={handleVideoLoaded}
             onWaiting={() => setIsBuffering(true)}
