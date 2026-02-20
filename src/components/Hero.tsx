@@ -23,91 +23,79 @@ const Hero = () => {
 
   useEffect(() => {
     if (loading) return;
-    setPosterSrc(heroMedia.image_url || null);
+    setPosterSrc(heroMedia.image_url || heroAereoRio);
     setResolvedSrc(heroMedia.video_url || heroMainVideo);
-    // On mobile, show content immediately (no video playback)
-    if (isMobile) setShowContent(true);
-  }, [loading, heroMedia.image_url, heroMedia.video_url, isMobile]);
+  }, [loading, heroMedia.image_url, heroMedia.video_url]);
 
   useEffect(() => {
-    // On mobile there's no video, so mark as loaded immediately
-    if (isMobile) {
-      setVideoLoaded(true);
-      setIsBuffering(false);
-      return;
-    }
     setVideoLoaded(false);
     setIsBuffering(false);
     setShowContent(false);
-  }, [resolvedSrc, isMobile]);
+  }, [resolvedSrc]);
 
   const handleVideoLoaded = () => {
     setVideoLoaded(true);
   };
 
   const handleVideoEnded = useCallback(() => {
-    // Show content when video ends
     setShowContent(true);
-
-    // After 6 seconds, hide content and restart video
     setTimeout(() => {
       setShowContent(false);
       if (videoRef.current) {
         videoRef.current.currentTime = 0;
-        videoRef.current.play().catch(() => {
-          console.log("Autoplay prevented");
-        });
+        videoRef.current.play().catch(() => {});
       }
     }, CONTENT_DISPLAY_DURATION);
   }, []);
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background Video with Overlay */}
       <div className="absolute inset-0">
-        {/* Loading placeholder */}
-        {!videoLoaded && <div className="absolute inset-0 bg-primary animate-pulse" />}
-
-        {isMobile ? (
-          /* Mobile: show static image only to avoid video crash/freeze */
+        {/* Poster image shown while video loads */}
+        {!videoLoaded && (
           <img
             src={posterSrc || heroAereoRio}
             alt="Hero background"
-            className="w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
-        ) : resolvedSrc ? (
+        )}
+
+        {resolvedSrc && (
           <video
             ref={videoRef}
             src={resolvedSrc}
-            poster={posterSrc ?? undefined}
-            className={`w-full h-full object-cover object-center transition-opacity duration-500 ${
+            poster={posterSrc || heroAereoRio}
+            className={`w-full h-full object-cover object-center transition-opacity duration-700 ${
               videoLoaded ? "opacity-100" : "opacity-0"
             }`}
             style={{ minWidth: "100%", minHeight: "100%" }}
             autoPlay
             muted
             playsInline
-            preload="auto"
+            preload={isMobile ? "metadata" : "auto"}
             onLoadedData={handleVideoLoaded}
             onCanPlayThrough={handleVideoLoaded}
             onWaiting={() => setIsBuffering(true)}
-            onPlaying={() => setIsBuffering(false)}
+            onPlaying={() => {
+              setIsBuffering(false);
+              setVideoLoaded(true);
+            }}
             onEnded={handleVideoEnded}
           />
-        ) : null}
+        )}
 
-        {isBuffering ? <div className="absolute inset-0 bg-black/10" /> : null}
-        
-        {/* Overlay: always visible on mobile, only when content shown on desktop */}
-        <div 
+        {isBuffering && <div className="absolute inset-0 bg-black/10" />}
+
+        {/* Overlay — only visible when content is shown */}
+        <div
           className={`absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-black/85 transition-opacity duration-700 ${
-            isMobile || showContent ? "opacity-100" : "opacity-0"
-          }`} 
+            showContent ? "opacity-100" : "opacity-0"
+          }`}
         />
       </div>
 
-      {/* Hero Content - Only visible when showContent is true */}
-      <div 
+      {/* Hero Content */}
+      <div
         className={`relative h-full flex items-center justify-center text-center px-4 sm:px-6 py-20 md:py-0 transition-opacity duration-700 ${
           showContent ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
@@ -118,12 +106,11 @@ const Hero = () => {
             <br />
             <span className="text-accent">{t.hero.titleAccent}</span>
           </h1>
-          
+
           <p className="text-sm sm:text-lg md:text-2xl text-white font-light max-w-3xl mx-auto px-2 drop-shadow-lg">
             {t.hero.subtitle}
           </p>
 
-          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-2 sm:pt-4">
             <Button
               size="lg"
