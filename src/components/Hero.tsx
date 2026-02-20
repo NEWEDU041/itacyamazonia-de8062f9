@@ -29,10 +29,16 @@ const Hero = () => {
   }, [loading, heroMedia.image_url, heroMedia.video_url, isMobile]);
 
   useEffect(() => {
+    // On mobile there's no video, so mark as loaded immediately
+    if (isMobile) {
+      setVideoLoaded(true);
+      setIsBuffering(false);
+      return;
+    }
     setVideoLoaded(false);
     setIsBuffering(false);
     setShowContent(false);
-  }, [resolvedSrc]);
+  }, [resolvedSrc, isMobile]);
 
   const handleVideoLoaded = () => {
     setVideoLoaded(true);
@@ -68,10 +74,12 @@ const Hero = () => {
               src={posterSrc}
               alt="Hero background"
               className="w-full h-full object-cover object-center"
-              onLoad={() => setVideoLoaded(true)}
             />
           ) : (
-            <div className="w-full h-full bg-primary" />
+            /* Fallback: use video poster frame as static background */
+            <div
+              className="w-full h-full bg-cover bg-center bg-primary"
+            />
           )
         ) : resolvedSrc ? (
           <video
@@ -96,10 +104,10 @@ const Hero = () => {
 
         {isBuffering ? <div className="absolute inset-0 bg-black/10" /> : null}
         
-        {/* Overlay only when content is shown */}
+        {/* Overlay: always visible on mobile, only when content shown on desktop */}
         <div 
           className={`absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-black/85 transition-opacity duration-700 ${
-            showContent ? "opacity-100" : "opacity-0"
+            isMobile || showContent ? "opacity-100" : "opacity-0"
           }`} 
         />
       </div>
