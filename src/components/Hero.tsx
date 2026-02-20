@@ -7,7 +7,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import heroMainVideo from "@/assets/hero-main-video.mp4";
 import heroAereoRio from "@/assets/hero-aereo-rio.jpg";
 
-const CONTENT_DISPLAY_DURATION = 6000; // 6 seconds
+const CONTENT_DISPLAY_DURATION = 6000;
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -20,6 +20,8 @@ const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
   const [showContent, setShowContent] = useState(false);
+  // Mobile: user can opt-in to play the video
+  const [mobileVideoEnabled, setMobileVideoEnabled] = useState(false);
 
   useEffect(() => {
     if (loading) return;
@@ -28,14 +30,19 @@ const Hero = () => {
   }, [loading, heroMedia.image_url, heroMedia.video_url]);
 
   useEffect(() => {
+    if (isMobile && !mobileVideoEnabled) {
+      // Mobile with image: mark as "loaded" and show content immediately
+      setVideoLoaded(true);
+      setIsBuffering(false);
+      setShowContent(true);
+      return;
+    }
     setVideoLoaded(false);
     setIsBuffering(false);
     setShowContent(false);
-  }, [resolvedSrc]);
+  }, [resolvedSrc, isMobile, mobileVideoEnabled]);
 
-  const handleVideoLoaded = () => {
-    setVideoLoaded(true);
-  };
+  const handleVideoLoaded = () => setVideoLoaded(true);
 
   const handleVideoEnded = useCallback(() => {
     setShowContent(true);
@@ -48,11 +55,14 @@ const Hero = () => {
     }, CONTENT_DISPLAY_DURATION);
   }, []);
 
+  // On mobile, show static image + content by default
+  const showStaticImage = isMobile && !mobileVideoEnabled;
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
-        {/* Poster image shown while video loads */}
-        {!videoLoaded && (
+        {/* Static image: always shown on mobile (default) or as video placeholder on desktop */}
+        {(showStaticImage || !videoLoaded) && (
           <img
             src={posterSrc || heroAereoRio}
             alt="Hero background"
@@ -60,7 +70,8 @@ const Hero = () => {
           />
         )}
 
-        {resolvedSrc && (
+        {/* Video: desktop always, mobile only if user opted in */}
+        {!showStaticImage && resolvedSrc && (
           <video
             ref={videoRef}
             src={resolvedSrc}
@@ -72,7 +83,7 @@ const Hero = () => {
             autoPlay
             muted
             playsInline
-            preload={isMobile ? "metadata" : "auto"}
+            preload="auto"
             onLoadedData={handleVideoLoaded}
             onCanPlayThrough={handleVideoLoaded}
             onWaiting={() => setIsBuffering(true)}
@@ -86,7 +97,7 @@ const Hero = () => {
 
         {isBuffering && <div className="absolute inset-0 bg-black/10" />}
 
-        {/* Overlay — only visible when content is shown */}
+        {/* Overlay */}
         <div
           className={`absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-black/85 transition-opacity duration-700 ${
             showContent ? "opacity-100" : "opacity-0"
@@ -133,6 +144,17 @@ const Hero = () => {
               </a>
             </Button>
           </div>
+
+          {/* Mobile: opt-in to play video */}
+          {isMobile && !mobileVideoEnabled && (
+            <button
+              onClick={() => setMobileVideoEnabled(true)}
+              className="flex items-center gap-2 mx-auto text-white/70 hover:text-white text-sm transition-colors"
+            >
+              <Play size={14} />
+              <span>Assistir vídeo</span>
+            </button>
+          )}
         </div>
       </div>
     </section>
