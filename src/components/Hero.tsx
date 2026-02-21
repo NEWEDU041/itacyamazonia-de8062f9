@@ -6,6 +6,7 @@ import { useHeroMedia } from "@/hooks/useHeroMedia";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { detectConnectionSpeed, getVideoConfig } from "@/lib/videoUtils";
 import heroMainVideo from "@/assets/hero-main-video.mp4";
+import heroMobileVideo from "@/assets/hero-main-video-480p.mp4";
 import heroAereoRio from "@/assets/hero-aereo-rio.jpg";
 
 const CONTENT_DISPLAY_DURATION = 6000;
@@ -37,7 +38,8 @@ const Hero = () => {
   useEffect(() => {
     if (loading) return;
     setPosterSrc(heroMedia.image_url || heroAereoRio);
-    setResolvedSrc(heroMedia.video_url || heroMainVideo);
+    const fallbackVideo = isMobile ? heroMobileVideo : heroMainVideo;
+    setResolvedSrc(heroMedia.video_url || fallbackVideo);
   }, [loading, heroMedia.image_url, heroMedia.video_url]);
 
   useEffect(() => {
