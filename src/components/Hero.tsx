@@ -29,9 +29,9 @@ const Hero = () => {
     setResolvedSrc(heroMedia.video_url || heroMainVideo);
   }, [loading, heroMedia.image_url, heroMedia.video_url]);
 
+  // Mobile: buffer video silently, then play once ready
   useEffect(() => {
     if (isMobile) {
-      // Mobile: show content immediately, buffer video in background
       setVideoLoaded(false);
       setIsBuffering(false);
       setShowContent(true);
@@ -43,19 +43,48 @@ const Hero = () => {
     setShowContent(false);
   }, [resolvedSrc, isMobile]);
 
+  // Fallback: if canPlayThrough never fires on mobile, check buffer periodically
+  useEffect(() => {
+    if (!isMobile || !mobileBuffering || !videoRef.current) return;
+
+    const video = videoRef.current;
+    const checkBuffer = setInterval(() => {
+      if (video.readyState >= 4) {
+        // HAVE_ENOUGH_DATA — safe to play
+        clearInterval(checkBuffer);
+        setMobileBuffering(false);
+        setVideoLoaded(true);
+        setTimeout(() => video.play().catch(() => {}), 200);
+      }
+    }, 500);
+
+    // Ultimate fallback: after 8s, play regardless
+    const fallback = setTimeout(() => {
+      clearInterval(checkBuffer);
+      if (mobileBuffering) {
+        setMobileBuffering(false);
+        setVideoLoaded(true);
+        video.play().catch(() => {});
+      }
+    }, 8000);
+
+    return () => {
+      clearInterval(checkBuffer);
+      clearTimeout(fallback);
+    };
+  }, [isMobile, mobileBuffering]);
+
   const handleVideoLoaded = () => setVideoLoaded(true);
 
-  // On mobile, wait for full buffer before playing
   const handleCanPlayThrough = useCallback(() => {
     setVideoLoaded(true);
     if (isMobile && mobileBuffering) {
       setMobileBuffering(false);
-      // Small delay to ensure smooth transition
       setTimeout(() => {
         if (videoRef.current) {
           videoRef.current.play().catch(() => {});
         }
-      }, 300);
+      }, 200);
     }
   }, [isMobile, mobileBuffering]);
 
