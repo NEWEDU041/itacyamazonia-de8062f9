@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { Play, Loader2 } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useHeroMedia } from "@/hooks/useHeroMedia";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -22,6 +22,8 @@ const Hero = () => {
   const [showContent, setShowContent] = useState(false);
   // Mobile: user can opt-in to play the video
   const [mobileVideoEnabled, setMobileVideoEnabled] = useState(false);
+  // Mobile: loading state while video buffers before playing
+  const [mobileLoading, setMobileLoading] = useState(false);
 
   useEffect(() => {
     if (loading) return;
@@ -44,6 +46,17 @@ const Hero = () => {
 
   const handleVideoLoaded = () => setVideoLoaded(true);
 
+  // On mobile, wait for enough buffer before playing
+  const handleCanPlayThrough = useCallback(() => {
+    setVideoLoaded(true);
+    if (isMobile && mobileLoading) {
+      setMobileLoading(false);
+      if (videoRef.current) {
+        videoRef.current.play().catch(() => {});
+      }
+    }
+  }, [isMobile, mobileLoading]);
+
   const handleVideoEnded = useCallback(() => {
     setShowContent(true);
     setTimeout(() => {
@@ -53,6 +66,12 @@ const Hero = () => {
         videoRef.current.play().catch(() => {});
       }
     }, CONTENT_DISPLAY_DURATION);
+  }, []);
+
+  const handleMobilePlay = useCallback(() => {
+    setMobileVideoEnabled(true);
+    setMobileLoading(true);
+    // Video element will render; onCanPlayThrough will trigger play
   }, []);
 
   // On mobile, show static image + content by default
@@ -77,15 +96,15 @@ const Hero = () => {
             src={resolvedSrc}
             poster={posterSrc || heroAereoRio}
             className={`w-full h-full object-cover object-center transition-opacity duration-700 ${
-              videoLoaded ? "opacity-100" : "opacity-0"
+              videoLoaded && !mobileLoading ? "opacity-100" : "opacity-0"
             }`}
             style={{ minWidth: "100%", minHeight: "100%" }}
-            autoPlay
+            autoPlay={!isMobile}
             muted
             playsInline
-            preload="auto"
+            preload={isMobile ? "auto" : "auto"}
             onLoadedData={handleVideoLoaded}
-            onCanPlayThrough={handleVideoLoaded}
+            onCanPlayThrough={handleCanPlayThrough}
             onWaiting={() => setIsBuffering(true)}
             onPlaying={() => {
               setIsBuffering(false);
@@ -100,7 +119,7 @@ const Hero = () => {
         {/* Overlay */}
         <div
           className={`absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-black/85 transition-opacity duration-700 ${
-            showContent ? "opacity-100" : "opacity-0"
+            showContent || mobileLoading ? "opacity-100" : "opacity-0"
           }`}
         />
       </div>
@@ -108,7 +127,7 @@ const Hero = () => {
       {/* Hero Content */}
       <div
         className={`relative h-full flex items-center justify-center text-center px-4 sm:px-6 py-20 md:py-0 transition-opacity duration-700 ${
-          showContent ? "opacity-100" : "opacity-0 pointer-events-none"
+          showContent || mobileLoading ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
         <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 md:space-y-8 animate-fade-in">
@@ -145,15 +164,23 @@ const Hero = () => {
             </Button>
           </div>
 
-          {/* Mobile: opt-in to play video */}
+          {/* Mobile: opt-in to play video with loading state */}
           {isMobile && !mobileVideoEnabled && (
             <button
-              onClick={() => setMobileVideoEnabled(true)}
+              onClick={handleMobilePlay}
               className="flex items-center gap-2 mx-auto text-white/70 hover:text-white text-sm transition-colors"
             >
               <Play size={14} />
               <span>Assistir vídeo</span>
             </button>
+          )}
+
+          {/* Mobile: loading indicator while video buffers */}
+          {mobileLoading && (
+            <div className="flex items-center gap-2 mx-auto text-white/70 text-sm">
+              <Loader2 size={16} className="animate-spin" />
+              <span>Carregando vídeo...</span>
+            </div>
           )}
         </div>
       </div>
