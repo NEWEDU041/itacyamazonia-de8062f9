@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Loader2 } from "lucide-react";
+import { Play } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useHeroMedia } from "@/hooks/useHeroMedia";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -17,11 +17,8 @@ const Hero = () => {
 
   const [resolvedSrc, setResolvedSrc] = useState<string | null>(null);
   const [posterSrc, setPosterSrc] = useState<string | null>(null);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [isBuffering, setIsBuffering] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const [showContent, setShowContent] = useState(false);
-  // Mobile: buffer-first loading — show content while video preloads silently
-  const [mobileBuffering, setMobileBuffering] = useState(false);
 
   useEffect(() => {
     if (loading) return;
@@ -29,66 +26,15 @@ const Hero = () => {
     setResolvedSrc(heroMedia.video_url || heroMainVideo);
   }, [loading, heroMedia.image_url, heroMedia.video_url]);
 
-  // Mobile: buffer video silently, then play once ready
+  // Reset states when source changes
   useEffect(() => {
-    if (isMobile) {
-      setVideoLoaded(false);
-      setIsBuffering(false);
-      setShowContent(true);
-      setMobileBuffering(true);
-      return;
-    }
-    setVideoLoaded(false);
-    setIsBuffering(false);
-    setShowContent(false);
+    setVideoReady(false);
+    setShowContent(isMobile); // Mobile: show content immediately
   }, [resolvedSrc, isMobile]);
 
-  // Fallback: if canPlayThrough never fires on mobile, check buffer periodically
-  useEffect(() => {
-    if (!isMobile || !mobileBuffering || !videoRef.current) return;
-
-    const video = videoRef.current;
-    const checkBuffer = setInterval(() => {
-      if (video.readyState >= 4) {
-        // HAVE_ENOUGH_DATA — safe to play
-        clearInterval(checkBuffer);
-        setMobileBuffering(false);
-        setVideoLoaded(true);
-        setTimeout(() => video.play().catch(() => {}), 200);
-      }
-    }, 500);
-
-    // Ultimate fallback: after 8s, play regardless
-    const fallback = setTimeout(() => {
-      clearInterval(checkBuffer);
-      if (mobileBuffering) {
-        setMobileBuffering(false);
-        setVideoLoaded(true);
-        video.play().catch(() => {});
-      }
-    }, 8000);
-
-    return () => {
-      clearInterval(checkBuffer);
-      clearTimeout(fallback);
-    };
-  }, [isMobile, mobileBuffering]);
-
-  const handleVideoLoaded = () => setVideoLoaded(true);
-
-  const handleCanPlayThrough = useCallback(() => {
-    setVideoLoaded(true);
-    if (isMobile && mobileBuffering) {
-      setMobileBuffering(false);
-      setTimeout(() => {
-        if (videoRef.current) {
-          videoRef.current.play().catch(() => {});
-        }
-      }, 200);
-    }
-  }, [isMobile, mobileBuffering]);
-
+  // Desktop: cycle content display after video ends
   const handleVideoEnded = useCallback(() => {
+    if (isMobile) return; // Mobile uses loop, no cycling needed
     setShowContent(true);
     setTimeout(() => {
       setShowContent(false);
@@ -97,46 +43,38 @@ const Hero = () => {
         videoRef.current.play().catch(() => {});
       }
     }, CONTENT_DISPLAY_DURATION);
-  }, []);
+  }, [isMobile]);
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
-        {/* Poster image shown while video buffers */}
-        {!videoLoaded && (
-          <img
-            src={posterSrc || heroAereoRio}
-            alt="Hero background"
-            className="absolute inset-0 w-full h-full object-cover object-center"
-          />
-        )}
+        {/* Poster fallback */}
+        <img
+          src={posterSrc || heroAereoRio}
+          alt="Hero background"
+          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ${
+            videoReady ? "opacity-0" : "opacity-100"
+          }`}
+        />
 
-        {/* Video: renders on both desktop and mobile, but on mobile waits for buffer */}
+        {/* Video — mobile uses loop to avoid complex state management */}
         {resolvedSrc && (
           <video
             ref={videoRef}
             src={resolvedSrc}
-            poster={posterSrc || heroAereoRio}
-            className={`w-full h-full object-cover object-center transition-opacity duration-700 ${
-              videoLoaded && !mobileBuffering ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ${
+              videoReady ? "opacity-100" : "opacity-0"
             }`}
-            style={{ minWidth: "100%", minHeight: "100%" }}
-            autoPlay={!isMobile}
+            style={{ willChange: "opacity", transform: "translateZ(0)" }}
+            autoPlay
             muted
             playsInline
+            loop={isMobile}
             preload="auto"
-            onLoadedData={handleVideoLoaded}
-            onCanPlayThrough={handleCanPlayThrough}
-            onWaiting={() => setIsBuffering(true)}
-            onPlaying={() => {
-              setIsBuffering(false);
-              setVideoLoaded(true);
-            }}
+            onCanPlay={() => setVideoReady(true)}
             onEnded={handleVideoEnded}
           />
         )}
-
-        {isBuffering && <div className="absolute inset-0 bg-black/10" />}
 
         {/* Overlay */}
         <div
@@ -185,14 +123,6 @@ const Hero = () => {
               </a>
             </Button>
           </div>
-
-          {/* Mobile: loading indicator while video buffers */}
-          {mobileBuffering && (
-            <div className="flex items-center gap-2 mx-auto text-white/70 text-sm">
-              <Loader2 size={16} className="animate-spin" />
-              <span>Carregando vídeo...</span>
-            </div>
-          )}
         </div>
       </div>
     </section>
