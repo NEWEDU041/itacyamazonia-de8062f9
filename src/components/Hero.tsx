@@ -20,10 +20,8 @@ const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
   const [showContent, setShowContent] = useState(false);
-  // Mobile: user can opt-in to play the video
-  const [mobileVideoEnabled, setMobileVideoEnabled] = useState(false);
-  // Mobile: loading state while video buffers before playing
-  const [mobileLoading, setMobileLoading] = useState(false);
+  // Mobile: buffer-first loading — show content while video preloads silently
+  const [mobileBuffering, setMobileBuffering] = useState(false);
 
   useEffect(() => {
     if (loading) return;
@@ -32,30 +30,34 @@ const Hero = () => {
   }, [loading, heroMedia.image_url, heroMedia.video_url]);
 
   useEffect(() => {
-    if (isMobile && !mobileVideoEnabled) {
-      // Mobile with image: mark as "loaded" and show content immediately
-      setVideoLoaded(true);
+    if (isMobile) {
+      // Mobile: show content immediately, buffer video in background
+      setVideoLoaded(false);
       setIsBuffering(false);
       setShowContent(true);
+      setMobileBuffering(true);
       return;
     }
     setVideoLoaded(false);
     setIsBuffering(false);
     setShowContent(false);
-  }, [resolvedSrc, isMobile, mobileVideoEnabled]);
+  }, [resolvedSrc, isMobile]);
 
   const handleVideoLoaded = () => setVideoLoaded(true);
 
-  // On mobile, wait for enough buffer before playing
+  // On mobile, wait for full buffer before playing
   const handleCanPlayThrough = useCallback(() => {
     setVideoLoaded(true);
-    if (isMobile && mobileLoading) {
-      setMobileLoading(false);
-      if (videoRef.current) {
-        videoRef.current.play().catch(() => {});
-      }
+    if (isMobile && mobileBuffering) {
+      setMobileBuffering(false);
+      // Small delay to ensure smooth transition
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(() => {});
+        }
+      }, 300);
     }
-  }, [isMobile, mobileLoading]);
+  }, [isMobile, mobileBuffering]);
 
   const handleVideoEnded = useCallback(() => {
     setShowContent(true);
@@ -68,20 +70,11 @@ const Hero = () => {
     }, CONTENT_DISPLAY_DURATION);
   }, []);
 
-  const handleMobilePlay = useCallback(() => {
-    setMobileVideoEnabled(true);
-    setMobileLoading(true);
-    // Video element will render; onCanPlayThrough will trigger play
-  }, []);
-
-  // On mobile, show static image + content by default
-  const showStaticImage = isMobile && !mobileVideoEnabled;
-
   return (
     <section className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
-        {/* Static image: always shown on mobile (default) or as video placeholder on desktop */}
-        {(showStaticImage || !videoLoaded) && (
+        {/* Poster image shown while video buffers */}
+        {!videoLoaded && (
           <img
             src={posterSrc || heroAereoRio}
             alt="Hero background"
@@ -89,20 +82,20 @@ const Hero = () => {
           />
         )}
 
-        {/* Video: desktop always, mobile only if user opted in */}
-        {!showStaticImage && resolvedSrc && (
+        {/* Video: renders on both desktop and mobile, but on mobile waits for buffer */}
+        {resolvedSrc && (
           <video
             ref={videoRef}
             src={resolvedSrc}
             poster={posterSrc || heroAereoRio}
             className={`w-full h-full object-cover object-center transition-opacity duration-700 ${
-              videoLoaded && !mobileLoading ? "opacity-100" : "opacity-0"
+              videoLoaded && !mobileBuffering ? "opacity-100" : "opacity-0"
             }`}
             style={{ minWidth: "100%", minHeight: "100%" }}
             autoPlay={!isMobile}
             muted
             playsInline
-            preload={isMobile ? "auto" : "auto"}
+            preload="auto"
             onLoadedData={handleVideoLoaded}
             onCanPlayThrough={handleCanPlayThrough}
             onWaiting={() => setIsBuffering(true)}
@@ -119,7 +112,7 @@ const Hero = () => {
         {/* Overlay */}
         <div
           className={`absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-black/85 transition-opacity duration-700 ${
-            showContent || mobileLoading ? "opacity-100" : "opacity-0"
+            showContent ? "opacity-100" : "opacity-0"
           }`}
         />
       </div>
@@ -127,7 +120,7 @@ const Hero = () => {
       {/* Hero Content */}
       <div
         className={`relative h-full flex items-center justify-center text-center px-4 sm:px-6 py-20 md:py-0 transition-opacity duration-700 ${
-          showContent || mobileLoading ? "opacity-100" : "opacity-0 pointer-events-none"
+          showContent ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
         <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 md:space-y-8 animate-fade-in">
@@ -164,19 +157,8 @@ const Hero = () => {
             </Button>
           </div>
 
-          {/* Mobile: opt-in to play video with loading state */}
-          {isMobile && !mobileVideoEnabled && (
-            <button
-              onClick={handleMobilePlay}
-              className="flex items-center gap-2 mx-auto text-white/70 hover:text-white text-sm transition-colors"
-            >
-              <Play size={14} />
-              <span>Assistir vídeo</span>
-            </button>
-          )}
-
           {/* Mobile: loading indicator while video buffers */}
-          {mobileLoading && (
+          {mobileBuffering && (
             <div className="flex items-center gap-2 mx-auto text-white/70 text-sm">
               <Loader2 size={16} className="animate-spin" />
               <span>Carregando vídeo...</span>
