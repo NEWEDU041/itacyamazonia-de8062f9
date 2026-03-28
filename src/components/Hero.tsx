@@ -4,9 +4,10 @@ import { Play } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useHeroMedia } from "@/hooks/useHeroMedia";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { detectConnectionSpeed, getVideoConfig } from "@/lib/videoUtils";
+import { detectConnectionSpeed, getVideoConfig, getMobileVideoQuality } from "@/lib/videoUtils";
 import heroMainVideo from "@/assets/hero-main-video.mp4";
-import heroMobileVideo from "@/assets/hero-main-video-480p.mp4";
+import heroMobileVideo480 from "@/assets/hero-main-video-480p.mp4";
+import heroMobileVideo720 from "@/assets/hero-main-video-720p.mp4";
 import heroAereoRio from "@/assets/hero-aereo-rio.jpg";
 
 const CONTENT_DISPLAY_DURATION = 6000;
