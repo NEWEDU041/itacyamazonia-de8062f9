@@ -7,7 +7,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { detectConnectionSpeed, getVideoConfig, getMobileVideoQuality } from "@/lib/videoUtils";
 import heroMainVideo from "@/assets/hero-main-video.mp4";
 import heroMobileVideo480 from "@/assets/hero-main-video-480p.mp4";
-import heroMobileVideo720 from "@/assets/hero-main-video-720p.mp4";
+import heroMobileVideo1080 from "@/assets/hero-main-video-1080p-mobile.mp4";
 import heroAereoRio from "@/assets/hero-aereo-rio.jpg";
 
 const CONTENT_DISPLAY_DURATION = 6000;
@@ -24,7 +24,7 @@ const Hero = () => {
   const [showContent, setShowContent] = useState(false);
   const [canUseVideo, setCanUseVideo] = useState(true);
   const [videoFailed, setVideoFailed] = useState(false);
-  const [mobileQuality, setMobileQuality] = useState<'720p' | '480p'>('720p');
+  const [mobileQuality, setMobileQuality] = useState<'1080p' | '480p'>('1080p');
 
   // Detect connection speed on mount
   useEffect(() => {
@@ -41,7 +41,7 @@ const Hero = () => {
   useEffect(() => {
     if (loading) return;
     setPosterSrc(heroMedia.image_url || heroAereoRio);
-    const mobileVideo = mobileQuality === '720p' ? heroMobileVideo720 : heroMobileVideo480;
+    const mobileVideo = mobileQuality === '1080p' ? heroMobileVideo1080 : heroMobileVideo480;
     const fallbackVideo = isMobile ? mobileVideo : heroMainVideo;
     setResolvedSrc(heroMedia.video_url || fallbackVideo);
   }, [loading, heroMedia.image_url, heroMedia.video_url]);
