@@ -34,3 +34,7 @@ export const getVideoConfig = (speed: ConnectionSpeed, isMobile: boolean): Video
   }
   return { useVideo: true, poster: '' };
 };
+
+export const getMobileVideoQuality = (speed: ConnectionSpeed): '720p' | '480p' => {
+  return speed === 'fast' || speed === 'medium' ? '720p' : '480p';
+};
